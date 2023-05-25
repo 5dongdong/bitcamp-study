@@ -31,7 +31,7 @@ java {
     }
 }
 
-application {
+application {// application 플러그인 설정 'run'테스크를 실행할 클래스를 지정
     // Define the main class for the application.
     mainClass = 'bitcamp.App'
 }
