@@ -1,56 +1,36 @@
 package bitcamp.myapp;
 
-//코드 본문에서 사용할 클래스의 패키지를 지정한다.
-import java.util.Scanner;
+import bitcamp.myapp.handler.MemberHandler;
+import bitcamp.util.Prompt;
 
 public class App {
+  
+  public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		System.out.println("나의 목록 관리 시스템");
-		System.out.println("_______________________");
+    printTitle();
 
-		// 키보드 스캐너 준비
-		Scanner scanner = new Scanner(System.in);
+    while (MemberHandler.available()) {
+      MemberHandler.inputMember();
+      if (!promptContinue()) {
+        break;
+      }
+    }
 
-		int[] num = new int[3];
-		String[] name = new String[3];
-		int[] age = new int[3];
-		boolean[] working = new boolean[3];
-		char[] gender = new char[3];
-		float[] leftEye = new float[3];
-		float[] rightEye = new float[3];
+    MemberHandler.printMembers();
 
-		for (int count = 0; count < 3; count++) {
-			System.out.print("번호? ");
-			num[count] = scanner.nextInt();
+    Prompt.close();
+  }
 
-			System.out.printf("이름?  ");
-			name[count] = scanner.next();
+  static void printTitle() {
+    System.out.println("나의 목록 관리 시스템");
+    System.out.println("----------------------------------");
+  }
 
-			System.out.println("나이?");
-			age[count] = scanner.nextInt();
-
-			System.out.printf("재직중? ");
-			working[count] = scanner.nextBoolean();
-
-			System.out.printf("성별(남자(M), 여자((W))):");
-			String str = scanner.next();
-			gender[count] = str.charAt(0);
-
-			System.out.printf("시력(왼쪽, 오른쪽)? ");
-			leftEye[count] = scanner.nextFloat();
-			rightEye[count] = scanner.nextFloat();
-
-			count++;
-		}
-		for (int count = 0; count < 3; count++) {
-			System.out.printf("번호: %d\n", num[count]);
-			System.out.printf("이름: %s\n", name[count]);
-			System.out.printf("나이: %d\n", age[count]);
-			System.out.printf("재직: %b\n", working[count]);
-			System.out.printf("성별: %c\n", gender[count]);
-			System.out.printf("좌우시력: %.1f,%.1f\n", leftEye[count], rightEye[count]);
-		}
-		scanner.close();
-	}
+  static boolean promptContinue() {
+    String response = Prompt.inputString("계속 하시겠습니까?(Y/n) ");
+    if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
+      return false;
+    }
+    return true;
+  }
 }

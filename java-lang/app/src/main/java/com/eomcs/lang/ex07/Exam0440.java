@@ -27,7 +27,7 @@ public class Exam0440 {
 // 0) 시작
 // 1) main()
 // 2) main() => m1()
-// 3) main() => m1() => m2()
+// 3) main() => m1() => m2() 
 // 4) main() => m1()
 // 5) main() => m1() => m3()
 // 6) main() => m1()
