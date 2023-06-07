@@ -1,9 +1,10 @@
-package app9.handle;
+package App.handle;
 
 import java.util.Scanner;
 
-import static app9.handle.Where.choice;
-import static app9.print.Total.total;
+import static App.handle.Where.choice;
+import static App.handle.Total.total;
+
 
 public class Choice {
     static Scanner sc = new Scanner(System.in);
@@ -13,7 +14,6 @@ public class Choice {
         System.out.println("2. 사용 내역 보기");
         System.out.print("선택하세요: ");
         int selection = sc.nextInt();
-
 
         if (selection == 1) {
             System.out.println();

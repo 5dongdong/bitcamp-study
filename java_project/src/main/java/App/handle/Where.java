@@ -1,8 +1,9 @@
-package app9.handle;
+package App.handle;
 
 import java.util.Scanner;
 
-import static app9.handle.Use.*;
+import static App.handle.Use.*;
+
 
 public class Where {
 

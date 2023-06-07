@@ -11,17 +11,17 @@ public class Total {
         int etcExpense = 0;
 
 
-				for (int i = 0; i < cnt; i++) {
-					if (where[i].equals("식비")) {
-							foodExpense += a[i];
-					} else if (where[i].equals("옷")) {
-							clothExpense += a[i];
-					} else if (where[i].equals("기타")) {
-							etcExpense += a[i];
-					}
-					
-					sum += a[i];
-			}
+        for (int i = 0; i < cnt; i++) {
+            if (where[i].equals("식비")) {
+                foodExpense += a[i];
+            } else if (where[i].equals("옷")) {
+                clothExpense += a[i];
+            } else if (where[i].equals("기타")) {
+                etcExpense += a[i];
+            }
+
+            sum += a[i];
+        }
 
         System.out.println("----------");
         System.out.println("식비 비용: " + foodExpense);
