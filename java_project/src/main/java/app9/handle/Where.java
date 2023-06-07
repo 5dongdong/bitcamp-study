@@ -18,6 +18,7 @@ public class Where {
 
         switch (choice) {
             case 1:
+								System.out.println("");
                 System.out.println("식비를 선택하셨습니다.");
                 // 여기에 먹을거에 해당하는 동작 또는 코드를 작성하세요.
                 System.out.println("식비에 얼마를 썼는지 입력하세요.");
@@ -33,6 +34,7 @@ public class Where {
                 break;
 
             case 2:
+								System.out.println("");
                 System.out.println("옷을 선택하셨습니다.");
                 // 여기에 옷에 해당하는 동작 또는 코드를 작성하세요.
                 System.out.println("옷에 얼마를 썼는지 입력하세요.");
@@ -48,6 +50,7 @@ public class Where {
                 break;
 
             case 3:
+								System.out.println("");
                 System.out.println("기타를 선택하셨습니다.");
                 // 여기에 기타에 해당하는 동작 또는 코드를 작성하세요.
                 System.out.println("기타에 얼마를 썼는지 입력하세요.");
