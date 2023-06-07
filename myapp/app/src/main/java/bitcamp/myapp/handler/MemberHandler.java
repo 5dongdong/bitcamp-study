@@ -46,24 +46,44 @@ public class MemberHandler {
 	
 
 
-public static void updateMember2() {
-	String memberNo = Prompt.inputString("번호? ");
-	// 입력 받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
-	for (int i = 0; i < length; i++) {
-		if (no[i] == Integer.parseInt(memberNo)) {
-			System.out.printf("이름 : %s\n", name[i]);
-			name[i] = Prompt.inputString("바꿀 이름");
-			System.out.printf("이메일 : %s\n", email[i]);
-			email[i] = Prompt.inputString("바꿀 email");
-			System.out.printf("암호 : %s\n", password[i]);
-			password[i] = Prompt.inputString("바꿀 password");
-			System.out.println(toGenderString(gender[i]) + "을 뭐로 바꿀래");
-			gender[i] = inputGender(gender[i]);
-			return;
-		}
+// public static void updateMember2() {
+// 	String memberNo = Prompt.inputString("번호? ");
+// 	// 입력 받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
+// 	for (int i = 0; i < length; i++) {
+// 		if (no[i] == Integer.parseInt(memberNo)) {
+// 			System.out.printf("이름 : %s\n", name[i]);
+// 			name[i] = Prompt.inputString("바꿀 이름");
+// 			System.out.printf("이메일 : %s\n", email[i]);
+// 			email[i] = Prompt.inputString("바꿀 email");
+// 			System.out.printf("암호 : %s\n", password[i]);
+// 			password[i] = Prompt.inputString("바꿀 password");
+// 			System.out.println(toGenderString(gender[i]) + "을 뭐로 바꿀래");
+// 			gender[i] = inputGender(gender[i]);
+// 			return;
+// 		}
+// 	}
+// 	System.out.println("해당 번호의 회원이 없습니다.");
+// }
+
+
+	public static void updateMember2() {
+    String memberNo = Prompt.inputString("번호? ");
+    // 입력 받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
+    for (int i = 0; i < length; i++) {
+      if (no[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("%s을 무엇으로 바꿀지\n", name[i]);
+				name[i] = Prompt.inputString("바꿀 이름");
+        System.out.printf("%s을 무엇으로 바꿀지\n", email[i]);
+				email[i] = Prompt.inputString("바꿀 email");
+        System.out.printf("%s을 무엇으로 바꿀지\n", toGenderString(gender[i]));
+				gender[i] = inputGender(gender[i]);
+        return;
+      }
+    }
+    System.out.println("해당 번호의 회원이 없습니다.");
 	}
-	System.out.println("해당 번호의 회원이 없습니다.");
-}
+
+
 
 
 
@@ -137,6 +157,31 @@ public static void updateMember2() {
 		
 		length--;
 }
+	public static void deleteMemberPractice() {
+		int memberNo = Prompt.inputInt("번호");
+
+		int deleteIndex = indexOf(memberNo);
+		if(deleteIndex == -1) {
+			System.out.println("없는 회원 입니다.");
+			return;
+		}
+
+		for(int  i = deleteIndex; i < length; i++) {
+			no[i] = no[i+1];
+			name[i] = name[i+1];
+			email[i] = email[i+1];
+			gender[i] = gender[i+1];
+		}
+
+		no[length-1] = 0;
+		name[length-1] = null;
+		email[length-1] = null;
+		gender[length-1] = (char)0;
+
+		length--;
+	}
+
+
 
 private static int indexOf(int memberNo) {
 	for(int i = 0; i < length; i++){

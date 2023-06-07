@@ -25,7 +25,7 @@ public class App {
       } else if (menuNo.equals("4")) {
         MemberHandler.updateMember2();
       } else if (menuNo.equals("5")) {
-        MemberHandler.deleteMember2();
+        MemberHandler.deleteMemberPractice();
       } else {
         System.out.println(menuNo);
       }
