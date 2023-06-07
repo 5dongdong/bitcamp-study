@@ -11,6 +11,10 @@ public static String inputString(String title) {
 	return sc.nextLine();
 }
 
+public static int inputInt(String title) {
+	return Integer.parseInt(inputString(title));
+}
+
 public static void close() {
 	sc.close();
 }
