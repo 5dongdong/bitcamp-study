@@ -16,6 +16,7 @@ public class MemberHandler {
   static final char MALE = 'M';
   static final char FEMALE = 'W';
 
+
   public static void inputMember() {
     name[length] = Prompt.inputString("이름? ");
     email[length] = Prompt.inputString("이메일? ");
@@ -52,6 +53,11 @@ public class MemberHandler {
       System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
     }
   }
+
+	public static void viewMember() {
+		번호 ? 2
+		이름: 
+	}
 
   public static boolean available() {
     return length < MAX_SIZE;
