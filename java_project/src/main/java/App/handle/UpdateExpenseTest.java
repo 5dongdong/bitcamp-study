@@ -1,5 +1,6 @@
 package App.handle;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -7,7 +8,7 @@ import static App.vo.Use.*;
 import static App.print.Title.menu;
 
 public class UpdateExpenseTest {
-
+    static String selectedExpense;
     public static void update() {
         Scanner sc = new Scanner(System.in);
 
@@ -34,8 +35,7 @@ public class UpdateExpenseTest {
 
     private static void updateExpense(Scanner sc) {
         System.out.println("수정할 항목을 입력하세요:");
-        String selectedExpense = sc.next();
-
+        selectedExpense = sc.next();
         for (int i = 0; i < cnt; i++) {
             if (where[i].equals(selectedExpense)) {
                 System.out.println("현재 " + selectedExpense + " 사용 금액: " + a[i]);
@@ -50,12 +50,13 @@ public class UpdateExpenseTest {
             }
         }
         System.out.println(selectedExpense + " 사용 내역이 없습니다.");
+        update();
     }
 
 
     private static void deleteExpense(Scanner sc) {
         System.out.println("삭제할 항목을 입력하세요:");
-        String selectedExpense = sc.next();
+        selectedExpense = sc.next();
 
         int deleteIndex = -1;
         for (int i = 0; i < cnt; i++) {

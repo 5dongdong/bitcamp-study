@@ -1,8 +1,9 @@
 package App.handle;
 
-import static App.vo.Use.*;
+
 import static App.handle.Where.sc;
 import static App.print.Title.menu;
+import static App.vo.Use.*;
 
 public class Total {
 

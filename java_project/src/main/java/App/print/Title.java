@@ -2,6 +2,7 @@ package App.print;
 
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static App.handle.List.list;
@@ -27,18 +28,47 @@ public class Title {
         switch (menu) {
             case 1:
                 System.out.println("1. 용돈을 추가해주세요");
-                moneyToAdd = sc.nextInt();
-                money += moneyToAdd;
-                System.out.println();
-                System.out.println("----------");
-                System.out.println(moneyToAdd + "원 추가되었습니다.");
-                System.out.println("----------");
-                System.out.println();
+                try { //오류를 발생시킬수 있는 곳
+                    int moneyToAdd = sc.nextInt();
+                    money += moneyToAdd;
+                    System.out.println();
+                    System.out.println("----------");
+                    System.out.println(moneyToAdd + "원 추가되었습니다.");
+                    System.out.println("----------");
+                    System.out.println();
+                } catch (InputMismatchException e) { //오류를 잡음
+                    System.out.println();
+                    System.out.println("$*$*$*$*$*$*$*$*$");
+                    System.out.println("-잡았다 오류-");
+                    System.out.println("$*$*$*$*$*$*$*$*$");
+                    System.out.println();
+                    System.out.println("잘못 입력하셨습니다.");
+                    System.out.println();
+                    sc.nextLine();
+                }
                 menu();
                 break;
+
+
             case 2:
+                System.out.println();
+                System.out.println("==============");
                 System.out.println("2. 용돈 확인하기");
-                System.out.println(money);
+                System.out.println("==============");
+                System.out.println();
+
+                int totalExpenses = 0;
+                for (int i = 0; i < cnt; i++) {
+                    totalExpenses += a[i];
+                }
+
+                int remainingMoney = money - totalExpenses;
+                System.out.println("=============================");
+                System.out.println("    총 사용 금액: " + totalExpenses);
+                System.out.println("    남은 용돈: " + remainingMoney);
+                System.out.println("=============================");
+                System.out.println();
+
                 menu();
                 break;
             case 3:

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import static App.handle.List.list;
 import static App.handle.Where.choice2;
+import static App.print.Title.menu;
 
 
 public class Choice {
@@ -12,6 +13,7 @@ public class Choice {
     public static void Choice() {
         System.out.println("1. 다시 선택하기");
         System.out.println("2. 사용 내역 보기");
+        System.out.println("3. 메뉴");
         System.out.print("선택하세요: ");
         int selection = sc.nextInt();
 
@@ -25,7 +27,12 @@ public class Choice {
             System.out.println("----------");
             System.out.println();
             list();
-        } else {
+        } else if(selection == 3){
+            System.out.println();
+            System.out.println("----------");
+            System.out.println();
+            menu();
+        } else{
             System.out.println("잘못된 선택입니다.");
             System.out.println();
             System.out.println("----------");
