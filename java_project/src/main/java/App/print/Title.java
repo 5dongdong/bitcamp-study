@@ -1,13 +1,13 @@
 package App.print;
 
-import App.handle.UpdateExpense;
+
 
 import java.util.Scanner;
 
-import static App.handle.UpdateExpense.update;
-import static App.handle.Use.*;
-import static App.handle.Where.choice;
-import static App.handle.Total.total;
+import static App.handle.List.list;
+import static App.handle.UpdateExpenseTest.update;
+import static App.vo.Use.*;
+import static App.handle.Where.choice2;
 
 public class Title {
     static Scanner sc = new Scanner(System.in);
@@ -21,6 +21,7 @@ public class Title {
         System.out.println("3. 사용 내역 작성하기");
         System.out.println("4. 사용 내역 확인하기");
         System.out.println("5. 사용 내역 수정하기");
+				System.out.println("6. 종료");
 
         menu = sc.nextInt();
         switch (menu) {
@@ -42,16 +43,18 @@ public class Title {
                 break;
             case 3:
                 System.out.println("3. 사용 내역 작성하기");
-                choice();
+                choice2();
                 break;
             case 4:
                 System.out.println("4. 사용 내역 확인하기");
-                total();
+                list();
                 break;
             case 5:
                 System.out.println("5. 사용 내역 수정하기");
                 update();
                 break;
+						case 6:
+						break;
         }
     }
 }

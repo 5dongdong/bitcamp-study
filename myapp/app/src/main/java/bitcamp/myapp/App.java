@@ -23,9 +23,9 @@ public class App {
       } else if (menuNo.equals("3")) {
         MemberHandler.viewMember();
       } else if (menuNo.equals("4")) {
-        MemberHandler.updateMember2();
+        MemberHandler.updateMember();
       } else if (menuNo.equals("5")) {
-        MemberHandler.deleteMemberPractice();
+        MemberHandler.deleteMember();
       } else {
         System.out.println(menuNo);
       }
@@ -41,7 +41,6 @@ public class App {
     System.out.println("4. 회원 변경");
     System.out.println("5. 회원 삭제");
     System.out.println("6. 종료");
-
   }
 
   static void printTitle() {
@@ -49,11 +48,4 @@ public class App {
     System.out.println("----------------------------------");
   }
 
-	static boolean promptContinue() {
-    String response = Prompt.inputString("계속 하시겠습니까?(Y/n) ");
-    if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
-      return false;
-    }
-    return true;
-  }
 }

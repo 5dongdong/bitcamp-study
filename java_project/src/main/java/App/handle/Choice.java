@@ -2,8 +2,8 @@ package App.handle;
 
 import java.util.Scanner;
 
-import static App.handle.Where.choice;
-import static App.handle.Total.total;
+import static App.handle.List.list;
+import static App.handle.Where.choice2;
 
 
 public class Choice {
@@ -19,12 +19,12 @@ public class Choice {
             System.out.println();
             System.out.println("----------");
             System.out.println();
-            choice();
+            choice2();
         } else if (selection == 2) {
             System.out.println();
             System.out.println("----------");
             System.out.println();
-            total();
+            list();
         } else {
             System.out.println("잘못된 선택입니다.");
             System.out.println();
