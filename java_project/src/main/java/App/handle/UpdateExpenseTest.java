@@ -15,6 +15,7 @@ public class UpdateExpenseTest {
         System.out.println("수정 또는 삭제할 항목을 선택하세요:");
         System.out.println("1. 수정");
         System.out.println("2. 삭제");
+        System.out.println("3. 돌아가기");
         int choice = sc.nextInt();
 
         switch (choice) {
@@ -24,6 +25,8 @@ public class UpdateExpenseTest {
             case 2:
                 deleteExpense(sc);
                 break;
+            case 3:
+                menu();
             default:
                 System.out.println("잘못된 선택입니다.");
                 sc.close();
