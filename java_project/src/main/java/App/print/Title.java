@@ -2,6 +2,8 @@ package App.print;
 
 
 
+import App.vo.Use;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -22,18 +24,19 @@ public class Title {
         System.out.println("3. 사용 내역 작성하기");
         System.out.println("4. 사용 내역 확인하기");
         System.out.println("5. 사용 내역 수정하기");
-				System.out.println("6. 종료");
+        System.out.println("6. 종료");
 
-        menu = sc.nextInt();
-        switch (menu) {
+        Use use = new Use();
+        use.setMenu(sc.nextInt());
+        switch (getMenu()) {
             case 1:
                 System.out.println("1. 용돈을 추가해주세요");
                 try { //오류를 발생시킬수 있는 곳
-                    int moneyToAdd = sc.nextInt();
-                    money += moneyToAdd;
+                    use.setMoneyToAdd(sc.nextInt());
+                    money += use.getMoneyToAdd();
                     System.out.println();
                     System.out.println("----------");
-                    System.out.println(moneyToAdd + "원 추가되었습니다.");
+                    System.out.println(use.getMoneyToAdd() + "원 추가되었습니다.");
                     System.out.println("----------");
                     System.out.println();
                 } catch (InputMismatchException e) { //오류를 잡음
