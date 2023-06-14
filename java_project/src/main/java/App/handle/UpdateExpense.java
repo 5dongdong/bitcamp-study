@@ -1,13 +1,12 @@
 package App.handle;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 import static App.vo.Use.*;
 import static App.print.Title.menu;
 
-public class UpdateExpenseTest {
+public class UpdateExpense {
     static String selectedExpense;
     public static void update() {
         Scanner sc = new Scanner(System.in);

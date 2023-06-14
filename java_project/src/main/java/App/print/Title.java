@@ -7,12 +7,14 @@ import App.vo.Use;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static App.handle.Board.*;
 import static App.handle.List.list;
-import static App.handle.UpdateExpenseTest.update;
+import static App.handle.UpdateExpense.update;
 import static App.vo.Use.*;
 import static App.handle.Where.choice2;
 
 public class Title {
+
     static Scanner sc = new Scanner(System.in);
     public static void title() {
         System.out.println("pocket money management");
@@ -24,7 +26,9 @@ public class Title {
         System.out.println("3. 사용 내역 작성하기");
         System.out.println("4. 사용 내역 확인하기");
         System.out.println("5. 사용 내역 수정하기");
-        System.out.println("6. 종료");
+        System.out.println("6. 사용 내역 comment쓰기");
+        System.out.println("7. 사용 내역 comment보기");
+        System.out.println("8. 종료");
 
         Use use = new Use();
         use.setMenu(sc.nextInt());
@@ -86,8 +90,17 @@ public class Title {
                 System.out.println("5. 사용 내역 수정하기");
                 update();
                 break;
-						case 6:
+                case 6:
+                            System.out.println("6. 사용 내역에 일기 쓰기");
+                            board();
 						break;
+            case 7:
+                System.out.println("7. 사용내역 comment보기");
+                readBoard();
+                break;
+            case 8:
+                System.out.println("사용을 종료합니다");
+                break;
         }
     }
 }

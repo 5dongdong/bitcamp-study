@@ -1,5 +1,9 @@
 package App.handle;
 
+import App.vo.Use;
+
+
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,6 +17,7 @@ public class Where {
         public static void choice2() {
             String response = "y";
             while (response.equalsIgnoreCase("y")) {
+                localDateTime[cnt] = LocalDateTime.now();
                 System.out.println("사용한 곳을 입력하세요");
                 String x = sc.next();
                 System.out.println(x + "에 얼마를 사용했는지 입력하세요");
@@ -24,6 +29,8 @@ public class Where {
                     sc.nextLine();
                     choice2();
                 }
+                Use use = new Use();
+
                 where[cnt] = x;
                 cnt++;
                 System.out.print("더 쓸 내용이 있습니까? (Y/N): ");

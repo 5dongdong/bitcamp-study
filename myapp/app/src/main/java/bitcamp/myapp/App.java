@@ -8,29 +8,34 @@ public class App {
 
   public static void main(String[] args) {
 
-    BoardHandler boardHandler = new BoardHandler();
-    BoardHandler readingHandler = new BoardHandler();
+    // 기본 생성자를 이용해 Prompt 인스턴스를 준비한다.
+    // => 기본 생성자는 Scanner를 키보드와 연결한다.
+    Prompt prompt = new Prompt();
+
+    MemberHandler memberHandler = new MemberHandler(prompt);
+    BoardHandler boardHandler = new BoardHandler(prompt);
+    BoardHandler readingHandler = new BoardHandler(prompt);
 
     printTitle();
+
     printMenu();
 
-
     while (true) {
-      String menuNo = Prompt.inputString("메인 > ");
+      String menuNo = prompt.inputString("메인 > ");
       if (menuNo.equals("99")) {
         break;
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        MemberHandler.inputMember();
+        memberHandler.inputMember();
       } else if (menuNo.equals("2")) {
-        MemberHandler.printMembers();
+        memberHandler.printMembers();
       } else if (menuNo.equals("3")) {
-        MemberHandler.viewMember();
+        memberHandler.viewMember();
       } else if (menuNo.equals("4")) {
-        MemberHandler.updateMember();
+        memberHandler.updateMember();
       } else if (menuNo.equals("5")) {
-        MemberHandler.deleteMember();
+        memberHandler.deleteMember();
       } else if (menuNo.equals("6")) {
         boardHandler.inputBoard();
       } else if (menuNo.equals("7")) {
@@ -52,11 +57,11 @@ public class App {
       } else if (menuNo.equals("15")) {
         readingHandler.deleteBoard();
       } else {
-        System.out.println(menuNo);
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
 
-    Prompt.close();
+    prompt.close();
   }
 
   static void printMenu() {
