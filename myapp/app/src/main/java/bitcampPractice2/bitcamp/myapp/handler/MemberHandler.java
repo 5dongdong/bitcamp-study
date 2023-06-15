@@ -1,15 +1,16 @@
-package bitcamp.myapp.handler;
+package bitcampPractice2.bitcamp.myapp.handler;
+
 
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
 
 public class MemberHandler implements Handler {
 
-
-  private MemberList list = new MemberList();
-  private Prompt prompt;
+  private Prompt prompt; // 외부에서 생성자를 통해 주입
 
   private String title;
+
+  private MemberList list = new MemberList();
 
   // 생성자 : 인스턴스를 사용할 수 있도록 유효한 값으로 초기화시키는 일을 한다.
   // => 필요한 값을 외부에서 받고 싶으면 파라미터를 선언하라.
@@ -44,7 +45,6 @@ public class MemberHandler implements Handler {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
-
   }
 
   private static void printMenu() {
@@ -58,12 +58,12 @@ public class MemberHandler implements Handler {
 
   private void inputMember() {
     Member m = new Member();
-    m.setName(this.prompt.inputString("이름? "));
-    m.setEmail(this.prompt.inputString("이메일? "));
-    m.setPassword(this.prompt.inputString("암호? "));
+    m.setName(prompt.inputString("이름? "));
+    m.setEmail(prompt.inputString("이메일? "));
+    m.setPassword(prompt.inputString("암호? "));
     m.setGender(inputGender((char) 0));
 
-    this.list.add(m);
+    list.add(m);
   }
 
   private void printMembers() {
@@ -74,24 +74,22 @@ public class MemberHandler implements Handler {
     Member[] arr = list.list();
     for (Member m : arr) {
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
-          toGenderString(m.getGender()));
+              toGenderString(m.getGender()));
     }
   }
 
   private void viewMember() {
-    int memberNo = this.prompt.inputInt("번호? ");
+    int memberNo = prompt.inputInt("번호? ");
 
     Member m = list.get(memberNo);
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     System.out.printf("이름: %s\n", m.getName());
     System.out.printf("이메일: %s\n", m.getEmail());
     System.out.printf("성별: %s\n", toGenderString(m.getGender()));
   }
-
 
   private static String toGenderString(char gender) {
     return gender == 'M' ? "남성" : "여성";
@@ -100,7 +98,7 @@ public class MemberHandler implements Handler {
   private void updateMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
-    Member m = this.list.get(memberNo);
+    Member m = list.get(memberNo);
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
@@ -136,9 +134,8 @@ public class MemberHandler implements Handler {
   private void deleteMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
-    if (!this.list.delete(memberNo)) {
+    if (this.list.deleted(memberNo)) {
       System.out.println("해당 번호의 회원이 없습니다!");
     }
   }
 }
-

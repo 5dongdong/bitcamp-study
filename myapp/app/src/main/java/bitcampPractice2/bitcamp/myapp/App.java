@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package bitcampPractice2.bitcamp.myapp;
 
 import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.Handler;

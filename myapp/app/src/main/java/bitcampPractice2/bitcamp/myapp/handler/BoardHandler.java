@@ -1,20 +1,21 @@
-package bitcamp.myapp.handler;
+package bitcampPractice2.bitcamp.myapp.handler;
+
 
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
 public class BoardHandler implements Handler {
 
-  private BoardList boardList = new BoardList();
   private Prompt prompt;
 
   private String board;
+
+  private BoardList boardlist = new BoardList();
 
   public BoardHandler(Prompt prompt, String board) {
     this.prompt = prompt;
     this.board = board;
   }
-
 
   public void execute() {
     printMenu();
@@ -52,13 +53,13 @@ public class BoardHandler implements Handler {
 
   // 인스턴스 멤버(필드나 메서드)를 사용하는 경우 인스턴스 메서드로 정의해야 한다.
   private void inputBoard() {
+
     Board board = new Board();
     board.setTitle(this.prompt.inputString("제목? "));
     board.setContent(this.prompt.inputString("내용? "));
     board.setWriter(this.prompt.inputString("작성자"));
     board.setPassword(this.prompt.inputString("암호? "));
-
-    this.boardList.add(board);
+    this.boardlist.add(board);
   }
 
   private void printBoards() {
@@ -66,17 +67,16 @@ public class BoardHandler implements Handler {
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
 
-
-    Board[] bArr = boardList.boardList();
+    Board[] bArr = boardlist.boardList();
     for (Board board : bArr) {
       System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
-          board.getWriter(), board.getViewCount(), board.getCreatedDate());
+              board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
   private void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
-    Board board = boardList.get(boardNo);
+    Board board = boardlist.get(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -88,10 +88,11 @@ public class BoardHandler implements Handler {
     System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
   }
 
+
   private void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.boardList.get(boardNo);
+    Board board = boardlist.get(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -106,8 +107,10 @@ public class BoardHandler implements Handler {
 
 
   private void deleteBoard() {
-    if (!this.boardList.delete(this.prompt.inputInt("번호? "))) {
+    if (!this.boardlist.delete(this.prompt.inputInt("번호? "))) {
       System.out.println("해당 번호의 게시글이 없습니다!");
     }
   }
 }
+
+
