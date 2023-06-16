@@ -1,6 +1,7 @@
 package App.print;
 
 
+import App.handle.Board;
 import App.handle.Handler;
 import App.handle.PocketMoney;
 import App.handle.UsageHistory;
@@ -16,6 +17,7 @@ public class Title {
 
     static Handler pocketMoney = new PocketMoney("용돈");
     static Handler usageHistory = new UsageHistory("사용한 곳");
+    static Handler board = new Board("comments");
 
     public static void title() {
         System.out.println("pocket money management");
@@ -39,7 +41,7 @@ public class Title {
 //                choice();
                 usageHistory.execute();
             }else if(menuNO.equals("3")) {
-                choiceBoard();
+                board.execute();
             }else{
                 System.out.println("잘못 입력하셨습니다.");
                 menu();
