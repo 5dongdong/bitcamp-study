@@ -1,14 +1,38 @@
 package App.handle;
 
-import static App.handle.Choice.sc;
+import App.vo.Use;
+
+
+import static App.handle.UsageHistory.sc;
 import static App.print.Title.menu;
 import static App.vo.Use.*;
-import static App.vo.Use.a;
+
 
 public class Board {
     static String selectedExpense;
     //1번 사용 내역에 관한 내용을 적을수 있도록 코드를 짜보잠ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㄻㄴㄹㄴㄻ
     //음 먼저 사용 내역을 가져와야해
+
+
+    public static void choiceBoard() {
+        System.out.println("선택");
+        System.out.println("1 : 사용내역에 관한 내용작성");
+        System.out.println("2 : 사용내역 내용 보기");
+
+        Use use = new Use();
+        use.setMenu(sc.nextInt());
+        switch (getMenu()){
+            case 1:
+                board();
+                break;
+            case 2:
+                readBoard();
+                break;
+        }
+    }
+
+
+
     public static void board() {
         System.out.println("일기를 쓰고 싶은 사용 내역을 선택하세요");
         selectedExpense = sc.next();

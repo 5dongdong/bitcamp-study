@@ -1,7 +1,8 @@
 package App.handle;
 
 
-import static App.handle.Where.sc;
+
+import static App.handle.UsageHistory.sc;
 import static App.print.Title.menu;
 import static App.vo.Use.*;
 

@@ -10,5 +10,4 @@ package bitcamp.myapp.handler;
 
 public interface Handler {
   void execute(); // public abstract 가 기본 default값이므로 작성하지 않아도 괜찮다............
-
 }
