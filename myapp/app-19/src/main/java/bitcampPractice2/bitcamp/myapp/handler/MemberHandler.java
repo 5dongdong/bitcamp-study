@@ -1,26 +1,32 @@
-package bitcamp.myapp.handler;
+package bitcampPractice2.bitcamp.myapp.handler;
+
 
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.List;
 import bitcamp.util.Prompt;
 
 public class MemberHandler implements Handler {
 
-  private List list;
-  private Prompt prompt;
+  private Prompt prompt; // 외부에서 생성자를 통해 주입
+
   private String title;
 
-  public MemberHandler(Prompt prompt, String title, List list) {
+  private MemberList list = new MemberList();
+
+  // 생성자 : 인스턴스를 사용할 수 있도록 유효한 값으로 초기화시키는 일을 한다.
+  // => 필요한 값을 외부에서 받고 싶으면 파라미터를 선언하라.
+  public MemberHandler(Prompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
-    this.list = list;
   }
 
+
+  // Handler 인터페이스에 선언된 대로 메서드를 정의했다.
+  // => "Handler 인터페이스를 구현했다"라고 표현한다.
   public void execute() {
     printMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("%s> ", this.title);
+      String menuNo = prompt.inputString("%s > ", this.title);
       if (menuNo.equals("0")) {
         return;
       } else if (menuNo.equals("menu")) {
@@ -52,12 +58,12 @@ public class MemberHandler implements Handler {
 
   private void inputMember() {
     Member m = new Member();
-    m.setName(this.prompt.inputString("이름? "));
-    m.setEmail(this.prompt.inputString("이메일? "));
-    m.setPassword(this.prompt.inputString("암호? "));
+    m.setName(prompt.inputString("이름? "));
+    m.setEmail(prompt.inputString("이메일? "));
+    m.setPassword(prompt.inputString("암호? "));
     m.setGender(inputGender((char) 0));
 
-    this.list.add(m);
+    list.add(m);
   }
 
   private void printMembers() {
@@ -65,22 +71,21 @@ public class MemberHandler implements Handler {
     System.out.println("번호, 이름, 이메일, 성별");
     System.out.println("---------------------------------------");
 
-    for (int i = 0; i < list.size(); i++) {
-      Member m = (Member) this.list.get(i);
+    Member[] arr = list.list();
+    for (Member m : arr) {
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
-          toGenderString(m.getGender()));
+              toGenderString(m.getGender()));
     }
   }
 
   private void viewMember() {
-    int memberNo = this.prompt.inputInt("번호? ");
+    int memberNo = prompt.inputInt("번호? ");
 
-    Member m = this.findBy(memberNo);
+    Member m = list.get(memberNo);
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     System.out.printf("이름: %s\n", m.getName());
     System.out.printf("이메일: %s\n", m.getEmail());
     System.out.printf("성별: %s\n", toGenderString(m.getGender()));
@@ -93,15 +98,14 @@ public class MemberHandler implements Handler {
   private void updateMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
-    Member m = this.findBy(memberNo);
+    Member m = list.get(memberNo);
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     m.setName(this.prompt.inputString("이름(%s)? ", m.getName()));
     m.setEmail(this.prompt.inputString("이메일(%s)? ", m.getEmail()));
-    m.setPassword(this.prompt.inputString("새암호? "));
+    m.setPassword(this.prompt.inputString("새암호? ", m.getPassword()));
     m.setGender(inputGender(m.getGender()));
   }
 
@@ -128,20 +132,10 @@ public class MemberHandler implements Handler {
   }
 
   private void deleteMember() {
-    if (!this.list.remove(new Member(this.prompt.inputInt("번호? ")))) {
+    int memberNo = this.prompt.inputInt("번호? ");
+
+    if (this.list.deleted(memberNo)) {
       System.out.println("해당 번호의 회원이 없습니다!");
     }
   }
-
-  private Member findBy(int no) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Member m = (Member) this.list.get(i);
-      if (m.getNo() == no) {
-        return m;
-      }
-    }
-    return null;
-  }
-
-
 }
