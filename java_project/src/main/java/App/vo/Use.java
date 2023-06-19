@@ -8,8 +8,13 @@ public class Use {
     private static int menu = 0;
     public static int cnt = 0;
 
+
+    public static java.util.ArrayList<Integer> expenseList  = new java.util.ArrayList<>();
+    public static java.util.ArrayList<String> whereList = new java.util.ArrayList<>();
+
+
     public static String[] where = new String[10000];
-    public static LocalDateTime[] localDateTime = new LocalDateTime[10000];
+//    public static LocalDateTime[] localDateTime = new LocalDateTime[10000];
     public static String[] comments = new String[100000];
     public static int[] a = new int[10000];
     public static int money = 0; //처음 용돈
@@ -38,13 +43,13 @@ public class Use {
         this.moneyToAdd = moneyToAdd;
     }
 
-    public static int getMenu() {
-        return menu;
-    }
+//    public static int getMenu() {
+//        return menu;
+//    }
 
-    public static void setMenu(int menu) {
-        Use.menu = menu;
-    }
+//    public static void setMenu(int menu) {
+//        Use.menu = menu;
+//    }
 
 
 }

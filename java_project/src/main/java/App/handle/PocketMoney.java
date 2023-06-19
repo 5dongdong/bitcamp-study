@@ -1,7 +1,6 @@
 package App.handle;
 
 import App.vo.Use;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,7 +27,9 @@ public class PocketMoney  implements Handler {
                 plusMoney();
             } else if (menuNo.equals("2")) {
                 ShowMoney();
-            } else {
+            } else if(menuNo.equals("3")){
+                menu();
+            } else{
                 System.out.println("잘못 입력하셨습니다");
             }
         }
@@ -37,6 +38,7 @@ public class PocketMoney  implements Handler {
 private void printMenu() {
     System.out.println("1. 용돈 추가");
     System.out.println("2. 용돈 확인");
+    System.out.println("3. 메뉴로 돌아가기");
 }
 
             public static void plusMoney() {
@@ -71,7 +73,8 @@ private void printMenu() {
 
                 int totalExpenses = 0;
                 for (int i = 0; i < cnt; i++) {
-                    totalExpenses += a[i];
+//                    totalExpenses += a[i];
+                    totalExpenses += expenseList.get(i);
                 }
 
                 int remainingMoney = money - totalExpenses;

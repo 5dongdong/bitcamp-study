@@ -5,10 +5,7 @@ import App.handle.Board;
 import App.handle.Handler;
 import App.handle.PocketMoney;
 import App.handle.UsageHistory;
-
 import java.util.Scanner;
-
-import static App.handle.Board.*;
 
 
 public class Title {
@@ -38,7 +35,6 @@ public class Title {
             }else if(menuNO.equals("1")) {
                 pocketMoney.execute();
             }else if (menuNO.equals("2")) {
-//                choice();
                 usageHistory.execute();
             }else if(menuNO.equals("3")) {
                 board.execute();

@@ -1,7 +1,7 @@
 package App.handle;
 
-import App.vo.Use;
 
+import java.util.ArrayList;
 
 import static App.handle.UsageHistory.sc;
 import static App.print.Title.menu;
@@ -10,6 +10,7 @@ import static App.vo.Use.*;
 
 public class Board implements Handler{
     static String selectedExpense;
+    static ArrayList<String> commentsList = new ArrayList<>();
     //1번 사용 내역에 관한 내용을 적을수 있도록 코드를 짜보잠ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㄻㄴㄹㄴㄻ
     //음 먼저 사용 내역을 가져와야해
 
@@ -32,22 +33,7 @@ public class Board implements Handler{
             }
         }
     }
-//    public static void choiceBoard() {
-////        System.out.println("선택");
-////        System.out.println("1 : 사용내역에 관한 내용작성");
-////        System.out.println("2 : 사용내역 내용 보기");
-//
-//        Use use = new Use();
-//        use.setMenu(sc.nextInt());
-//        switch (getMenu()){
-//            case 1:
-//                board();
-//                break;
-//            case 2:
-//                readBoard();
-//                break;
-//        }
-//    }
+
 
     public void printMenu() {
         System.out.println("1 : 사용내역에 관한 내용작성");
@@ -59,10 +45,12 @@ public class Board implements Handler{
         selectedExpense = sc.next();
         sc.nextLine();
         for (int i = 0; i < cnt; i++) {
-            if (where[i].equals(selectedExpense)) {
+//            if (where[i].equals(selectedExpense))
+            if (whereList.get(i).equals(selectedExpense)){
                 System.out.println(selectedExpense + "에 관한 내용을 작성해주세요");
                 String comment = sc.nextLine();
-                comments[i] = comment;
+//                comments[i] = comment;
+                commentsList.add(comment);
                 break;
             }
             System.out.println(selectedExpense + " 사용 내역이 없습니다.");
@@ -74,10 +62,11 @@ public class Board implements Handler{
         System.out.println("보고싶은 사용내역을 선택해주세요");
         selectedExpense = sc.next();
         for (int i = 0; i < cnt; i++) {
-            if (where[i].equals(selectedExpense)) {
-                System.out.println(where[i] + "에 관해 작성한 내용입니다.");
+//            if (where[i].equals(selectedExpense))
+            if (whereList.get(i).equals(selectedExpense)){
+                System.out.println(whereList.get(i) + "에 관해 작성한 내용입니다.");
                 System.out.println("-----------------------------------");
-                System.out.println("|     " +    comments[i] + "       |");
+                System.out.println("|     " +    commentsList.get(i) + "       |");
                 System.out.println("-----------------------------------");
             }else{
                 System.out.println(selectedExpense + " 사용 내역이 없습니다.");
