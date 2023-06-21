@@ -76,7 +76,7 @@ public class ArrayList implements List {
 
   @Override
   public int size() {
-    return this.size();
+    return this.length;
   }
 
   private boolean isValid(int index) {

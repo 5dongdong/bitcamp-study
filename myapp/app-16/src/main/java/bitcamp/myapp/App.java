@@ -9,19 +9,20 @@ public class App {
   public static void main(String[] args) {
 
     // 기본 생성자를 이용해 Prompt 인스턴스를 준비한다.
-    // => 기본 생성자는 Scanner를 키보드와 연결한다.
+    // => 기본 생성자는 Scanner를 키보드와 연결한다. OK
     Prompt prompt = new Prompt();
 
     MemberHandler memberHandler = new MemberHandler(prompt, "회원");
     BoardHandler boardHandler = new BoardHandler(prompt, "게시글");
     BoardHandler readingHandler = new BoardHandler(prompt, "독서록");
 
+
     printTitle();
 
     printMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("메인 > ");
+      String menuNo = prompt.inputString("메인> ");
       if (menuNo.equals("0")) {
         break;
       } else if (menuNo.equals("menu")) {
@@ -51,5 +52,4 @@ public class App {
     System.out.println("나의 목록 관리 시스템");
     System.out.println("----------------------------------");
   }
-
 }

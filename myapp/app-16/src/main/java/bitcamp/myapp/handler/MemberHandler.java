@@ -5,29 +5,23 @@ import bitcamp.util.Prompt;
 
 public class MemberHandler {
 
-  private static int MAX_SIZE = 100; // variable initializer(변수초기화 문장)
-  // variable initializer(변수 초기화 문장) => static 블록으로 이동
-  // 단 final 변수는 static 블록에서 값을 할당하지 않고 그냥 상수로 취급한다.
+  private static final int MAX_SIZE = 100;
 
-  private Prompt prompt; // 외부에서 생성자를 통해 주입
-  private Member[] members = new Member[MAX_SIZE]; // variable initializer(변수초기화 문장)
+  private Prompt prompt;
+  private Member[] members = new Member[MAX_SIZE];
   private int length;
   private String title;
 
-  // 생성자 : 인스턴스를 사용할 수 있도록 유효한 값으로 초기화시키는 일을 한다.
-  // => 필요한 값을 외부에서 받고 싶으면 파라미터를 선언하라.
   public MemberHandler(Prompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
   }
 
-
-
   public void execute() {
     printMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("%s > ", this.title);
+      String menuNo = prompt.inputString("%s> ", this.title);
       if (menuNo.equals("0")) {
         return;
       } else if (menuNo.equals("menu")) {
@@ -64,10 +58,10 @@ public class MemberHandler {
     }
 
     Member m = new Member();
-    m.setName(prompt.inputString("이름? "));
-    m.setEmail(prompt.inputString("이메일? "));
-    m.setPassword(prompt.inputString("암호? "));
-    m.setGender(inputGender((char) 0));
+    m.setName(this.prompt.inputString("이름? "));
+    m.setEmail(this.prompt.inputString("이메일? "));
+    m.setPassword(this.prompt.inputString("암호? "));
+    m.setGender(inputGender((char)0));
 
     this.members[this.length++] = m;
   }
@@ -79,13 +73,14 @@ public class MemberHandler {
 
     for (int i = 0; i < this.length; i++) {
       Member m = this.members[i];
-      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
+      System.out.printf("%d, %s, %s, %s\n",
+          m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
   }
 
   private void viewMember() {
-    String memberNo = prompt.inputString("번호? ");
+    String memberNo = this.prompt.inputString("번호? ");
     for (int i = 0; i < this.length; i++) {
       Member m = this.members[i];
       if (m.getNo() == Integer.parseInt(memberNo)) {
@@ -109,8 +104,7 @@ public class MemberHandler {
       if (m.getNo() == Integer.parseInt(memberNo)) {
         m.setName(this.prompt.inputString("이름(%s)? ", m.getName()));
         m.setEmail(this.prompt.inputString("이메일(%s)? ", m.getEmail()));
-        System.out.printf("새암호? ");
-        m.setPassword(this.prompt.inputString(""));
+        m.setPassword(this.prompt.inputString("새암호? "));
         m.setGender(inputGender(m.getGender()));
         return;
       }
@@ -127,7 +121,10 @@ public class MemberHandler {
     }
 
     while (true) {
-      String menuNo = this.prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
+      String menuNo = this.prompt.inputString(label +
+          "  1. 남자\n" +
+          "  2. 여자\n" +
+          "> ");
 
       switch (menuNo) {
         case "1":
@@ -150,10 +147,10 @@ public class MemberHandler {
     }
 
     for (int i = deletedIndex; i < this.length - 1; i++) {
-      members[i] = this.members[i + 1];
+      this.members[i] = this.members[i + 1];
     }
 
-    members[--this.length] = null;
+    this.members[--this.length] = null;
   }
 
   private int indexOf(int memberNo) {

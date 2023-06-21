@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class Prompt {
 
-  private Scanner sc;
+  private Scanner scanner;
 
   // default constructor 정의
   public Prompt() {
-    this.sc = new Scanner(System.in);
+    this.scanner = new Scanner(System.in);
   }
 
   // 다른 입력 도구와 연결한다면
   public Prompt(InputStream in) {
-    this.sc = new Scanner(in);
+    this.scanner = new Scanner(in);
   }
 
   public String inputString(String title, Object... args) {
     System.out.printf(title, args);
-    return this.sc.nextLine();
+    return this.scanner.nextLine();
   }
 
   public int inputInt(String title, Object... args) {
@@ -27,6 +27,7 @@ public class Prompt {
   }
 
   public void close() {
-    this.sc.close();
+    this.scanner.close();
   }
+
 }
