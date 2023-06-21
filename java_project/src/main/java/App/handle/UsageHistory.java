@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Stack;
 
 import static App.print.Title.menu;
 import static App.vo.Use.*;
@@ -15,6 +16,7 @@ import static App.vo.Use.cnt;
 public class UsageHistory implements Handler{
 
     static ArrayList<LocalDateTime> localDateTimeArrayList = new ArrayList<>();
+    private static Stack<String> recentUsageStack = new Stack<>();
 
 
 
@@ -36,6 +38,11 @@ public class UsageHistory implements Handler{
                 list();
             } else if (menuNo.equals("3")) {
                 update();
+            } else if (menuNo.equals("4")) {
+                recent();
+            }
+            else {
+                menu();
             }
         }
     }
@@ -45,6 +52,8 @@ public class UsageHistory implements Handler{
         System.out.println("1 : 사용처");
         System.out.println("2 : 내역 확인");
         System.out.println("3 : 내역 수정");
+        System.out.println("4 : 최근 내역");
+        System.out.println("5 : 메뉴");
     }
 
 
@@ -53,13 +62,11 @@ public class UsageHistory implements Handler{
         String response = "y";
         while (response.equalsIgnoreCase("y")) {
             localDateTimeArrayList.add(LocalDateTime.now());
-//            localDateTime[cnt] = LocalDateTime.now();
             System.out.println("사용한 곳을 입력하세요");
             String x = sc.next();
             System.out.println(x + "에 얼마를 사용했는지 입력하세요");
             try {
                 int expense = sc.nextInt();
-//                a[cnt] = expense;
                 expenseList.add(expense);
             } catch (InputMismatchException e){
                 System.out.println("잘못 입력하셨습니다.");
@@ -67,8 +74,6 @@ public class UsageHistory implements Handler{
                 choice2();
             }
 
-
-//            where[cnt] = x;
             whereList.add(x);
             cnt++;
 
@@ -134,12 +139,11 @@ public class UsageHistory implements Handler{
 
 
         for(int i = 0; i < cnt; i++) {
-//            dates.add(String.format("%tY-%tm-%td", localDateTime[i], localDateTime[i], localDateTime[i]));
-//            whereList.add(whereList.get(i));
-//            expenseList.add(expenseList.get(i));
             remainingMoney -= expenseList.get(i);
             remainingList .add(remainingMoney);
         }
+
+
 
 
         for (int i = 0; i < cnt; i++) {
@@ -159,6 +163,35 @@ public class UsageHistory implements Handler{
         Title.menu();
     }
 
+
+    public static void recent(){
+        System.out.println("최근 사용 내역 몇건을 조회하시겠습니까");
+        int a = sc.nextInt();
+
+        if(cnt == 0) {
+            System.out.println("최근 사용 내역이 없습니다.");
+            menu();
+        }
+
+        int start = Math.max(cnt - a, 0);
+        int end = Math.min(cnt, start + a);
+        System.out.println("최근 사용내역" + end  + "건의 사용 내역");
+        for(int i = start; i < end; i++){
+            String recent =  String.format("등록일: %s, 사용한 곳: %s, 사용금액: %d",
+                    localDateTimeArrayList.get(i), whereList.get(i), expenseList.get(i));
+            recentUsageStack.push(recent);
+
+
+            while (!recentUsageStack.isEmpty()){
+                String recentPop = recentUsageStack.pop();
+                System.out.println("====================================");
+                System.out.println(recentPop);
+                System.out.println("====================================");
+                System.out.println();
+
+            }
+        }
+    }
 
 
     // ======================수정 && 삭제==========================
@@ -236,15 +269,6 @@ public class UsageHistory implements Handler{
         whereList.remove(deleteIndex);
         localDateTimeArrayList.remove(deleteIndex);
 
-//        // 삭제된 항목 이후의 배열 요소들을 앞으로 당깁니다.
-//        for (int i = deleteIndex; i < cnt - 1; i++) {
-//            a[i] = a[i + 1];
-//            where[i] = where[i + 1];
-//        }
-//
-//        // 마지막 요소를 0으로 초기화합니다. (불필요한 값 제거)
-//        a[cnt - 1] = 0;
-//        where[cnt - 1] = null;
 
         cnt--; // 배열 크기 감소
 

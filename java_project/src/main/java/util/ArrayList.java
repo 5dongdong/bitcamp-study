@@ -1,4 +1,4 @@
-package App.util;
+package util;
 
 public class ArrayList<T> implements List{
 

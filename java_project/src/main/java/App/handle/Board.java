@@ -11,7 +11,7 @@ import static App.vo.Use.*;
 public class Board implements Handler{
     static String selectedExpense;
     static ArrayList<String> commentsList = new ArrayList<>();
-    //1번 사용 내역에 관한 내용을 적을수 있도록 코드를 짜보잠ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㅇㅁㄴㅇㅇㅁㄴㄻㄴㄹㄴㄻ
+    //1번 사용 내역에 관한 내용을 적을수 있도록 코드를 짜보자
     //음 먼저 사용 내역을 가져와야해
 
     String title;
@@ -45,11 +45,9 @@ public class Board implements Handler{
         selectedExpense = sc.next();
         sc.nextLine();
         for (int i = 0; i < cnt; i++) {
-//            if (where[i].equals(selectedExpense))
             if (whereList.get(i).equals(selectedExpense)){
                 System.out.println(selectedExpense + "에 관한 내용을 작성해주세요");
                 String comment = sc.nextLine();
-//                comments[i] = comment;
                 commentsList.add(comment);
                 break;
             }
@@ -62,7 +60,6 @@ public class Board implements Handler{
         System.out.println("보고싶은 사용내역을 선택해주세요");
         selectedExpense = sc.next();
         for (int i = 0; i < cnt; i++) {
-//            if (where[i].equals(selectedExpense))
             if (whereList.get(i).equals(selectedExpense)){
                 System.out.println(whereList.get(i) + "에 관해 작성한 내용입니다.");
                 System.out.println("-----------------------------------");

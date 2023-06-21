@@ -1,6 +1,9 @@
 package App.handle;
 
 import App.vo.Use;
+import util.Prompt;
+
+import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,6 +16,7 @@ public class PocketMoney  implements Handler {
     static Scanner sc = new Scanner(System.in);
     static Use use = new Use();
     private String title;
+    Prompt prompt = new Prompt();
 
     public PocketMoney(String title) {
         this.title = title;
@@ -20,9 +24,8 @@ public class PocketMoney  implements Handler {
 
     public void execute() {
         printMenu();
-        System.out.printf("%s 메뉴를 선택해주세요", title);
         while (true) {
-            String menuNo = sc.next();
+            String menuNo = prompt.inputString("메뉴를 선택해주세요");
             if (menuNo.equals("1")) {
                 plusMoney();
             } else if (menuNo.equals("2")) {
@@ -73,7 +76,6 @@ private void printMenu() {
 
                 int totalExpenses = 0;
                 for (int i = 0; i < cnt; i++) {
-//                    totalExpenses += a[i];
                     totalExpenses += expenseList.get(i);
                 }
 
