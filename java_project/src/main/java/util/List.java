@@ -2,7 +2,7 @@ package util;
 
 public interface List {
 
-    int add(Object value);
+    boolean add(Object value);
 
     Object get(int index);
 

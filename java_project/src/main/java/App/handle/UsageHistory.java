@@ -1,6 +1,7 @@
 package App.handle;
 
 import App.print.Title;
+import util.Prompt;
 
 
 import java.time.LocalDateTime;
@@ -18,6 +19,8 @@ public class UsageHistory implements Handler{
     static ArrayList<LocalDateTime> localDateTimeArrayList = new ArrayList<>();
     private static Stack<String> recentUsageStack = new Stack<>();
 
+    Prompt prompt = new Prompt();
+
 
 
     static Scanner sc = new Scanner(System.in);
@@ -29,9 +32,8 @@ public class UsageHistory implements Handler{
 
     public void execute() {
         printMenu();
-        System.out.printf("%s 메뉴를 선택해주세요", title);
         while (true) {
-            String menuNo = sc.next();
+            String menuNo = prompt.inputString("메뉴를 선택해주세요");
             if(menuNo.equals("1")) {
                 choice2();
             } else if (menuNo.equals("2")) {
@@ -57,13 +59,12 @@ public class UsageHistory implements Handler{
     }
 
 
-    public static void choice2() {
+    public  void choice2() {
 
         String response = "y";
         while (response.equalsIgnoreCase("y")) {
             localDateTimeArrayList.add(LocalDateTime.now());
-            System.out.println("사용한 곳을 입력하세요");
-            String x = sc.next();
+            String x = prompt.inputString("사용한 곳을 입력하세요");
             System.out.println(x + "에 얼마를 사용했는지 입력하세요");
             try {
                 int expense = sc.nextInt();
@@ -91,7 +92,7 @@ public class UsageHistory implements Handler{
         Choice();
     }
 
-    public static void Choice() {
+    public  void Choice() {
         System.out.println("1. 다시 선택하기");
         System.out.println("2. 사용 내역 보기");
         System.out.println("3. 메뉴");
@@ -136,29 +137,19 @@ public class UsageHistory implements Handler{
         ArrayList<Integer> remainingList  = new ArrayList<>();
         int remainingMoney = money; // 용돈의 초기값으로 remainingMoney를 초기화합니다.
 
-
-
         for(int i = 0; i < cnt; i++) {
             remainingMoney -= expenseList.get(i);
             remainingList .add(remainingMoney);
         }
 
 
-
-
         for (int i = 0; i < cnt; i++) {
             System.out.println("==========================");
-//            System.out.printf("등록일: %tY-%tm-%td%n", localDateTime[i], localDateTime[i], localDateTime[i]);
             System.out.printf("등록일: %s%n",localDateTimeArrayList.get(i));
-//            System.out.println("사용한곳 : " + where[i]);
             System.out.println("사용한곳 : " + whereList.get(i));
-//            System.out.println("사용금액 : " +a[i]);
             System.out.println("사용금액 : " + expenseList.get(i));
-
-//            System.out.println("남은 용돈: " +  (remainingMoney - a[i]));
             System.out.println("남은 용돈: " +  remainingList .get(i));
             System.out.println("==========================");
-//            remainingMoney -= a[i]; // 지출액을 차감합니다.
         }
         Title.menu();
     }
@@ -188,9 +179,9 @@ public class UsageHistory implements Handler{
                 System.out.println(recentPop);
                 System.out.println("====================================");
                 System.out.println();
-
             }
         }
+        menu();
     }
 
 
@@ -227,16 +218,11 @@ public class UsageHistory implements Handler{
         System.out.println("수정할 항목을 입력하세요:");
         selectedExpense = sc.next();
         for (int i = 0; i < cnt; i++) {
-//            if (where[i].equals(selectedExpense))
             if (whereList.get(i).equals(selectedExpense)){
-//                System.out.println("현재 " + selectedExpense + " 사용 금액: " + a[i]);
                 System.out.println("현재 " + selectedExpense + " 사용 금액: " + expenseList.get(i));
                 System.out.println("수정할 " + selectedExpense + " 사용 금액을 입력하세요:");
                 int updatedExpense = sc.nextInt();
-
-//                a[i] = updatedExpense; // 입력한 값으로 배열의 값을 변경
                 expenseList.set(i, updatedExpense);
-
                 System.out.println(selectedExpense + " 사용 내역이 수정되었습니다.");
                 menu(); // 수정된 값들을 고려하여 total2() 메소드 호출
                 return;
@@ -253,7 +239,6 @@ public class UsageHistory implements Handler{
 
         int deleteIndex = -1;
         for (int i = 0; i < cnt; i++) {
-//            if (where[i].equals(selectedExpense))
             if(whereList.get(i).equals(selectedExpense)){
                 System.out.println(selectedExpense + " 사용 내역을 삭제합니다.");
                 deleteIndex = i;
