@@ -1,50 +1,53 @@
 package App.handle;
 
 import App.print.Title;
+import util.Menu.Menu;
+import util.Menu.MenuItem;
 import util.Prompt;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 import static App.print.Title.menu;
 import static App.vo.Use.*;
 import static App.vo.Use.cnt;
 
-public class UsageHistory implements Handler{
+public class UsageHistory implements MenuItem{
 
     static ArrayList<LocalDateTime> localDateTimeArrayList = new ArrayList<>();
     private static Stack<String> recentUsageStack = new Stack<>();
-
-    Prompt prompt = new Prompt();
-
-
+    static Prompt prompt = new Prompt();
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     static Scanner sc = new Scanner(System.in);
     private String title;
+
+
 
     public UsageHistory(String title) {
         this.title = title;
     }
 
+
+
     public void execute() {
         printMenu();
         while (true) {
             String menuNo = prompt.inputString("메뉴를 선택해주세요");
-            if(menuNo.equals("1")) {
-                choice2();
-            } else if (menuNo.equals("2")) {
-                list();
-            } else if (menuNo.equals("3")) {
-                update();
-            } else if (menuNo.equals("4")) {
-                recent();
-            }
-            else {
-                menu();
+            if (menuNo.equals("5")) {
+                break;
+            } else {
+                try {
+                    int index = Integer.parseInt(menuNo) - 1;
+                    if (index >= 0 && index < menuItems.size()) {
+                        executeMenuItem(index);
+                    } else {
+                        System.out.println("잘못된 메뉴 번호입니다.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("잘못된 입력입니다.");
+                }
             }
         }
     }
@@ -58,8 +61,24 @@ public class UsageHistory implements Handler{
         System.out.println("5 : 메뉴");
     }
 
+    private void executeMenuItem(int index) {
+        switch (index) {
+            case 0:
+                choice2();
+                break;
+            case 1:
+                list();
+                break;
+            case 2:
+                update();
+                break;
+            case 3:
+                recent();
+                break;
+        }
+    }
 
-    public  void choice2() {
+    public  static void choice2() {
 
         String response = "y";
         while (response.equalsIgnoreCase("y")) {
@@ -92,7 +111,7 @@ public class UsageHistory implements Handler{
         Choice();
     }
 
-    public  void Choice() {
+    public static void Choice() {
         System.out.println("1. 다시 선택하기");
         System.out.println("2. 사용 내역 보기");
         System.out.println("3. 메뉴");

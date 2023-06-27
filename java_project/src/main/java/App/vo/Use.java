@@ -11,9 +11,6 @@ public class Use {
     public static java.util.ArrayList<Integer> expenseList  = new java.util.ArrayList<>();
     public static java.util.ArrayList<String> whereList = new java.util.ArrayList<>();
 
-
-
-    public static int[] a = new int[10000];
     public static int money = 0; //처음 용돈
 
 

@@ -1,19 +1,39 @@
 package App.print;
 
 
-import App.handle.Board;
-import App.handle.Handler;
-import App.handle.PocketMoney;
-import App.handle.UsageHistory;
+import App.handle.Money.PocketMoneyMenu;
+import App.handle.PocketMoney2;
+import App.handle.UsageHistoryMenu;
+import App.handle.board.BoardMenu;
+import util.Menu.MenuGroup;
+import util.Menu.MenuItem;
 import util.Prompt;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class Title {
+public class Title implements MenuItem {
 
-    static Handler pocketMoney = new PocketMoney("용돈");
-    static Handler usageHistory = new UsageHistory("사용한 곳");
-    static Handler board = new Board("comments");
+    private String title;
+    private MenuGroup menuGroup;
+    private List<MenuItem> menuItems;
+
+
+    public Title(String title) {
+        this.title = title;
+        this.menuGroup = new MenuGroup(title);
+        this.menuItems = new ArrayList<>();
+    }
+
+    public void addMenuItem(MenuItem menuItem){
+        menuItems.add(menuItem);
+        menuGroup.addMenuItem(menuItem);
+    }
+
+    public void execute(){
+        menuGroup.execute();
+    }
 
     public static void title() {
         System.out.println("pocket money management");
@@ -21,6 +41,16 @@ public class Title {
     }
 
     public static void menu() {
+        Title pocketMoney = new Title("용돈");
+        Title usageHistory = new Title("사용내역");
+        Title board = new Title("comments");
+
+        PocketMoney2 pocketMoney2 = new PocketMoney2();
+
+        pocketMoney.addMenuItem(new PocketMoneyMenu(pocketMoney2));
+        usageHistory.addMenuItem(new UsageHistoryMenu());
+        board.addMenuItem(new BoardMenu());
+
         Prompt prompt = new Prompt();
 
         while (true) {

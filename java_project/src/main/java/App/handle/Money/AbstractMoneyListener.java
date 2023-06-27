@@ -1,4 +1,4 @@
-package App.handle;
+package App.handle.Money;
 
 import util.ActionListener;
 import util.List;

@@ -1,5 +1,9 @@
-package util;
+package util.Menu;
 
+
+import util.ActionListener;
+import util.ArrayList;
+import util.Prompt;
 
 public class Menu {
 
@@ -21,13 +25,6 @@ public class Menu {
         listeners.add(listener);
     }
 
-    public void removeActionListener(ActionListener listener) {
-        listeners.remove(listener);
-    }
-
-    public String getTitle(){
-        return title;
-    }
 
     public void execute(Prompt prompt) {
         for(int i = 0; i < listeners.size(); i++) {

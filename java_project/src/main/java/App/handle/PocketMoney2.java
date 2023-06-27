@@ -2,45 +2,46 @@ package App.handle;
 
 
 
-import App.handle.Money.PlusMoneyMenuItemItem;
-import App.handle.Money.ShowMoneyMenuItemItem;
-import util.MoneyMenuItem;
-import util.MoneyMenuItemGroup;
+import App.handle.Money.PlusMenuItem;
+import App.handle.Money.ShowMenuItemItem;
+import App.vo.Use;
+import util.Menu.MenuItem;
+import util.Menu.MenuGroup;
 import util.Prompt;
 
-import java.awt.*;
+
 import java.util.InputMismatchException;
 import java.util.List;
 
-import static App.handle.PocketMoney.sc;
-import static App.handle.PocketMoney.use;
+import static App.handle.UsageHistory.sc;
 import static App.print.Title.menu;
 import static App.vo.Use.*;
 
 
 public class PocketMoney2 {
-    private MoneyMenuItemGroup moneyMenuItemGroup;
+    private MenuGroup moneyMenuGroup;
+    public static Use use = new Use();
     Prompt prompt = new Prompt();
 
     public PocketMoney2() {
-        moneyMenuItemGroup = new MoneyMenuItemGroup("용돈 관리");
+        moneyMenuGroup = new MenuGroup("용돈 관리");
 
         //메뉴 아이템 생성
-        PlusMoneyMenuItemItem plusMoneyMenuItemItem = new PlusMoneyMenuItemItem(this);
-        ShowMoneyMenuItemItem showMoneyMenuItemItem = new ShowMoneyMenuItemItem(this);
+        MenuItem plusMoneyMenuItem = new PlusMenuItem(null);
+        MenuItem showMoneyMenuItemItem = new ShowMenuItemItem(this);
 
         // 메뉴 그룹에 메뉴 아이템 추가
-        moneyMenuItemGroup.addMenuItem(plusMoneyMenuItemItem);
-        moneyMenuItemGroup.addMenuItem(showMoneyMenuItemItem);
+        moneyMenuGroup.addMenuItem(plusMoneyMenuItem);
+        moneyMenuGroup.addMenuItem(showMoneyMenuItemItem);
     }
 
     public void execute(){
         printMenu();
         while (true) {
             int menuNO = prompt.inputInt("메뉴를 선택해주세요");
-            if(menuNO >= 1 && menuNO <= moneyMenuItemGroup.getMoneyMenuItems().size()){
-                MoneyMenuItem moneyMenuItem = moneyMenuItemGroup.getMoneyMenuItems().get(menuNO - 1);
-                moneyMenuItem.execute();
+            if(menuNO >= 1 && menuNO <= moneyMenuGroup.getMoneyMenuItems().size()){
+                MenuItem menuItem = moneyMenuGroup.getMoneyMenuItems().get(menuNO - 1);
+                menuItem.execute();
             }else{
                 System.out.println("잘못 입력하셨습니다.");
             };
@@ -49,9 +50,9 @@ public class PocketMoney2 {
 
     private void printMenu() {
         System.out.println("== 메뉴 ==");
-        List<MoneyMenuItem> moneyMenuItems = moneyMenuItemGroup.getMoneyMenuItems();
-        for (int i = 0; i < moneyMenuItems.size(); i++) {
-            System.out.println((i + 1) + ". " + moneyMenuItems.get(i).toString());
+        List<MenuItem> menuItems = moneyMenuGroup.getMoneyMenuItems();
+        for (int i = 0; i < menuItems.size(); i++) {
+            System.out.println((i + 1) + ". " + menuItems.get(i).toString());
         }
     }
 
@@ -78,7 +79,7 @@ public class PocketMoney2 {
         menu();
     }
 
-    public void showMoney() {
+    public static void showMoney() {
         System.out.println();
         System.out.println("==============");
         System.out.println("2. 용돈 확인하기");
@@ -99,6 +100,11 @@ public class PocketMoney2 {
 
         menu();
     }
+
+//    public static void menu() {
+//        PocketMoney2 pocketMoney2 = new PocketMoney2();
+//        pocketMoney2.execute();
+//    }
 
 }
 
