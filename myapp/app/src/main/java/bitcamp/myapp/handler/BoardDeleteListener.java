@@ -1,13 +1,13 @@
 package bitcamp.myapp.handler;
 
+import java.util.List;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.BreadCrumbPrompt;
-import bitcamp.util.List;
 
 public class BoardDeleteListener extends AbstractBoardListener {
 
 
-  public BoardDeleteListener(List list) {
+  public BoardDeleteListener(List<Board> list) {
     super(list);
   }
 

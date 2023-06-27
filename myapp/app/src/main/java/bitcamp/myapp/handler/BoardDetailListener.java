@@ -1,14 +1,14 @@
 package bitcamp.myapp.handler;
 
+import java.util.List;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.BreadCrumbPrompt;
-import bitcamp.util.List;
 
 public class BoardDetailListener extends AbstractBoardListener {
 
 
 
-  public BoardDetailListener(List list) {
+  public BoardDetailListener(List<Board> list) {
     super(list);
   }
 

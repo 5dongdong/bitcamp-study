@@ -10,11 +10,11 @@ public class Exam0710_08 {
     // 결과 예)
     // /Users/bitcamp/git/test
     // src/
-    //   main/
-    //     java/
-    //       com/
-    //         Hello.java
-    //         Hello2.java
+    // main/
+    // java/
+    // com/
+    // Hello.java
+    // Hello2.java
     // build.gradle
     // settings.gradle
     // Hello.java
@@ -30,9 +30,10 @@ public class Exam0710_08 {
     // 현재 디렉토리의 하위 파일 및 디렉토리 목록을 알아낸다.
     File[] files = dir.listFiles();
 
+    String indent = getIndent(level);
     // 리턴 받은 파일 배열에서 이름을 꺼내 출력한다.
     for (File file : files) {
-      printIndent(level);
+      System.out.print(indent);
 
       if (file.isDirectory() && !file.isHidden()) {
         System.out.printf("%s/\n", file.getName());
@@ -44,10 +45,12 @@ public class Exam0710_08 {
     }
   }
 
-  static void printIndent(int level) {
+  static String getIndent(int level) {
+    StringBuilder strBuilder = new StringBuilder();
     for (int i = 0; i < level; i++) {
-      System.out.print("  ");
+      strBuilder.append(" ");
     }
+    return strBuilder.toString();
   }
 }
 

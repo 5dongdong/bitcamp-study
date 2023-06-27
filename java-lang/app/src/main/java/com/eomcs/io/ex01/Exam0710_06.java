@@ -10,11 +10,11 @@ public class Exam0710_06 {
     // 결과 예)
     // /Users/bitcamp/git/test
     // src/
-    //   main/
-    //     java/
-    //       com/
-    //         Hello.java
-    //         Hello2.java
+    // main/
+    // java/
+    // com/
+    // Hello.java
+    // Hello2.java
     // build.gradle
     // settings.gradle
     // Hello.java
@@ -32,15 +32,15 @@ public class Exam0710_06 {
 
     // 리턴 받은 파일 배열에서 이름을 꺼내 출력한다.
     for (File file : files) {
+
       for (int i = 0; i < level; i++) {
         System.out.print("  ");
       }
-
       if (file.isDirectory() && !file.isHidden()) {
         System.out.printf("%s/\n", file.getName());
         printList(file, level + 1);
       } else if (file.isFile()) {
-        System.out.printf("%s\n", file.getName());
+        // System.out.printf("%s\n", file.getName());
       }
     }
   }
