@@ -16,7 +16,7 @@ public class Board {
     private MenuGroup menuGroup;
     private static Scanner sc = new Scanner(System.in);
     private static String selectedExpense;
-    static ArrayList<String> commentsList = new ArrayList<>();
+    public static ArrayList<String> commentsList = new ArrayList<>();
 
 
     String title;

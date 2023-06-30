@@ -11,6 +11,7 @@ import util.Prompt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class Title implements MenuItem {
@@ -53,13 +54,24 @@ public class Title implements MenuItem {
 
         Prompt prompt = new Prompt();
 
+
         while (true) {
             System.out.println("1. 용돈 관련");
             System.out.println("2. 사용 내역");
             System.out.println("3. 사용 내역 comments");
             System.out.println("4. 종료");
 
-            String menuNo = prompt.inputString("메뉴를 선택하세요: ");
+            String menuNo = "";
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    menuNo = prompt.inputString("메뉴를 선택하세요: ");
+                    validInput = true;
+                } catch (NoSuchElementException e) {
+                    System.out.println("입력을 다시 받습니다.");
+                }
+            }
+
             if (menuNo.equals("4")) {
                 System.out.println("종료합니다");
                 break;
@@ -73,8 +85,8 @@ public class Title implements MenuItem {
                 System.out.println("잘못 입력하셨습니다.");
             }
         }
-        prompt.close();
     }
-}
+    }
+
 
 

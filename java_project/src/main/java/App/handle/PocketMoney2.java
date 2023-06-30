@@ -27,7 +27,7 @@ public class PocketMoney2 {
         moneyMenuGroup = new MenuGroup("용돈 관리");
 
         //메뉴 아이템 생성
-        MenuItem plusMoneyMenuItem = new PlusMenuItem(null);
+        MenuItem plusMoneyMenuItem = new PlusMenuItem(this);
         MenuItem showMoneyMenuItemItem = new ShowMenuItemItem(this);
 
         // 메뉴 그룹에 메뉴 아이템 추가
@@ -59,11 +59,14 @@ public class PocketMoney2 {
     public void plusMoney() {
         System.out.println("용돈을 추가해주세요");
         try { //오류를 발생시킬수 있는 곳
-            use.setMoneyToAdd(sc.nextInt());
-            money += use.getMoneyToAdd();
+//            use.setMoneyToAdd(sc.nextInt());
+            int moneyToAdd = prompt.inputInt("추가할 용돈을 입력하세요");
+//            money += use.getMoneyToAdd();
+            money += moneyToAdd;
             System.out.println();
             System.out.println("----------");
-            System.out.println(use.getMoneyToAdd() + "원 추가되었습니다.");
+//            System.out.println(use.getMoneyToAdd() + "원 추가되었습니다.");
+            System.out.println(moneyToAdd + "원 추가되었습니다.");
             System.out.println("----------");
             System.out.println();
         } catch (InputMismatchException e) { //오류를 잡음
