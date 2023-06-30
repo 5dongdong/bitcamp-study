@@ -29,17 +29,19 @@ public class PocketMoneyMenu implements MenuItem {
 
                 String menuNo = prompt.inputString("메뉴를 선택하세요: ");
 
-
                 if (menuNo.equals("1")) {
                     pocketMoney2.plusMoney();
                 } else if (menuNo.equals("2")) {
                     pocketMoney2.showMoney();
                 } else if (menuNo.equals("3")) {
-                    menu();
+                    return;
                 } else {
                     System.out.println("잘못 입력하셨습니다.");
                     menu();
                 }
+
+                menu();
             }
+
         }
 

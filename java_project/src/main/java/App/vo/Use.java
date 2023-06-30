@@ -14,6 +14,8 @@ public class Use {
     public static int money = 0; //처음 용돈
 
 
+
+
     private long createDate;
 
     public Use() {

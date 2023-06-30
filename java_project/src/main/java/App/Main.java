@@ -2,8 +2,10 @@ package App;
 
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static App.handle.UsageHistory.localDateTimeArrayList;
 import static App.handle.board.Board.commentsList;
 import static App.print.Title.menu;
 import static App.print.Title.title;
@@ -22,59 +24,67 @@ public class Main {
 
     private static void saveData() {
         saveMoney();
-//        saveHistory("History.data", whereList);
-//        saveBoard("Board.data", commentsList);
+        saveHistory();
+        saveBoard();
     }
 
     private static void loadData() {
         loadMoney();
-//        loadHistory("History.data", whereList);
-//        loadBoard("Board.data", commentsList);
+        loadHistory();
+        loadBoard();
     }
 
-    private void loadBoard(String filename, ArrayList<String> commentsList) {
+    private static void loadBoard() {
         try {
-            FileInputStream fileIn = new FileInputStream(filename);
-            BufferedInputStream bufferedIn = new BufferedInputStream(fileIn);
-            DataInputStream dataIn = new DataInputStream(bufferedIn);
+            FileInputStream in0 = new FileInputStream("Board.data");
+            BufferedInputStream in1 = new BufferedInputStream(in0);
+            DataInputStream in = new DataInputStream(in1);
 
-            int size = dataIn.readShort();
+            int size = in.readShort();
+            cnt = size;
 
             for (int i = 0; i < size; i++) {
-                String comment = dataIn.readUTF();
+                String comment = in.readUTF();
                 commentsList.add(comment);
             }
 
-            dataIn.close();
-            bufferedIn.close();
-            fileIn.close();
+            in.close();
 
             System.out.println("게시판 정보를 성공적으로 로드했습니다.");
         } catch (IOException e) {
-            System.out.println("게시판 정보를 로드하는 중 오류 발생: " + e.getMessage());
+            System.out.println("게시판 정보를 로드하는 중 오류 발생");
         }
     }
 
-    private void loadHistory(String filename, ArrayList<String> whereList) {
+    private static void loadHistory() {
         try {
-            FileInputStream fileIn = new FileInputStream(filename);
-            BufferedInputStream bufferedIn = new BufferedInputStream(fileIn);
-            DataInputStream dataIn = new DataInputStream(bufferedIn);
+            FileInputStream in0 = new FileInputStream("History.data");
+            BufferedInputStream in1 = new BufferedInputStream(in0);
+            DataInputStream in = new DataInputStream(in1);
 
-            int size = dataIn.readShort();
 
-            for (int i = 0; i < size; i++) {
-                String location = dataIn.readUTF();
-                whereList.add(location);
+            int size = in.readInt();
+            cnt = size;
+
+            whereList.clear(); // 기존 내역 초기화
+            expenseList.clear();
+
+
+            for(int i = 0; i < size; i++) {
+                String where = in.readUTF();
+                int expense = in.readInt();
+                String dataTime = in.readUTF();
+
+                whereList.add(where);
+                expenseList.add(expense);
+                localDateTimeArrayList.add(LocalDateTime.parse(dataTime));
             }
 
-            dataIn.close();
-            bufferedIn.close();
-            fileIn.close();
+            in.close();
 
             System.out.println("내역 정보를 성공적으로 로드했습니다.");
         } catch (IOException e) {
-            System.out.println("내역 정보를 로드하는 중 오류 발생: " + e.getMessage());
+            System.out.println("내역 정보를 로드하는 중 오류 발생. " );
         }
     }
 
@@ -86,46 +96,53 @@ public class Main {
 
             money = in.readInt();
 
+            System.out.println("내역 정보를 성공적으로 로드했습니다.");
         }catch (Exception e){
             System.out.println("용돈 정보를 불러오는 중 오류 발생!");
         }
     }
 
-//    private void saveHistory(String filename, ArrayList<String> whereList) {
-//        try {
-//            FileOutputStream out0 = new FileOutputStream(filename);
-//            BufferedOutputStream out1 = new BufferedOutputStream(out0);
-//            DataOutputStream out = new DataOutputStream(out1);
-//
-//            out.writeShort(whereList.size());
-//
-//            for(int i = 0; i < whereList.size(); i++) {
-//                out.writeUTF(whereList.get(i));
-//            }
-//            out.close();
-//
-//        } catch (Exception e) {
-//            System.out.println("내역 정보를 저장하는 중 오류 발생");
-//        }
-//    }
+    private static void saveHistory() {
+        try {
+            FileOutputStream out0 = new FileOutputStream("History.data");
+            BufferedOutputStream out1 = new BufferedOutputStream(out0);
+            DataOutputStream out = new DataOutputStream(out1);
 
-//    private void saveBoard(String filename, ArrayList<String> commentsList) {
-//        try {
-//            FileOutputStream out0 = new FileOutputStream(filename);
-//            BufferedOutputStream out1 = new BufferedOutputStream(out0);
-//            DataOutputStream out = new DataOutputStream(out1);
-//
-//            out.writeShort(commentsList.size());
-//
-//            for(int i = 0; i < commentsList.size(); i++) {
-//                out.writeUTF(commentsList.get(i));
-//            }
-//            out.close();
-//
-//        } catch (Exception e) {
-//            System.out.println("내역 정보를 저장하는 중 오류 발생");
-//        }
-//    }
+            int size = whereList.size();
+            out.writeInt(size);
+
+            for(int i = 0; i < size; i++) {
+                out.writeUTF(whereList.get(i));
+                out.writeInt(expenseList.get(i));
+                out.writeUTF(localDateTimeArrayList.get(i).toString());
+            }
+            out.close();
+
+            System.out.println("내역 정보를 성공적으로 저장했습니다.");
+        } catch (Exception e) {
+            System.out.println("내역 정보를 저장하는 중 오류 발생");
+        }
+    }
+
+    private static void saveBoard() {
+        try {
+            FileOutputStream out0 = new FileOutputStream("Board.data");
+            BufferedOutputStream out1 = new BufferedOutputStream(out0);
+            DataOutputStream out = new DataOutputStream(out1);
+
+            int size = commentsList.size();
+            out.writeInt(size);
+
+
+            for(int i = 0; i < size; i++) {
+                out.writeUTF(commentsList.get(i));
+            }
+            out.close();
+            System.out.println("내역 정보를 성공적으로 저장했습니다.");
+        } catch (Exception e) {
+            System.out.println("내역 정보를 저장하는 중 오류 발생");
+        }
+    }
 
     private static void saveMoney() {
         try {
@@ -140,10 +157,9 @@ public class Main {
             out1.close();
             out0.close();
 
-
+            System.out.println("내역 정보를 성공적으로 저장했습니다.");
         } catch (Exception e) {
             System.out.println("용돈 정보를 저장하는 중 오류 발생!");
-            e.printStackTrace(); // 오류 메시지 출력
         }
     }
 }

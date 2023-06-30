@@ -1,30 +1,46 @@
 package bitcamp.myapp.vo;
 
-public class Member {
+import java.io.Serializable;
 
-  // 모든 인스턴스에서 공유하는 값은 스태틱 필드에 보관한다.
+public class Member implements Serializable, CsvObject {
+  private static final long serialVersionUID = 1L;
+
   public static int userId = 1;
-
-  // 상수는 스태틱 필드로 정의한다.
-  // 정보를 다룰 때는 그 정보를 갖고 있는 클래스에 기 기능을 둔다.
-  // 필드도 마찬가지이다.
-  // => GRASP 패턴 : Information Expert
 
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
 
-
-  // 인스턴스 필드는 각각 개별적으로 유지해야 하는 값을 저장할 때 사용한다.
-  // new 명령을 통해 변수를 Heap 영역에 생성한다.
   private int no;
   private String name;
   private String email;
   private String password;
   private char gender;
 
-
   public Member() {
     this.no = userId++;
+  }
+
+  public static Member fromCsv(String csv) {
+    String[] values = csv.split(",");
+
+    Member member = new Member(Integer.parseInt(values[0]));
+    member.setName(values[1]);
+    member.setEmail(values[2]);
+    member.setPassword(values[3]);
+    member.setGender(values[4].charAt(0));
+
+    if (Member.userId <= member.getNo()) {
+      Member.userId = member.getNo() + 1;
+    }
+
+    return member;
+  }
+
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
+        this.getPassword(), this.getGender());
   }
 
 
@@ -35,14 +51,13 @@ public class Member {
     this.no = no;
   }
 
-
   // Object의 equals()는 Member 인스턴스를 비교하는데 적합하지 않다.
-  // 왜? Object의 Equals()는 단순히 인스턴스 주소가 같은지 비교하기 때문이다.
-  // 우리가 원하는 것은 인스턴스 주소가 다르더라고
-  // 그 인스턴스 안에 저장된 변수들의 값이 같다면
+  // 왜? Object의 equals()는 단순히 인스턴스 주소가 같은지 비교하기 때문이다.
+  // 우리가 원하는 것은 인스턴스 주소가 다르더라도
+  // 두 인스턴스 안에 저장된 변수들의 값이 같다면
   // 두 인스턴스는 같은 것으로 처리하는 것이다.
   // 그렇게 하기 위해 수퍼 클래스의 equals()를 재정의 한다.
-  // => 이것을 "오버라이딩(overriding)" 이라 부른다.
+  // => 이것을 "오버라이딩(overriding)"이라 부른다.
   //
   public boolean equals(Object obj) {
     if (obj == null) {
@@ -53,7 +68,7 @@ public class Member {
       return false;
     }
 
-    // 위 조건에서 this가 가르키는 인스턴스의 클래스와
+    // 위 조건에서 this가 가리키는 인스턴스의 클래스와
     // 파라미터 obj가 가리키는 인스턴스의 클래스가
     // 같다고 결론이 났기 때문에 다음과 같이
     // obj를 Member 타입으로 형변환한다.
@@ -121,6 +136,5 @@ public class Member {
   public void setGender(char gender) {
     this.gender = gender;
   }
-
 
 }

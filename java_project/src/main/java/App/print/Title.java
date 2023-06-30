@@ -12,6 +12,7 @@ import util.Prompt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 
 public class Title implements MenuItem {
@@ -52,7 +53,7 @@ public class Title implements MenuItem {
         usageHistory.addMenuItem(new UsageHistoryMenu());
         board.addMenuItem(new BoardMenu());
 
-        Prompt prompt = new Prompt();
+        Scanner sc = new Scanner(System.in);
 
 
         while (true) {
@@ -61,19 +62,24 @@ public class Title implements MenuItem {
             System.out.println("3. 사용 내역 comments");
             System.out.println("4. 종료");
 
-            String menuNo = "";
-            boolean validInput = false;
-            while (!validInput) {
-                try {
-                    menuNo = prompt.inputString("메뉴를 선택하세요: ");
-                    validInput = true;
-                } catch (NoSuchElementException e) {
-                    System.out.println("입력을 다시 받습니다.");
-                }
-            }
+//            String menuNo = "";
+//            boolean validInput = false;
+//            while (!validInput) {
+//                try {
+//                    menuNo = prompt.inputString("메뉴를 선택하세요: ");
+//                    validInput = true;
+//                } catch (NoSuchElementException e) {
+//                    System.out.println("입력을 다시 받습니다.");
+//                    prompt.close();
+//                    prompt = new Prompt();
+//                }
+//            }
 
+
+            String menuNo = sc.next();
             if (menuNo.equals("4")) {
                 System.out.println("종료합니다");
+
                 break;
             } else if (menuNo.equals("1")) {
                 pocketMoney.execute();
@@ -84,8 +90,12 @@ public class Title implements MenuItem {
             } else {
                 System.out.println("잘못 입력하셨습니다.");
             }
+
+            System.out.println();
         }
+        sc.close();
     }
+
     }
 
 

@@ -26,7 +26,7 @@ public class Board {
 
 
     public void execute() {
-        printMenu();
+//        printMenu();
         System.out.print(" 메뉴를 선택해주세요");
         while (true) {
             String menuNo = sc.next();
@@ -36,33 +36,38 @@ public class Board {
             } else if (menuNo.equals("2")) {
                 MenuItem menuItem = menuGroup.getMenuItems().get(1);
                 menuItem.execute();
-            } else {
-                System.out.println("잘못 입력하셨습니다");
+            } else if(menuNo.equals("3")){
+                MenuItem menuItem = menuGroup.getMenuItems().get(2);
+                menuItem.execute();
             }
         }
     }
 
 
-    public void printMenu() {
-        System.out.println("1 : 사용내역에 관한 내용작성");
-        System.out.println("2 : 사용내역 내용 보기");
-    }
+//    public void printMenu() {
+//        System.out.println("1 : 사용내역에 관한 내용작성");
+//        System.out.println("2 : 사용내역 내용 보기");
+//        System.out.println("3 : 돌아가기");
+//    }
 
     public static void board() {
         System.out.println("일기를 쓰고 싶은 사용 내역을 선택하세요");
         selectedExpense = sc.next();
         sc.nextLine();
+
         for (int i = 0; i < cnt; i++) {
             if (whereList.get(i).equals(selectedExpense)){
                 System.out.println(selectedExpense + "에 관한 내용을 작성해주세요");
                 String comment = sc.nextLine();
                 commentsList.add(comment);
-                break;
+                return;
             }else {
                 System.out.println(selectedExpense + " 사용 내역이 없습니다.");
                 break;
             }
         }
+        sc.nextLine();
+        sc.close();
         menu();
     }
 

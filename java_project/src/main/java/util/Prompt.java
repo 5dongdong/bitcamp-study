@@ -18,6 +18,9 @@ public class Prompt {
         System.out.printf(title, args);
         return this.sc.nextLine();
     }
+    public String next() {
+        return this.sc.next();
+    }
 
     public int inputInt(String title, Object... args) {
         return Integer.parseInt(inputString(title, args));

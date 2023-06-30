@@ -1,7 +1,6 @@
 package App.handle;
 
 import App.print.Title;
-import util.Menu.Menu;
 import util.Menu.MenuItem;
 import util.Prompt;
 
@@ -15,7 +14,7 @@ import static App.vo.Use.cnt;
 
 public class UsageHistory implements MenuItem{
 
-    static ArrayList<LocalDateTime> localDateTimeArrayList = new ArrayList<>();
+    public static ArrayList<LocalDateTime> localDateTimeArrayList = new ArrayList<>();
     private static Stack<String> recentUsageStack = new Stack<>();
     static Prompt prompt = new Prompt();
     private List<MenuItem> menuItems = new ArrayList<>();
@@ -83,8 +82,8 @@ public class UsageHistory implements MenuItem{
         String response = "y";
         while (response.equalsIgnoreCase("y")) {
             localDateTimeArrayList.add(LocalDateTime.now());
-            String x = prompt.inputString("사용한 곳을 입력하세요");
-            System.out.println(x + "에 얼마를 사용했는지 입력하세요");
+            String where = prompt.inputString("사용한 곳을 입력하세요");
+            System.out.println(where + "에 얼마를 사용했는지 입력하세요");
             try {
                 int expense = sc.nextInt();
                 expenseList.add(expense);
@@ -94,7 +93,7 @@ public class UsageHistory implements MenuItem{
                 choice2();
             }
 
-            whereList.add(x);
+            whereList.add(where);
             cnt++;
 
             System.out.print("더 쓸 내용이 있습니까? (Y/N): ");
@@ -107,6 +106,7 @@ public class UsageHistory implements MenuItem{
                 System.out.println();
             }
         }
+
         System.out.println("----------");
         Choice();
     }
@@ -152,26 +152,25 @@ public class UsageHistory implements MenuItem{
             Title.menu();
             return;
         }
+            ArrayList<Integer> remainingList  = new ArrayList<>();
+            int remainingMoney = money; // 용돈의 초기값으로 remainingMoney를 초기화합니다.
 
-        ArrayList<Integer> remainingList  = new ArrayList<>();
-        int remainingMoney = money; // 용돈의 초기값으로 remainingMoney를 초기화합니다.
+            for(int i = 0; i < cnt; i++) {
+                remainingMoney -= expenseList.get(i);
+                remainingList.add(remainingMoney);
+            }
 
-        for(int i = 0; i < cnt; i++) {
-            remainingMoney -= expenseList.get(i);
-            remainingList .add(remainingMoney);
+            for (int i = 0; i < cnt; i++) {
+                System.out.println("==========================");
+                System.out.printf("등록일: %s%n",localDateTimeArrayList.get(i));
+                System.out.println("사용한곳 : " + whereList.get(i));
+                System.out.println("사용금액 : " + expenseList.get(i));
+                System.out.println("남은 용돈: " +  remainingList.get(i));
+                System.out.println("==========================");
+            }
+            Title.menu();
         }
 
-
-        for (int i = 0; i < cnt; i++) {
-            System.out.println("==========================");
-            System.out.printf("등록일: %s%n",localDateTimeArrayList.get(i));
-            System.out.println("사용한곳 : " + whereList.get(i));
-            System.out.println("사용금액 : " + expenseList.get(i));
-            System.out.println("남은 용돈: " +  remainingList .get(i));
-            System.out.println("==========================");
-        }
-        Title.menu();
-    }
 
 
     public static void recent(){

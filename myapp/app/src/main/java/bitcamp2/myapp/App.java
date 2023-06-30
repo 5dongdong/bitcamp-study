@@ -1,5 +1,10 @@
-package bitcamp.myapp;
+package bitcamp2.myapp;
 
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,14 +26,13 @@ import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadCrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
-import bitcamp2.myapp.io.DataInputStream;
-import bitcamp2.myapp.io.DataOutputStream;
 
 public class App {
 
   ArrayList<Member> memberList = new ArrayList<>();
   LinkedList<Board> boardList = new LinkedList<>();
   LinkedList<Board> readingList = new LinkedList<>();
+
 
   BreadCrumbPrompt prompt = new BreadCrumbPrompt();
 
@@ -103,7 +107,9 @@ public class App {
 
   private void loadMember() {
     try {
-      DataInputStream in = new DataInputStream("member.data");
+      FileInputStream in0 = new FileInputStream("member.data");
+      DataInputStream in = new DataInputStream(in0);
+
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
@@ -128,7 +134,8 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      DataInputStream in = new DataInputStream(filename);
+      FileInputStream in0 = new FileInputStream(filename);
+      DataInputStream in = new DataInputStream(in0);
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
@@ -154,7 +161,10 @@ public class App {
 
   private void saveMember() {
     try {
-      DataOutputStream out = new DataOutputStream("member.data");
+      FileOutputStream out0 = new FileOutputStream("member.data");
+      BufferedOutputStream out1 = new BufferedOutputStream(out0);
+      DataOutputStream out = new DataOutputStream(out1);
+
 
       // 저장할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
@@ -175,7 +185,9 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      DataOutputStream out = new DataOutputStream(filename);
+      FileOutputStream out0 = new FileOutputStream(filename);
+      BufferedOutputStream out1 = new BufferedOutputStream(out0);
+      DataOutputStream out = new DataOutputStream(out1);
 
       out.writeShort(boardList.size());
 

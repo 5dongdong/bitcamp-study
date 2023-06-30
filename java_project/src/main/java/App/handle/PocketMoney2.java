@@ -59,13 +59,10 @@ public class PocketMoney2 {
     public void plusMoney() {
         System.out.println("용돈을 추가해주세요");
         try { //오류를 발생시킬수 있는 곳
-//            use.setMoneyToAdd(sc.nextInt());
             int moneyToAdd = prompt.inputInt("추가할 용돈을 입력하세요");
-//            money += use.getMoneyToAdd();
             money += moneyToAdd;
             System.out.println();
             System.out.println("----------");
-//            System.out.println(use.getMoneyToAdd() + "원 추가되었습니다.");
             System.out.println(moneyToAdd + "원 추가되었습니다.");
             System.out.println("----------");
             System.out.println();
@@ -77,7 +74,7 @@ public class PocketMoney2 {
             System.out.println();
             System.out.println("잘못 입력하셨습니다.");
             System.out.println();
-            sc.nextLine();
+            prompt.close();
         }
         menu();
     }
@@ -104,10 +101,6 @@ public class PocketMoney2 {
         menu();
     }
 
-//    public static void menu() {
-//        PocketMoney2 pocketMoney2 = new PocketMoney2();
-//        pocketMoney2.execute();
-//    }
 
 }
 
