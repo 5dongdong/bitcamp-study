@@ -44,11 +44,6 @@ public class Board {
     }
 
 
-//    public void printMenu() {
-//        System.out.println("1 : 사용내역에 관한 내용작성");
-//        System.out.println("2 : 사용내역 내용 보기");
-//        System.out.println("3 : 돌아가기");
-//    }
 
     public static void board() {
         System.out.println("일기를 쓰고 싶은 사용 내역을 선택하세요");
@@ -67,7 +62,6 @@ public class Board {
             }
         }
         sc.nextLine();
-        sc.close();
         menu();
     }
 

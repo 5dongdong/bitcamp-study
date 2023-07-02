@@ -96,7 +96,7 @@ public class Main {
 
             money = in.readInt();
 
-            System.out.println("내역 정보를 성공적으로 로드했습니다.");
+            System.out.println("용돈 정보를 성공적으로 로드했습니다.");
         }catch (Exception e){
             System.out.println("용돈 정보를 불러오는 중 오류 발생!");
         }
@@ -138,9 +138,9 @@ public class Main {
                 out.writeUTF(commentsList.get(i));
             }
             out.close();
-            System.out.println("내역 정보를 성공적으로 저장했습니다.");
+            System.out.println("Board 정보를 성공적으로 저장했습니다.");
         } catch (Exception e) {
-            System.out.println("내역 정보를 저장하는 중 오류 발생");
+            System.out.println("Board 정보를 저장하는 중 오류 발생");
         }
     }
 
@@ -157,7 +157,7 @@ public class Main {
             out1.close();
             out0.close();
 
-            System.out.println("내역 정보를 성공적으로 저장했습니다.");
+            System.out.println("용돈 정보를 성공적으로 저장했습니다.");
         } catch (Exception e) {
             System.out.println("용돈 정보를 저장하는 중 오류 발생!");
         }

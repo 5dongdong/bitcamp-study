@@ -13,7 +13,7 @@ import util.Prompt;
 import java.util.InputMismatchException;
 import java.util.List;
 
-import static App.handle.UsageHistory.sc;
+
 import static App.print.Title.menu;
 import static App.vo.Use.*;
 

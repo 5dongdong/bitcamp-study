@@ -19,8 +19,8 @@ public class UsageHistory implements MenuItem{
     static Prompt prompt = new Prompt();
     private List<MenuItem> menuItems = new ArrayList<>();
 
-    static Scanner sc = new Scanner(System.in);
     private String title;
+    static Scanner sc = new Scanner(System.in);
 
 
 
@@ -79,17 +79,18 @@ public class UsageHistory implements MenuItem{
 
     public  static void choice2() {
 
+
         String response = "y";
         while (response.equalsIgnoreCase("y")) {
             localDateTimeArrayList.add(LocalDateTime.now());
             String where = prompt.inputString("사용한 곳을 입력하세요");
             System.out.println(where + "에 얼마를 사용했는지 입력하세요");
             try {
-                int expense = sc.nextInt();
+                int expense = prompt.inputInt("금액을 입력하세요");
                 expenseList.add(expense);
             } catch (InputMismatchException e){
                 System.out.println("잘못 입력하셨습니다.");
-                sc.nextLine();
+                prompt.next();
                 choice2();
             }
 
@@ -97,12 +98,12 @@ public class UsageHistory implements MenuItem{
             cnt++;
 
             System.out.print("더 쓸 내용이 있습니까? (Y/N): ");
-            response = sc.next();
+            response = prompt.next();
             System.out.println();
             while(!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("n")){
                 System.out.println("잘못된 입력입니다. 다시 입력해주세요");
                 System.out.print("더 쓸 내용이 있습니까? (Y/N): ");
-                response = sc.next();
+                response = prompt.next();
                 System.out.println();
             }
         }
