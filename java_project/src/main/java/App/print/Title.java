@@ -3,6 +3,7 @@ package App.print;
 
 import App.handle.Money.PocketMoneyMenu;
 import App.handle.PocketMoney2;
+import App.handle.UsageHistory;
 import App.handle.UsageHistoryMenu;
 import App.handle.board.BoardMenu;
 import util.Menu.MenuGroup;
@@ -17,9 +18,10 @@ import java.util.Scanner;
 
 public class Title implements MenuItem {
 
-    private String title;
+    private final String title;
     private MenuGroup menuGroup;
     private List<MenuItem> menuItems;
+    private static boolean running = true;
 
 
     public Title(String title) {
@@ -51,40 +53,43 @@ public class Title implements MenuItem {
 
         PocketMoney2 pocketMoney2 = new PocketMoney2();
 
+
         pocketMoney.addMenuItem(new PocketMoneyMenu(pocketMoney2));
         usageHistory.addMenuItem(new UsageHistoryMenu());
         board.addMenuItem(new BoardMenu());
 
 
 
-        while (true) {
-            System.out.println("1. 용돈 관련");
-            System.out.println("2. 사용 내역");
-            System.out.println("3. 사용 내역 comments");
-            System.out.println("4. 종료");
+            while (running) {
+                System.out.println("1. 용돈 관련");
+                System.out.println("2. 사용 내역");
+                System.out.println("3. 사용 내역 comments");
+                System.out.println("4. 종료");
 
+                String menuNo = prompt.inputString("메뉴를 선택하세요:");
+                switch (menuNo) {
+                    case "1":
+                        pocketMoney.execute();
+                        break;
+                    case "2":
+                        usageHistory.execute();
+                        break;
+                    case "3":
+                        board.execute();
+                        break;
+                    case "4":
+                        System.out.println("종료합니다");
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("잘못 입력하셨습니다.");
+                        return;
+                }
 
-            String menuNo = prompt.inputString("메뉴를 선택하세요:");
-            if (menuNo.equals("4")) {
-                System.out.println("종료합니다");
-                break;
-            } else if (menuNo.equals("1")) {
-                pocketMoney.execute();
-            } else if (menuNo.equals("2")) {
-                usageHistory.execute();
-            } else if (menuNo.equals("3")) {
-                board.execute();
-            } else {
-                System.out.println("잘못 입력하셨습니다.");
             }
-
-            System.out.println();
-            prompt.inputString("계속하려면 엔터 키를 눌러주세요: ");
-
         }
     }
 
-    }
 
 
 

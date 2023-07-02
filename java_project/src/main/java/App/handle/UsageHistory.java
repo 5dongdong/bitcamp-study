@@ -24,7 +24,7 @@ public class UsageHistory implements MenuItem{
 
 
 
-    public UsageHistory(String title) {
+    public UsageHistory() {
         this.title = title;
     }
 
@@ -35,6 +35,7 @@ public class UsageHistory implements MenuItem{
         while (true) {
             String menuNo = prompt.inputString("메뉴를 선택해주세요");
             if (menuNo.equals("5")) {
+                menu();
                 break;
             } else {
                 try {
@@ -110,6 +111,7 @@ public class UsageHistory implements MenuItem{
 
         System.out.println("----------");
         Choice();
+        prompt.close();
     }
 
     public static void Choice() {
@@ -170,6 +172,7 @@ public class UsageHistory implements MenuItem{
                 System.out.println("==========================");
             }
             Title.menu();
+            prompt.close();
         }
 
 
@@ -201,6 +204,7 @@ public class UsageHistory implements MenuItem{
             }
         }
         menu();
+        prompt.close();
     }
 
 
@@ -249,6 +253,7 @@ public class UsageHistory implements MenuItem{
         }
         System.out.println(selectedExpense + " 사용 내역이 없습니다.");
         update();
+        sc.close();
     }
 
 

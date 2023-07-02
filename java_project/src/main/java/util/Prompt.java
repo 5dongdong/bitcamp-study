@@ -38,14 +38,5 @@
             sc.close();
         }
 
-
-        public int inputInt2(String title, Object... args) {
-            String input = inputString(title, args);
-            try {
-                return Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                System.out.println("잘못된 입력입니다.");
-                return 0; // 또는 오류 발생 시 기본값으로 반환하고자 하는 값을 지정하십시오.
-            }
-        }
+        
     }

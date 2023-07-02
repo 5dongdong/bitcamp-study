@@ -20,7 +20,7 @@ import static App.vo.Use.*;
 
 public class PocketMoney2 {
     private MenuGroup moneyMenuGroup;
-    public static Use use = new Use();
+
     Prompt prompt = new Prompt();
 
     public PocketMoney2() {
@@ -35,26 +35,7 @@ public class PocketMoney2 {
         moneyMenuGroup.addMenuItem(showMoneyMenuItemItem);
     }
 
-    public void execute(){
-        printMenu();
-        while (true) {
-            int menuNO = prompt.inputInt("메뉴를 선택해주세요");
-            if(menuNO >= 1 && menuNO <= moneyMenuGroup.getMoneyMenuItems().size()){
-                MenuItem menuItem = moneyMenuGroup.getMoneyMenuItems().get(menuNO - 1);
-                menuItem.execute();
-            }else{
-                System.out.println("잘못 입력하셨습니다.");
-            };
-        }
-    }
 
-    private void printMenu() {
-        System.out.println("== 메뉴 ==");
-        List<MenuItem> menuItems = moneyMenuGroup.getMoneyMenuItems();
-        for (int i = 0; i < menuItems.size(); i++) {
-            System.out.println((i + 1) + ". " + menuItems.get(i).toString());
-        }
-    }
 
     public void plusMoney() {
         System.out.println("용돈을 추가해주세요");

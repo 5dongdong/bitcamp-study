@@ -8,6 +8,7 @@ import static App.handle.UsageHistory.*;
 public class UsageHistoryMenu implements MenuItem {
     private Prompt prompt = new Prompt();
 
+    @Override
     public void execute(){
         while(true) {
             System.out.println("1. 사용처 입력");
