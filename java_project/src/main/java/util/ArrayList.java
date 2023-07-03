@@ -1,5 +1,10 @@
 package util;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 public class ArrayList implements List {
     private static final int DEFAULT_SIZE = 3;
 
@@ -37,11 +42,26 @@ public class ArrayList implements List {
     }
 
     @Override
+    public Object[] toArray(Object[] a) {
+        return new Object[0];
+    }
+
+    @Override
     public Object get(int index) {
         if (!isValid(index)) {
             return null;
         }
         return this.list[index];
+    }
+
+    @Override
+    public Object set(int index, Object element) {
+        return null;
+    }
+
+    @Override
+    public void add(int index, Object element) {
+
     }
 
     @Override
@@ -56,6 +76,36 @@ public class ArrayList implements List {
         }
         this.list[--this.length] = null;
         return true;
+    }
+
+    @Override
+    public boolean addAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection c) {
+        return false;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public boolean retainAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection c) {
+        return false;
     }
 
     @Override
@@ -79,11 +129,26 @@ public class ArrayList implements List {
         return this.length;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
     private boolean isValid(int index) {
         return index >= 0 && index < this.length;
     }
 
-    private int indexOf(Object obj) {
+    public int indexOf(Object obj) {
         for (int i = 0; i < this.length; i++) {
             Object item = this.list[i];
             if (item.equals(obj)) {
@@ -91,5 +156,25 @@ public class ArrayList implements List {
             }
         }
         return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public ListIterator listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List subList(int fromIndex, int toIndex) {
+        return null;
     }
 }

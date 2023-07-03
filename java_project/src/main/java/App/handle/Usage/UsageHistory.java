@@ -1,4 +1,4 @@
-package App.handle;
+package App.handle.Usage;
 
 import App.print.Title;
 import util.Menu.MenuItem;
@@ -30,27 +30,59 @@ public class UsageHistory implements MenuItem{
 
 
 
-    public void execute() {
+//    public void execute() {
+//        printMenu();
+//        while (true) {
+//            String menuNo = prompt.inputString("메뉴를 선택해주세요");
+//            if (menuNo.equals("5")) {
+//                menu();
+//                break;
+//            } else {
+//                try {
+//                    int index = Integer.parseInt(menuNo) - 1;
+//                    if (index >= 0 && index < menuItems.size()) {
+//                        executeMenuItem(index);
+//                    } else {
+//                        System.out.println("잘못된 메뉴 번호입니다.");
+//                    }
+//                } catch (NumberFormatException e) {
+//                    System.out.println("잘못된 입력입니다.");
+//                }
+//            }
+//        }
+//    }
+public void execute() {
+    int menuNo = 0;
+    while (menuNo != 5) {
         printMenu();
-        while (true) {
-            String menuNo = prompt.inputString("메뉴를 선택해주세요");
-            if (menuNo.equals("5")) {
+        menuNo = prompt.inputInt("메뉴를 선택해주세요");
+
+        switch (menuNo) {
+            case 1:
+                // 사용처 관련 작업 수행
+                choice2();
+                break;
+            case 2:
+                // 내역 확인 관련 작업 수행
+                list();
+                break;
+            case 3:
+                // 내역 수정 관련 작업 수행
+                update();
+                break;
+            case 4:
+                // 최근 내역 관련 작업 수행
+                recent();
+                break;
+            case 5:
+                // 메뉴로 돌아가기
                 menu();
                 break;
-            } else {
-                try {
-                    int index = Integer.parseInt(menuNo) - 1;
-                    if (index >= 0 && index < menuItems.size()) {
-                        executeMenuItem(index);
-                    } else {
-                        System.out.println("잘못된 메뉴 번호입니다.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("잘못된 입력입니다.");
-                }
-            }
+            default:
+                System.out.println("잘못된 메뉴 번호입니다.");
         }
     }
+}
 
 
     private void printMenu(){
@@ -61,22 +93,22 @@ public class UsageHistory implements MenuItem{
         System.out.println("5 : 메뉴");
     }
 
-    private void executeMenuItem(int index) {
-        switch (index) {
-            case 0:
-                choice2();
-                break;
-            case 1:
-                list();
-                break;
-            case 2:
-                update();
-                break;
-            case 3:
-                recent();
-                break;
-        }
-    }
+//    private void executeMenuItem(int index) {
+//        switch (index) {
+//            case 0:
+//                choice2();
+//                break;
+//            case 1:
+//                list();
+//                break;
+//            case 2:
+//                update();
+//                break;
+//            case 3:
+//                recent();
+//                break;
+//        }
+//    }
 
     public  static void choice2() {
 

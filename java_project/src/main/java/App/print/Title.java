@@ -2,9 +2,8 @@ package App.print;
 
 
 import App.handle.Money.PocketMoneyMenu;
-import App.handle.PocketMoney2;
-import App.handle.UsageHistory;
-import App.handle.UsageHistoryMenu;
+import App.handle.Money.PocketMoney2;
+import App.handle.Usage.UsageHistoryMenu;
 import App.handle.board.BoardMenu;
 import util.Menu.MenuGroup;
 import util.Menu.MenuItem;
@@ -12,8 +11,6 @@ import util.Prompt;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 
 public class Title implements MenuItem {

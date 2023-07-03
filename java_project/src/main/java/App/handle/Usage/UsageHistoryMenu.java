@@ -1,9 +1,9 @@
-package App.handle;
+package App.handle.Usage;
 
 import util.Menu.MenuItem;
 import util.Prompt;
 
-import static App.handle.UsageHistory.*;
+import static App.handle.Usage.UsageHistory.*;
 
 public class UsageHistoryMenu implements MenuItem {
     private Prompt prompt = new Prompt();

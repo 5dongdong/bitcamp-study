@@ -1,10 +1,7 @@
 package App.handle.Money;
 
-import App.handle.PocketMoney2;
 import util.Menu.MenuItem;
 import util.Prompt;
-
-import java.util.NoSuchElementException;
 
 import static App.print.Title.menu;
 

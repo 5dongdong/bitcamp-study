@@ -73,6 +73,7 @@ repositories {
 
 // 프로젝트에서 사용할 자바 라이브러리 목록
 dependencies {
+implementation 'com.google.code.gson:gson:2.10.1'
   // 미디어 파일에서 메타 정보(위도/경도, 해상도 등) 추출
   implementation 'com.drewnoakes:metadata-extractor:2.18.0'
   // Spring IoC 컨테이너

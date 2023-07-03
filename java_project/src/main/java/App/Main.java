@@ -1,13 +1,10 @@
 package App;
 
 
-import App.vo.Use;
-
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import static App.handle.UsageHistory.localDateTimeArrayList;
+import static App.handle.Usage.UsageHistory.localDateTimeArrayList;
 import static App.handle.board.Board.commentsList;
 import static App.print.Title.menu;
 import static App.print.Title.title;
@@ -90,7 +87,7 @@ public class Main {
         }
     }
 
-//    private static void loadMoney() {
+//    private static void loadMoney() {   to csv파일인데 작동안함
 //        try {
 //            String filePath = "D:/포트폴리오/bitcamp/study-java/bitcamp-study/java_project/src/Money.csv";
 //

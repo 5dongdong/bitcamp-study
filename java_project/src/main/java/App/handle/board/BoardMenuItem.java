@@ -11,7 +11,7 @@ public class BoardMenuItem implements MenuItem {
 
     @Override
     public void execute(){
-        board.board();
+        board.writeBoard();
     }
 }
 
