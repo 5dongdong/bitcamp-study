@@ -3,7 +3,6 @@ package bitcamp.myapp.vo;
 import java.io.Serializable;
 
 public class Board implements Serializable, CsvObject, AutoIncrement {
-
   private static final long serialVersionUID = 1L;
 
   public static int boardNo = 1;
@@ -20,12 +19,6 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
 
   public Board(int no) {
     this.no = no;
-  }
-
-  @Override
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
-        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
   }
 
   public static Board fromCsv(String csv) {
@@ -53,6 +46,12 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
     }
   }
 
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
+        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
+  }
+
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
@@ -62,14 +61,14 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
       return false;
     }
 
-    Board board = (Board) obj;
+    Board b = (Board) obj;
 
-    if (this.getNo() != board.getNo()) {
+    if (this.getNo() != b.getNo()) {
       return false;
     }
+
     return true;
   }
-
 
   public int getNo() {
     return no;
@@ -126,7 +125,6 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
   public void setPassword(String password) {
     this.password = password;
   }
-
 
 
 }

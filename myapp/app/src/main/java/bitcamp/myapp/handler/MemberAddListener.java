@@ -1,28 +1,25 @@
 package bitcamp.myapp.handler;
 
-import java.util.List;
+import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadCrumbPrompt;
 
-public class MemberAddListener extends AbstractMemberListener {
+public class MemberAddListener implements MemberActionListener {
 
+  MemberDao memberDao;
 
-  public MemberAddListener(List<Member> list) {
-    super(list);
+  public MemberAddListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void service(BreadCrumbPrompt prompt) {
     Member m = new Member();
-
-    m.setNo(Member.userId++);
     m.setName(prompt.inputString("이름? "));
     m.setEmail(prompt.inputString("이메일? "));
     m.setPassword(prompt.inputString("암호? "));
-    m.setGender(inputGender((char) 0, prompt));
+    m.setGender(MemberActionListener.inputGender((char) 0, prompt));
 
-    this.list.add(m);
+    memberDao.insert(m);
   }
-
-
 }
