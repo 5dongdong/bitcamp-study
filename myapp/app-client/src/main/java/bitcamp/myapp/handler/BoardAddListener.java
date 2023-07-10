@@ -21,17 +21,8 @@ public class BoardAddListener implements ActionListener {
     board.setWriter(prompt.inputString("작성자? "));
     board.setPassword(prompt.inputString("암호? "));
 
-    boardDao.insert(board);
+    BoardDao.insert(board);
   }
 }
-
-
-
-
-
-
-
-
-
 
 
