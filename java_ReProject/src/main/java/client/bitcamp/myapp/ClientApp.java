@@ -1,24 +1,13 @@
-package bitcamp.myapp;
+package client.bitcamp.myapp;
 
-import bitcamp.dao.DaoBuilder;
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.handler.BoardAddListener;
-import bitcamp.myapp.handler.BoardDeleteListener;
-import bitcamp.myapp.handler.BoardDetailListener;
-import bitcamp.myapp.handler.BoardListListener;
-import bitcamp.myapp.handler.BoardUpdateListener;
-import bitcamp.myapp.handler.FooterListener;
-import bitcamp.myapp.handler.HeaderListener;
-import bitcamp.myapp.handler.HelloListener;
-import bitcamp.myapp.handler.MemberAddListener;
-import bitcamp.myapp.handler.MemberDeleteListener;
-import bitcamp.myapp.handler.MemberDetailListener;
-import bitcamp.myapp.handler.MemberListListener;
-import bitcamp.myapp.handler.MemberUpdateListener;
-import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.Menu;
-import bitcamp.util.MenuGroup;
+
+import client.bitcamp.dao.DaoBuilder;
+import client.bitcamp.myapp.handler.*;
+import client.bitcamp.util.BreadcrumbPrompt;
+import client.bitcamp.util.Menu;
+import client.bitcamp.util.MenuGroup;
+import common.bitcamp.myapp.dao.BoardDao;
+import common.bitcamp.myapp.dao.MemberDao;
 
 public class ClientApp {
 

@@ -1,4 +1,9 @@
-package bitcamp.myapp;
+package server.bitcamp.myapp;
+
+import common.bitcamp.net.RequestEntity;
+import common.bitcamp.net.ResponseEntity;
+import server.bitcamp.myapp.dao.BoardListDao;
+import server.bitcamp.myapp.dao.MemberListDao;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,10 +13,6 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import bitcamp.myapp.dao.BoardListDao;
-import bitcamp.myapp.dao.MemberListDao;
-import bitcamp.net.RequestEntity;
-import bitcamp.net.ResponseEntity;
 
 
 public class ServerApp {

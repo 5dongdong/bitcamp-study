@@ -1,4 +1,8 @@
-package bitcamp.dao;
+package client.bitcamp.dao;
+
+import client.bitcamp.myapp.ClientApp;
+import common.bitcamp.net.RequestEntity;
+import common.bitcamp.net.ResponseEntity;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,9 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.net.Socket;
 import java.util.List;
-import bitcamp.myapp.ClientApp;
-import bitcamp.net.RequestEntity;
-import bitcamp.net.ResponseEntity;
+
 
 public class DaoBuilder {
 

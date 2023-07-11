@@ -1,4 +1,4 @@
-package bitcamp.util;
+package client.bitcamp.util;
 
 import java.util.ArrayList;
 
