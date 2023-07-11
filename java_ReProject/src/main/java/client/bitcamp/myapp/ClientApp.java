@@ -8,6 +8,7 @@ import client.bitcamp.util.Menu;
 import client.bitcamp.util.MenuGroup;
 import common.bitcamp.myapp.dao.BoardDao;
 import common.bitcamp.myapp.dao.MemberDao;
+import common.bitcamp.myapp.dao.MoneyDao;
 
 public class ClientApp {
 
@@ -15,6 +16,8 @@ public class ClientApp {
   MemberDao memberDao;
   BoardDao boardDao;
   BoardDao readingDao;
+
+  MoneyDao moneyDao;
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
@@ -28,6 +31,8 @@ public class ClientApp {
     this.memberDao = daoBuilder.build("member", MemberDao.class);
     this.boardDao = daoBuilder.build("board", BoardDao.class);
     this.readingDao = daoBuilder.build("reading", BoardDao.class);
+    this.moneyDao = daoBuilder.build("money", MoneyDao.class);
+
 
     prepareMenu();
   }
@@ -58,13 +63,13 @@ public class ClientApp {
   }
 
   private void prepareMenu() {
-    MenuGroup memberMenu = new MenuGroup("회원");
-    memberMenu.add(new Menu("등록", new MemberAddListener(memberDao)));
-    memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
-    memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
-    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao)));
-    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao)));
-    mainMenu.add(memberMenu);
+//    MenuGroup memberMenu = new MenuGroup("회원");
+//    memberMenu.add(new Menu("등록", new MemberAddListener(memberDao)));
+//    memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
+//    memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
+//    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao)));
+//    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao)));
+//    mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
     boardMenu.add(new Menu("등록", new BoardAddListener(boardDao)));
@@ -82,10 +87,13 @@ public class ClientApp {
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
     mainMenu.add(readingMenu);
 
-    Menu helloMenu = new Menu("안녕!");
-    helloMenu.addActionListener(new HeaderListener());
-    helloMenu.addActionListener(new HelloListener());
-    helloMenu.addActionListener(new FooterListener());
-    mainMenu.add(helloMenu);
+    MenuGroup moneyMenu = new MenuGroup("용돈");
+    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao)));
+    moneyMenu.add(new Menu("목록", new MoneyListListener(moneyDao)));
+    moneyMenu.add(new Menu("조회", new MoneyDetailListener(moneyDao)));
+    moneyMenu.add(new Menu("변경", new MoneyUpdateListener(moneyDao)));
+    moneyMenu.add(new Menu("삭제", new MoneyDeleteListener(moneyDao)));
+    mainMenu.add(moneyMenu);
+
   }
 }
