@@ -4,7 +4,6 @@ import common.bitcamp.net.RequestEntity;
 import common.bitcamp.net.ResponseEntity;
 import server.bitcamp.myapp.dao.BoardListDao;
 import server.bitcamp.myapp.dao.MemberListDao;
-import server.bitcamp.myapp.dao.MoneyListDao;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,7 +28,6 @@ public class ServerApp {
     daoMap.put("member", new MemberListDao("member.json"));
     daoMap.put("board", new BoardListDao("board.json"));
     daoMap.put("reading", new BoardListDao("reading.json"));
-    daoMap.put("money", new MoneyListDao("money.json"));
   }
 
   public void close() throws Exception {

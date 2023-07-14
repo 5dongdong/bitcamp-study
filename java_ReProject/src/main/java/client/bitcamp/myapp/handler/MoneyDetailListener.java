@@ -14,11 +14,11 @@ public class MoneyDetailListener implements ActionListener {
 
     @Override
     public void service(BreadcrumbPrompt prompt) {
-        int moneyNo = prompt.inputInt("번호?");
+        int use = prompt.inputInt("몇번내역");
 
-        Money m = moneyDao.findBy(moneyNo);
+        Money m = moneyDao.findBy(use);
         if (m == null) {
-            System.out.println("해당 번호가 없습니다.");
+            System.out.println("해당 내역이 없습니다.");
             return;
         }
 

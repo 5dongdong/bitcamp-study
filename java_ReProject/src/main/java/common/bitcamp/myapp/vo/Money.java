@@ -12,6 +12,8 @@ public class Money implements Serializable, CsvObject, AutoIncrement {
     private String use;
     private int money;
 
+    private int addMoney;
+
 
     public Money() {}
 
@@ -81,5 +83,13 @@ public class Money implements Serializable, CsvObject, AutoIncrement {
 
     public void setUse(String use) {
         this.use = use;
+    }
+
+    public int getAddMoney() {
+        return addMoney;
+    }
+
+    public void setAddMoney(int addMoney) {
+        this.addMoney = addMoney;
     }
 }

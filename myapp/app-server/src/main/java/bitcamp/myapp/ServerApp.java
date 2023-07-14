@@ -12,7 +12,9 @@ import bitcamp.myapp.dao.BoardListDao;
 import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
-
+import bitcamp.util.Job;
+import bitcamp.util.ManagedThread;
+import bitcamp.util.ThreadPool;
 
 public class ServerApp {
 
@@ -20,6 +22,9 @@ public class ServerApp {
   ServerSocket serverSocket;
 
   HashMap<String, Object> daoMap = new HashMap<>();
+
+  // 스레드를 리턴해 줄 스레드풀 준비
+  ThreadPool threadPool = new ThreadPool();
 
   public ServerApp(int port) throws Exception {
     this.port = port;
@@ -45,13 +50,28 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
+    class RequestProcessJob implements Job {
+      Socket socket;
+
+      public RequestProcessJob(Socket socket) {
+        this.socket = socket;
+      }
+
+      @Override
+      public void execute() {
+        processRequest(socket);
+      }
+    }
+
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
     while (true) {
-      processRequest(serverSocket.accept());
+      Socket socket = serverSocket.accept();
+      ManagedThread t = threadPool.getResource();
+      t.setJob(new RequestProcessJob(socket));
     }
   }
 
@@ -74,23 +94,21 @@ public class ServerApp {
     }
   }
 
-  // 클라이언트와 접속이 이루어지면 클라이언트의 요청을 처리한다.
   public void processRequest(Socket socket) {
     try (Socket s = socket;
         DataInputStream in = new DataInputStream(socket.getInputStream());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());) {
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
 
       InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostName(),
+      System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
           socketAddress.getPort());
-
+      Thread.sleep(15000);
       // 클라이언트 요청을 반복해서 처리하지 않는다.
-      // 접속 - > 요청 -> 실행 -> 응답 -> 연결끊기
+      // => 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();
       System.out.println(command);
-
 
       String[] values = command.split("/");
       String dataName = values[0];
@@ -111,7 +129,6 @@ public class ServerApp {
       }
 
       try {
-
         Object result = call(dao, method, request);
 
         ResponseEntity response = new ResponseEntity();
