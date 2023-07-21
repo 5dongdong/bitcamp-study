@@ -61,6 +61,9 @@ tasks.withType(JavaCompile) {
 eclipse {
     project {
         name = "myapp"
+        name = "app-client"
+        name = "app-server"
+        name = "app-common"
     }
     jdt {
       sourceCompatibility = 17
