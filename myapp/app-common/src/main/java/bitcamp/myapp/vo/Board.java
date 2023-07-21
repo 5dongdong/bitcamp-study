@@ -12,6 +12,7 @@ public class Board implements Serializable {
   private String content;
   private String writer;
   private String password;
+  private int category;
   private int viewCount;
   private long createdDate;
 
@@ -31,6 +32,7 @@ public class Board implements Serializable {
     board.setPassword(values[4]);
     board.setViewCount(Integer.parseInt(values[5]));
     board.setCreatedDate(Long.parseLong(values[6]));
+    board.setCategory(Integer.parseInt(values[7]));
 
     if (Board.boardNo <= board.getNo()) {
       Board.boardNo = board.getNo() + 1;
@@ -114,6 +116,15 @@ public class Board implements Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
+  }
+
 
 
 }

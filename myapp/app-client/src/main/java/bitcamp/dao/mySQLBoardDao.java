@@ -95,8 +95,9 @@ public class mySQLBoardDao implements BoardDao {
     try (Statement stmt = con.createStatement()) {
 
       stmt.executeUpdate(String.format(
-          "insert into myapp_board(title, content, writer, password) values('%s', '%s','%s','%s')",
-          board.getTitle(), board.getContent(), board.getWriter(), board.getPassword()));
+          "insert into myapp_board(title, content, writer, password, category) values('%s', '%s','%s','%s', '%d')",
+          board.getTitle(), board.getContent(), board.getWriter(), board.getPassword(),
+          board.getCategory()));
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
