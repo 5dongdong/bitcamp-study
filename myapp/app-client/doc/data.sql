@@ -23,9 +23,3 @@ insert into myapp_member(member_no, name, email, password, gender)
  insert into myapp_board(board_no, title, content, writer, password, category) values(17, '제목7', '내용', '홍길북', '1111', 2);
  
  
- 
- 
- 
- 
- 
- 

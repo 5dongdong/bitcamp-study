@@ -20,7 +20,7 @@ public class mySQLBoardDao implements BoardDao {
   public List<Board> list() {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select board_no, title, content, writer from myapp_board order by title asc")) {
+            "select board_no, title, content, writer,category from myapp_board where category = 1 order by title asc")) {
 
       List<Board> list = new ArrayList<>();
 
@@ -30,6 +30,7 @@ public class mySQLBoardDao implements BoardDao {
         b.setTitle(rs.getString("title"));
         b.setContent(rs.getString("content"));
         b.setWriter(rs.getString("writer"));
+        b.setCategory(rs.getInt("category"));
 
         list.add(b);
       }
@@ -45,7 +46,7 @@ public class mySQLBoardDao implements BoardDao {
   public Board findBy(int no) {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select board_no, title, content, writer from myapp_board order by title asc")) {
+            "select board_no, title, content, writer, category from myapp_board where category = 1 order by title asc ")) {
 
 
       if (rs.next()) {
@@ -54,6 +55,7 @@ public class mySQLBoardDao implements BoardDao {
         b.setTitle(rs.getString("title"));
         b.setContent(rs.getString("content"));
         b.setWriter(rs.getString("writer"));
+        b.setCategory(rs.getInt("category"));
         return b;
       }
 
@@ -70,9 +72,9 @@ public class mySQLBoardDao implements BoardDao {
 
       return stmt.executeUpdate(String.format(
           "update myapp_board set" + " title='%s' ," + " content='%s'," + " password='%s',"
-              + " writer ='%s'" + " where board_no =%d",
+              + " writer ='%s'" +" categort = '%d'"+ " where board_no =%d",
 
-          board.getTitle(), board.getContent(), board.getPassword(), board.getWriter(),
+          board.getTitle(), board.getContent(), board.getPassword(), board.getWriter(), board.getCategory(),
           board.getNo()));
     } catch (Exception e) {
       throw new RuntimeException(e);

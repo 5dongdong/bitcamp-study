@@ -17,7 +17,7 @@ public class BoardListListener implements ActionListener {
   @Override
   public void service(BreadcrumbPrompt prompt) {
     System.out.println("---------------------------------------");
-    System.out.println("번호, 제목, 작성자, 조회수, 등록일");
+    System.out.println("번호, 제목, 작성자, 조회수, 등록, 카테고리");
     System.out.println("---------------------------------------");
 
     List<Board> list = boardDao.list();
