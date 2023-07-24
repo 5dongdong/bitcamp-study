@@ -1,11 +1,11 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.Objects;
 
 public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
-
-  public static int userId = 1;
 
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
@@ -15,42 +15,23 @@ public class Member implements Serializable {
   private String email;
   private String password;
   private char gender;
+  private Date createdDate;
 
-  public Member() {}
-
-  public Member(int no) {
-    this.no = no;
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
   }
 
-  public static Member fromCsv(String csv) {
-    String[] values = csv.split(",");
-
-    Member member = new Member(Integer.parseInt(values[0]));
-    member.setName(values[1]);
-    member.setEmail(values[2]);
-    member.setPassword(values[3]);
-    member.setGender(values[4].charAt(0));
-
-    if (Member.userId <= member.getNo()) {
-      Member.userId = member.getNo() + 1;
-    }
-
-    return member;
-  }
-
-
+  @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
+    if (this == obj)
+      return true;
+    if (obj == null)
       return false;
-    }
-    if (this.getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-    Member m = (Member) obj;
-    if (this.getNo() != m.getNo()) {
-      return false;
-    }
-    return true;
+    Member other = (Member) obj;
+    return no == other.no;
   }
 
   public int getNo() {
@@ -93,4 +74,11 @@ public class Member implements Serializable {
     this.gender = gender;
   }
 
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
 }
