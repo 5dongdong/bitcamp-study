@@ -11,7 +11,7 @@ public class Money implements Serializable {
   // 가계부에 필요한거 순서?, 가격, 사용한곳, 사용 날짜 , 의식주.
   private int no;
   private int price;
-  private String wheres;
+  private String where;
   private Timestamp useDate;
   private int category;
 
@@ -50,12 +50,12 @@ public class Money implements Serializable {
     this.price = price;
   }
 
-  public String getwheres() {
-    return wheres;
+  public String getWhere() {
+    return where;
   }
 
-  public void setwheres(String wheres) {
-    this.wheres = wheres;
+  public void setWhere(String where) {
+    this.where = where;
   }
 
   public Timestamp getUseDate() {

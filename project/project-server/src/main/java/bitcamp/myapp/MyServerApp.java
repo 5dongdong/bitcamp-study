@@ -9,27 +9,30 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import bitcamp.dao.MySQLMoneyDao;
 import bitcamp.dao.mySQLBoardDao;
 import bitcamp.dao.mySQLMemberDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
 import bitcamp.myapp.handler.BoardListListener;
 import bitcamp.myapp.handler.BoardUpdateListener;
-import bitcamp.myapp.handler.LoginListener;
 import bitcamp.myapp.handler.MemberAddListener;
 import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
+import bitcamp.myapp.handler.MoneyAddListener;
+import bitcamp.myapp.handler.MoneyListListener;
 import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
 
-public class ServerApp {
+public class MyServerApp {
 
   // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(10);
@@ -38,12 +41,13 @@ public class ServerApp {
   MemberDao memberDao;
   BoardDao boardDao;
   BoardDao readingDao;
+  MoneyDao moneyDao;
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
   int port;
 
-  public ServerApp(int port) throws Exception {
+  public MyServerApp(int port) throws Exception {
 
     this.port = port;
 
@@ -52,7 +56,7 @@ public class ServerApp {
 
     this.memberDao = new mySQLMemberDao(con);
     this.boardDao = new mySQLBoardDao(con, 1);
-    this.readingDao = new mySQLBoardDao(con, 2);
+    this.moneyDao = new MySQLMoneyDao(con, 2);
 
     prepareMenu();
   }
@@ -62,7 +66,7 @@ public class ServerApp {
   }
 
   public static void main(String[] args) throws Exception {
-    ServerApp app = new ServerApp(8888);
+    MyServerApp app = new MyServerApp(8888);
     app.execute();
     app.close();
   }
@@ -91,9 +95,9 @@ public class ServerApp {
       InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
       System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
 
-      out.writeUTF("[나의 목록 관리 시스템]\n" + "-----------------------------------------");
+      out.writeUTF("[개인 시스템]\n" + "-----------------------------------------");
 
-      new LoginListener(memberDao).service(prompt);
+      // new LoginListener(memberDao).service(prompt);
 
       mainMenu.execute(prompt);
       out.writeUTF(NetProtocol.NET_END);
@@ -113,7 +117,7 @@ public class ServerApp {
     memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao)));
     mainMenu.add(memberMenu);
 
-    MenuGroup boardMenu = new MenuGroup("게시글");
+    MenuGroup boardMenu = new MenuGroup("일기");
     boardMenu.add(new Menu("등록", new BoardAddListener(boardDao)));
     boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
     boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao)));
@@ -121,18 +125,20 @@ public class ServerApp {
     boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
     mainMenu.add(boardMenu);
 
-    MenuGroup readingMenu = new MenuGroup("독서록");
-    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao)));
-    readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
-    readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
-    readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
-    readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
-    mainMenu.add(readingMenu);
 
-    // Menu helloMenu = new Menu("안녕!");
-    // helloMenu.addActionListener(new HeaderListener());
-    // helloMenu.addActionListener(new HelloListener());
-    // helloMenu.addActionListener(new FooterListener());
-    // mainMenu.add(helloMenu);
+    MenuGroup moneyMenu = new MenuGroup("가계부");
+    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao)));
+    moneyMenu.add(new Menu("목록", new MoneyListListener(moneyDao)));
+    mainMenu.add(moneyMenu);
+
+
+    // MenuGroup readingMenu = new MenuGroup("가계부");
+    // readingMenu.add(new Menu("등록", new BoardAddListener(readingDao)));
+    // readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
+    // readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
+    // readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
+    // readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
+    // mainMenu.add(readingMenu);
+
   }
 }

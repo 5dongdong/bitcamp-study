@@ -1,17 +1,8 @@
--- myapp_member 테이블 예제 데이터
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(1, 'aaa', 'aaa@test.com', sha1('1111'), 'W');
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(2, 'bbb', 'bbb@test.com', sha1('1111'), 'M');
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(3, 'ccc', 'ccc@test.com', sha1('1111'), 'W');
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(4, 'ddd', 'ddd@test.com', sha1('1111'), 'M');
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(5, 'eee', 'eee@test.com', sha1('1111'), 'W');
-insert into myapp_member(member_no, name, email, password, gender) 
-  values(6, 'fff', 'fff@test.com', sha1('1111'), 'M');
-
+-- project_wheres 테이블 예제 데이터
+insert into project_wheres(money_no, wheres, price ,category) 
+  values(1, 'test', 1000 ,1);
+  
+  
 -- myapp_board 테이블 예제 데이터
 insert into myapp_board(board_no, title, content, writer, password, category)
   values(11, '제목1', '내용', 1, sha1('1111'), 1);

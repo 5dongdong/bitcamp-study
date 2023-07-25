@@ -13,6 +13,7 @@ import bitcamp.dao.MySQLBoardDao;
 import bitcamp.dao.MySQLMemberDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -38,6 +39,7 @@ public class ServerApp {
   MemberDao memberDao;
   BoardDao boardDao;
   BoardDao readingDao;
+  MoneyDao moneyDao;
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
@@ -128,6 +130,8 @@ public class ServerApp {
     readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
     mainMenu.add(readingMenu);
+
+
 
     // Menu helloMenu = new Menu("안녕!");
     // helloMenu.addActionListener(new HeaderListener());
