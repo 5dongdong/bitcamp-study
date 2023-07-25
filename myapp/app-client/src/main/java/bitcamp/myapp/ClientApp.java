@@ -44,7 +44,7 @@ public class ClientApp {
         } else if (response.equals(NetProtocol.NET_END)) {
           break;
         }
-        System.out.println(response);
+        System.out.print(response);
       }
 
 

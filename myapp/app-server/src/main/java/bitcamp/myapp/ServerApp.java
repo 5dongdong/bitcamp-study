@@ -18,9 +18,6 @@ import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
 import bitcamp.myapp.handler.BoardListListener;
 import bitcamp.myapp.handler.BoardUpdateListener;
-import bitcamp.myapp.handler.FooterListener;
-import bitcamp.myapp.handler.HeaderListener;
-import bitcamp.myapp.handler.HelloListener;
 import bitcamp.myapp.handler.LoginListener;
 import bitcamp.myapp.handler.MemberAddListener;
 import bitcamp.myapp.handler.MemberDeleteListener;
@@ -76,7 +73,7 @@ public class ServerApp {
 
       while (true) {
         Socket socket = serverSocket.accept();
-        threadPool.execute(() -> processRequest(socket));;
+        threadPool.execute(() -> processRequest(socket));
       }
     } catch (Exception e) {
       System.out.println("서버 실행 오류!");
@@ -96,7 +93,6 @@ public class ServerApp {
 
       out.writeUTF("[나의 목록 관리 시스템]\n" + "-----------------------------------------");
 
-
       new LoginListener(memberDao).service(prompt);
 
       mainMenu.execute(prompt);
@@ -107,7 +103,6 @@ public class ServerApp {
       e.printStackTrace();
     }
   }
-
 
   private void prepareMenu() {
     MenuGroup memberMenu = new MenuGroup("회원");
@@ -134,10 +129,10 @@ public class ServerApp {
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
     mainMenu.add(readingMenu);
 
-    Menu helloMenu = new Menu("안녕!");
-    helloMenu.addActionListener(new HeaderListener());
-    helloMenu.addActionListener(new HelloListener());
-    helloMenu.addActionListener(new FooterListener());
-    mainMenu.add(helloMenu);
+    // Menu helloMenu = new Menu("안녕!");
+    // helloMenu.addActionListener(new HeaderListener());
+    // helloMenu.addActionListener(new HelloListener());
+    // helloMenu.addActionListener(new FooterListener());
+    // mainMenu.add(helloMenu);
   }
 }

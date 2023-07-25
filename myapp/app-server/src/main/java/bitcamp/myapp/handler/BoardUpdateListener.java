@@ -1,9 +1,9 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-import bitcamp.myapp.ServerApp;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 
@@ -27,14 +27,12 @@ public class BoardUpdateListener implements ActionListener {
 
     board.setTitle(prompt.inputString("제목(%s)? ", board.getTitle()));
     board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
-    board.setWriter(ServerApp.loginUser);
+    board.setWriter((Member) prompt.getAttribute("loginUser"));
 
     if (boardDao.update(board) == 0) {
-      System.out.println("게시글 변경 권한이 없습니다.");
+      prompt.println("게시글 변경 권한이 없습니다.");
     } else {
-      System.out.println("변경했습니다!");
+      prompt.println("변경했습니다!");
     }
   }
 }
-
-

@@ -41,7 +41,7 @@ tasks.withType(JavaCompile) {
 // eclipse 프로젝트 이름을 설정하기
 eclipse {
     project {
-        name = "porject-common"
+        name = "project-common"
     }
     jdt {
       sourceCompatibility = 17

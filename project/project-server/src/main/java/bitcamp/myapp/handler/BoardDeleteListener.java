@@ -1,6 +1,6 @@
 package bitcamp.myapp.handler;
 
-import bitcamp.myapp.ClientApp;
+import bitcamp.myapp.ServerApp;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
@@ -19,7 +19,7 @@ public class BoardDeleteListener implements ActionListener {
 
     Board b = new Board();
     b.setNo(prompt.inputInt("번호?"));
-    b.setWriter(ClientApp.loginUser);
+    b.setWriter(ServerApp.loginUser);
 
 
     if (boardDao.delete(b) == 0) {
