@@ -13,7 +13,6 @@ public class Money implements Serializable {
   private int price;
   private String wheres;
   private Timestamp useDate;
-  private int category;
 
   @Override
   public int hashCode() {
@@ -64,14 +63,6 @@ public class Money implements Serializable {
 
   public void setUseDate(Timestamp useDate) {
     this.useDate = useDate;
-  }
-
-  public int getCategory() {
-    return category;
-  }
-
-  public void setCategory(int category) {
-    this.category = category;
   }
 
 

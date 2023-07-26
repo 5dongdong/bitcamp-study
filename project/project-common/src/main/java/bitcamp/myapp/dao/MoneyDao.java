@@ -12,12 +12,7 @@ public interface MoneyDao {
 
   Money findBy(int no);
 
-  Money findByString(String use);
-
   int update(Money money);
-
-  int delete(int no);
-
 
   int delete(Money money);
 

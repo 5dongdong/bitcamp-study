@@ -1,8 +1,8 @@
 package bitcamp.myapp.handler;
 
-import bitcamp.myapp.MyServerApp;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
+import bitcamp.projectapp.MyServerApp;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 

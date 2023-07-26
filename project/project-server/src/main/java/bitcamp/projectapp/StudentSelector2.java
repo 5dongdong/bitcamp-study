@@ -1,6 +1,9 @@
-package bitcamp.myapp;
+package bitcamp.projectapp;
 
-public class StudentSelector {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class StudentSelector2 {
   public static void main(String[] args) throws Exception {
     String[] names = {
         "곽나현", "김동영", "김묘경", "김선래", "김선준", "김성주", "김세연", "김종원",
@@ -9,19 +12,11 @@ public class StudentSelector {
         "전준호", "정연수", "주현욱", "최근우", "최기현", "한태영"
     };
 
-    int count = (int) (Math.random() * 100 + 1);
-    for (int i = 0; i < count; i++) {
-      Math.random();
-      System.out.print(".");
-      Thread.sleep(50);
+    ArrayList<String> nameList = new ArrayList<>(Arrays.asList(names));
+
+    while (nameList.size() > 0) {
+      System.out.println(nameList.remove((int)(Math.random() * nameList.size())));
+      Thread.sleep(500);
     }
-    System.out.println();
-
-    int selectedIndex = (int)(Math.random() * names.length);
-    System.out.println("축 당첨!");
-    Thread.sleep(3000);
-    System.out.println(names[selectedIndex]);
-
-
   }
 }

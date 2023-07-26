@@ -1,29 +1,30 @@
 package bitcamp.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.vo.Money;
+import bitcamp.util.DataSource;
 
-public class MySQLMoneyDao implements MoneyDao {
+public class mySQLMoneyDao implements MoneyDao {
 
-  Connection con;
-  int category;
+  DataSource ds;
 
-  public MySQLMoneyDao(Connection con, int category) {
-    this.con = con;
-    this.category = category;
+  public mySQLMoneyDao(DataSource ds) {
+    this.ds = ds;
   }
 
   @Override
-  public void insert(Money moeny) {
-    try (PreparedStatement stmt =
-        con.prepareStatement("insert into myapp_board(title,content,writer,password,category)"
-            + " values(?,?,?,sha1(?),?)")) {
+  public void insert(Money money) {
+    try (PreparedStatement stmt = ds.getConnection(false)
+        .prepareStatement("insert into project_wheres(wheres,price)" + " values(?,?)")) {
 
+      stmt.setString(1, money.getwheres());
+      stmt.setInt(2, money.getPrice());
+
+      stmt.executeUpdate();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -32,8 +33,8 @@ public class MySQLMoneyDao implements MoneyDao {
 
   @Override
   public List<Money> list() {
-    try (PreparedStatement stmt = con.prepareStatement("select" + " money_no, " + " wheres, "
-        + "  price, " + "  created_date" + " from project_wheres")) {
+    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement("select" + " money_no, "
+        + " wheres, " + "  price, " + "  created_date" + " from project_wheres")) {
 
       try (ResultSet rs = stmt.executeQuery()) {
         List<Money> list = new ArrayList<>();
@@ -55,32 +56,59 @@ public class MySQLMoneyDao implements MoneyDao {
 
   @Override
   public Money findBy(int no) {
-	  try(PreparedStatement stmt = )
-    return null;
+    try (PreparedStatement stmt =
+        ds.getConnection().prepareStatement("select" + "  money_no, " + "  wheres, " + "  price,"
+            + "  created_date " + " from project_wheres where money_no=?")) {
+
+      stmt.setInt(1, no);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          Money m = new Money();
+          m.setNo(rs.getInt("money_no"));
+          m.setwheres(rs.getString("wheres"));
+          m.setPrice(rs.getInt("price"));
+          m.setUseDate(rs.getTimestamp("created_date"));
+
+          return m;
+        }
+        return null;
+      }
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
   public int update(Money money) {
-    // TODO Auto-generated method stub
-    return 0;
+    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
+        " update project_wheres " + " set wheres=? , price=? " + " where money_no=? ")) {
+
+      stmt.setString(1, money.getwheres());
+      stmt.setInt(2, money.getPrice());
+      stmt.setInt(3, money.getNo());
+
+      return stmt.executeUpdate();
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
   public int delete(Money money) {
-    // TODO Auto-generated method stub
-    return 0;
+    try (PreparedStatement stmt = ds.getConnection(false)
+        .prepareStatement("delete from project_wheres" + " where money_no=?")) {
+
+      stmt.setInt(1, money.getNo());
+
+      return stmt.executeUpdate();
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
-  @Override
-  public Money findByString(String use) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
-  @Override
-  public int delete(int no) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
 
 }

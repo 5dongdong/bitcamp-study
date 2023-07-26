@@ -1,17 +1,15 @@
-package bitcamp.myapp;
+package bitcamp.projectapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import bitcamp.dao.MySQLMoneyDao;
 import bitcamp.dao.mySQLBoardDao;
 import bitcamp.dao.mySQLMemberDao;
+import bitcamp.dao.mySQLMoneyDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MoneyDao;
@@ -26,10 +24,13 @@ import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.myapp.handler.MoneyAddListener;
+import bitcamp.myapp.handler.MoneyDeleteListener;
 import bitcamp.myapp.handler.MoneyDetailListener;
 import bitcamp.myapp.handler.MoneyListListener;
+import bitcamp.myapp.handler.MoneyUpdateListener;
 import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.DataSource;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
 
@@ -38,7 +39,7 @@ public class MyServerApp {
   // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
-  Connection con;
+  DataSource ds = new DataSource("jdbc:mysql://localhost:3306/studydb", "study", "1111");
   MemberDao memberDao;
   BoardDao boardDao;
   BoardDao readingDao;
@@ -52,19 +53,15 @@ public class MyServerApp {
 
     this.port = port;
 
-    con = DriverManager.getConnection("jdbc:mysql://study:11111111@localhost:3306/studydb" // JDBC URL
-    );
 
-    this.memberDao = new mySQLMemberDao(con);
-    this.boardDao = new mySQLBoardDao(con, 1);
-    this.moneyDao = new MySQLMoneyDao(con, 2);
+    this.memberDao = new mySQLMemberDao(ds);
+    this.boardDao = new mySQLBoardDao(ds, 1);
+    this.moneyDao = new mySQLMoneyDao(ds);
 
     prepareMenu();
   }
 
-  public void close() throws Exception {
-    con.close();
-  }
+  public void close() throws Exception {}
 
   public static void main(String[] args) throws Exception {
     MyServerApp app = new MyServerApp(8888);
@@ -128,19 +125,14 @@ public class MyServerApp {
 
 
     MenuGroup moneyMenu = new MenuGroup("가계부");
-    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao)));
+    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao, ds)));
     moneyMenu.add(new Menu("목록", new MoneyListListener(moneyDao)));
     moneyMenu.add(new Menu("조회", new MoneyDetailListener(moneyDao)));
+    moneyMenu.add(new Menu("변경", new MoneyUpdateListener(moneyDao)));
+    moneyMenu.add(new Menu("삭제", new MoneyDeleteListener(moneyDao)));
+
     mainMenu.add(moneyMenu);
 
-
-    // MenuGroup readingMenu = new MenuGroup("가계부");
-    // readingMenu.add(new Menu("등록", new BoardAddListener(readingDao)));
-    // readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
-    // readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
-    // readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
-    // readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
-    // mainMenu.add(readingMenu);
 
   }
 }
