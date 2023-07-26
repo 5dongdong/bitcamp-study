@@ -1,5 +1,7 @@
 package bitcamp.myapp.handler;
 
+import java.io.IOException;
+
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
@@ -14,7 +16,7 @@ public class BoardDetailListener implements ActionListener {
   }
 
   @Override
-  public void service(BreadcrumbPrompt prompt) {
+  public void service(BreadcrumbPrompt prompt) throws IOException {
     int boardNo = prompt.inputInt("번호? ");
 
     Board board = boardDao.findBy(boardNo);

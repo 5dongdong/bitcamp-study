@@ -26,6 +26,7 @@ import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.myapp.handler.MoneyAddListener;
+import bitcamp.myapp.handler.MoneyDetailListener;
 import bitcamp.myapp.handler.MoneyListListener;
 import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
@@ -51,7 +52,7 @@ public class MyServerApp {
 
     this.port = port;
 
-    con = DriverManager.getConnection("jdbc:mysql://study:1111@localhost:3306/studydb" // JDBC URL
+    con = DriverManager.getConnection("jdbc:mysql://study:11111111@localhost:3306/studydb" // JDBC URL
     );
 
     this.memberDao = new mySQLMemberDao(con);
@@ -109,7 +110,7 @@ public class MyServerApp {
   }
 
   private void prepareMenu() {
-    MenuGroup memberMenu = new MenuGroup("회원");
+    MenuGroup memberMenu = new MenuGroup("멤버");
     memberMenu.add(new Menu("등록", new MemberAddListener(memberDao)));
     memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
     memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
@@ -129,6 +130,7 @@ public class MyServerApp {
     MenuGroup moneyMenu = new MenuGroup("가계부");
     moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao)));
     moneyMenu.add(new Menu("목록", new MoneyListListener(moneyDao)));
+    moneyMenu.add(new Menu("조회", new MoneyDetailListener(moneyDao)));
     mainMenu.add(moneyMenu);
 
 

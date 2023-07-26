@@ -6,12 +6,12 @@ import java.net.Socket;
 import java.util.Scanner;
 import bitcamp.net.NetProtocol;
 
-public class ClientApp {
+public class MyProjectClientApp {
 
   String ip;
   int port;
 
-  public ClientApp(String ip, int port) throws Exception {
+  public MyProjectClientApp(String ip, int port) throws Exception {
     this.ip = ip;
     this.port = port;
   }
@@ -22,7 +22,7 @@ public class ClientApp {
       return;
     }
 
-    ClientApp app = new ClientApp(args[0], Integer.parseInt(args[1]));
+    MyProjectClientApp app = new MyProjectClientApp(args[0], Integer.parseInt(args[1]));
     app.execute();
   }
 

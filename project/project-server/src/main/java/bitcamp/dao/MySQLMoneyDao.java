@@ -55,7 +55,7 @@ public class MySQLMoneyDao implements MoneyDao {
 
   @Override
   public Money findBy(int no) {
-    // TODO Auto-generated method stub
+	  try(PreparedStatement stmt = )
     return null;
   }
 
