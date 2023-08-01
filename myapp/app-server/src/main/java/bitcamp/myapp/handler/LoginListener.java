@@ -4,7 +4,9 @@ import java.io.IOException;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/auth/login")
 public class LoginListener implements MemberActionListener {
 
   MemberDao memberDao;
@@ -22,7 +24,7 @@ public class LoginListener implements MemberActionListener {
 
       Member loginUser = memberDao.findByEmailAndPassword(m);
       if (loginUser == null) {
-        prompt.print("회원 정보가 일치하지 않습니다.");
+        prompt.println("회원 정보가 일치하지 않습니다.");
       } else {
         prompt.setAttribute("loginUser", loginUser);
         break;

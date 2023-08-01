@@ -2,13 +2,15 @@ package bitcamp.projectapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import bitcamp.dao.mySQLBoardDao;
-import bitcamp.dao.mySQLMemberDao;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import bitcamp.dao.mySQLMoneyDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -30,16 +32,17 @@ import bitcamp.myapp.handler.MoneyListListener;
 import bitcamp.myapp.handler.MoneyUpdateListener;
 import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
+import bitcamp.util.SqlSessionFactoryProxy;
 
 public class MyServerApp {
 
   // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
-  DataSource ds = new DataSource("jdbc:mysql://localhost:3306/studydb", "study", "1111");
+  SqlSessionFactory sqlSessionFactory;
+
   MemberDao memberDao;
   BoardDao boardDao;
   BoardDao readingDao;
@@ -53,10 +56,20 @@ public class MyServerApp {
 
     this.port = port;
 
+    // 1) mybatis 설정 파일을 읽어들일 도구 준비
 
-    this.memberDao = new mySQLMemberDao(ds);
-    this.boardDao = new mySQLBoardDao(ds, 1);
-    this.moneyDao = new mySQLMoneyDao(ds);
+    InputStream mybatisConfigIn =
+        Resources.getResourceAsStream("bitcamp/project/config/mybatis-config.xml");
+
+    // 2) SqlSessionFactory를 만들어줄 빌더 객체 준비
+    SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+
+    // 3) 빌더 객체를 통해 SqlSessionFactory를 생성
+    sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
+
+    // this.memberDao = new mySQLMemberDao(sqlSessionFactory);
+    // this.boardDao = new mySQLBoardDao(ds, 1);
+    this.moneyDao = new mySQLMoneyDao(sqlSessionFactory);
 
     prepareMenu();
   }
@@ -103,6 +116,8 @@ public class MyServerApp {
     } catch (Exception e) {
       System.out.println("클라이언트 통신 오류!");
       e.printStackTrace();
+    } finally {
+      ((SqlSessionFactoryProxy) sqlSessionFactory).clean();
     }
   }
 
@@ -125,10 +140,10 @@ public class MyServerApp {
 
 
     MenuGroup moneyMenu = new MenuGroup("가계부");
-    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao, ds)));
+    moneyMenu.add(new Menu("등록", new MoneyAddListener(moneyDao, sqlSessionFactory)));
     moneyMenu.add(new Menu("목록", new MoneyListListener(moneyDao)));
     moneyMenu.add(new Menu("조회", new MoneyDetailListener(moneyDao)));
-    moneyMenu.add(new Menu("변경", new MoneyUpdateListener(moneyDao)));
+    moneyMenu.add(new Menu("변경", new MoneyUpdateListener(moneyDao, sqlSessionFactory)));
     moneyMenu.add(new Menu("삭제", new MoneyDeleteListener(moneyDao)));
 
     mainMenu.add(moneyMenu);

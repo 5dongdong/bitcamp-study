@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DataSource;
@@ -12,8 +13,8 @@ public class mySQLMemberDao implements MemberDao {
 
   DataSource ds;
 
-  public mySQLMemberDao(DataSource ds) {
-    this.ds = ds;
+  public mySQLMemberDao(SqlSessionFactory sqlSessionFactory) {
+    this.ds = sqlSessionFactory;
   }
 
   @Override

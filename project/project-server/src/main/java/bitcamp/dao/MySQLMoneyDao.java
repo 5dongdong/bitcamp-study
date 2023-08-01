@@ -1,112 +1,53 @@
 package bitcamp.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.vo.Money;
-import bitcamp.util.DataSource;
 
 public class mySQLMoneyDao implements MoneyDao {
 
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public mySQLMoneyDao(DataSource ds) {
-    this.ds = ds;
+  public mySQLMoneyDao(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
   public void insert(Money money) {
-    try (PreparedStatement stmt = ds.getConnection(false)
-        .prepareStatement("insert into project_wheres(wheres,price)" + " values(?,?)")) {
-
-      stmt.setString(1, money.getwheres());
-      stmt.setInt(2, money.getPrice());
-
-      stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    sqlSession.insert("bitcamp.myapp.dao.MoneyDao.insert", money);
   }
 
   @Override
-  public List<Money> list() {
-    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement("select" + " money_no, "
-        + " wheres, " + "  price, " + "  created_date" + " from project_wheres")) {
-
-      try (ResultSet rs = stmt.executeQuery()) {
-        List<Money> list = new ArrayList<>();
-        while (rs.next()) {
-          Money m = new Money();
-          m.setNo(rs.getInt("money_no"));
-          m.setwheres(rs.getString("wheres"));
-          m.setPrice(rs.getInt("price"));
-          m.setUseDate(rs.getTimestamp("created_date"));
-          list.add(m);
-        }
-        return list;
-      }
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+  public List<Money> findAll() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    return sqlSession.selectList("bitcamp.myapp.dao.MoneyDao.findAll");
   }
 
   @Override
   public Money findBy(int no) {
-    try (PreparedStatement stmt =
-        ds.getConnection().prepareStatement("select" + "  money_no, " + "  wheres, " + "  price,"
-            + "  created_date " + " from project_wheres where money_no=?")) {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
 
-      stmt.setInt(1, no);
+    Map<String, Object> paramMap = new HashMap<>();
+    paramMap.put("moneyNo", no);
 
-      try (ResultSet rs = stmt.executeQuery()) {
-        if (rs.next()) {
-          Money m = new Money();
-          m.setNo(rs.getInt("money_no"));
-          m.setwheres(rs.getString("wheres"));
-          m.setPrice(rs.getInt("price"));
-          m.setUseDate(rs.getTimestamp("created_date"));
-
-          return m;
-        }
-        return null;
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    return sqlSession.selectOne("bitcamp.myapp.dao.MoneyDao.findBy", paramMap);
   }
 
   @Override
   public int update(Money money) {
-    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
-        " update project_wheres " + " set wheres=? , price=? " + " where money_no=? ")) {
-
-      stmt.setString(1, money.getwheres());
-      stmt.setInt(2, money.getPrice());
-      stmt.setInt(3, money.getNo());
-
-      return stmt.executeUpdate();
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.update("bitcamp.myapp.dao.MoneyDao.update", money);
   }
 
   @Override
   public int delete(Money money) {
-    try (PreparedStatement stmt = ds.getConnection(false)
-        .prepareStatement("delete from project_wheres" + " where money_no=?")) {
-
-      stmt.setInt(1, money.getNo());
-
-      return stmt.executeUpdate();
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.delete("bitcamp.myapp.dao.MoneyDao.delete", money);
   }
 
 

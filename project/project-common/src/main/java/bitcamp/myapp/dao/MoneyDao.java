@@ -4,11 +4,9 @@ import java.util.List;
 import bitcamp.myapp.vo.Money;
 
 public interface MoneyDao {
-
   void insert(Money money);
 
-
-  List<Money> list();
+  List<Money> findAll();
 
   Money findBy(int no);
 

@@ -1,6 +1,7 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.vo.Money;
 import bitcamp.util.ActionListener;
@@ -9,9 +10,11 @@ import bitcamp.util.BreadcrumbPrompt;
 public class MoneyUpdateListener implements ActionListener {
 
   MoneyDao moneyDao;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MoneyUpdateListener(MoneyDao moneyDao) {
+  public MoneyUpdateListener(MoneyDao moneyDao, SqlSessionFactory sqlSessionFactory) {
     this.moneyDao = moneyDao;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -27,7 +30,14 @@ public class MoneyUpdateListener implements ActionListener {
     money.setwheres(prompt.inputString("어디?(%s)", money.getwheres()));
     money.setPrice(prompt.inputInt("얼마?", money.getPrice()));
 
-    prompt.println("변경완료");
-    moneyDao.update(money);
+
+    try {
+      prompt.println("변경했습니다.");
+      sqlSessionFactory.openSession(false).commit();
+    } catch (Exception e) {
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
+    }
+
   }
 }

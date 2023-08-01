@@ -1,20 +1,20 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MoneyDao;
 import bitcamp.myapp.vo.Money;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class MoneyAddListener implements ActionListener {
 
   MoneyDao moneyDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MoneyAddListener(MoneyDao moneyDao, DataSource ds) {
+  public MoneyAddListener(MoneyDao moneyDao, SqlSessionFactory sqlSessionFactory) {
     this.moneyDao = moneyDao;
-    this.ds = ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -25,9 +25,11 @@ public class MoneyAddListener implements ActionListener {
 
     moneyDao.insert(money);
     try {
-      ds.getConnection().commit();
+      moneyDao.insert(money);
+      sqlSessionFactory.openSession(false).commit();
     } catch (Exception e) {
-      e.printStackTrace();
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
     }
   }
 

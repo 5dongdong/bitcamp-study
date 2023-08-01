@@ -7,7 +7,9 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/board/delete")
 public class BoardDeleteListener implements ActionListener {
 
   BoardDao boardDao;
@@ -24,6 +26,7 @@ public class BoardDeleteListener implements ActionListener {
     Board b = new Board();
     b.setNo(prompt.inputInt("번호? "));
     b.setWriter((Member) prompt.getAttribute("loginUser"));
+    b.setCategory(Integer.parseInt((String)prompt.getAttribute("category")));
 
     try {
       if (boardDao.delete(b) == 0) {
@@ -39,5 +42,14 @@ public class BoardDeleteListener implements ActionListener {
     }
   }
 }
+
+
+
+
+
+
+
+
+
 
 

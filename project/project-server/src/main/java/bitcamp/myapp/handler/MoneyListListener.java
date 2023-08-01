@@ -23,7 +23,7 @@ public class MoneyListListener implements ActionListener {
     prompt.println("-------------------------------");
 
 
-    List<Money> list = moneyDao.list();
+    List<Money> list = moneyDao.findAll();
 
     for (Money money : list) {
       prompt.printf("%d, %s, %d, %s\n", money.getNo(), money.getwheres(), money.getPrice(),

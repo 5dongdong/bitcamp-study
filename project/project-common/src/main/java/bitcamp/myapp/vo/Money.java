@@ -12,7 +12,7 @@ public class Money implements Serializable {
   private int no;
   private int price;
   private String wheres;
-  private Timestamp useDate;
+  private Timestamp created_date;
 
   @Override
   public int hashCode() {
@@ -58,11 +58,11 @@ public class Money implements Serializable {
   }
 
   public Timestamp getUseDate() {
-    return useDate;
+    return created_date;
   }
 
   public void setUseDate(Timestamp useDate) {
-    this.useDate = useDate;
+    this.created_date = useDate;
   }
 
 
