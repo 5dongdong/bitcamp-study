@@ -42,7 +42,6 @@ public class ServerApp {
 
     server.onDispose().block();
     System.out.println("서버 종료됨!");
-
   }
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
@@ -51,7 +50,7 @@ public class ServerApp {
       HttpServletResponse response2 = new HttpServletResponse(response);
       dispatcherServlet.service(request2, response2);
 
-      // Http 응답 프로토콜의 헤더 설정
+      // HTTP 응답 프로토콜의 헤더 설정
       response.addHeader("Content-Type", response2.getContentType());
 
       // 서블릿이 출력한 문자열을 버퍼에서 꺼내 HTTP 프로토콜에 맞춰 응답한다.
@@ -66,6 +65,5 @@ public class ServerApp {
       // (SqlSessionFactoryProxy) iocContainer.getBean(SqlSessionFactory.class);
       // sqlSessionFactoryProxy.clean();
     }
-
   }
 }

@@ -1,14 +1,14 @@
 package bitcamp.myapp.handler;
 
-import java.io.IOException;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.util.ActionListener;
-import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Component;
+import bitcamp.util.HttpServletRequest;
+import bitcamp.util.HttpServletResponse;
+import bitcamp.util.Servlet;
 
 @Component("/member/delete")
-public class MemberDeleteListener implements ActionListener {
+public class MemberDeleteListener implements Servlet {
 
   MemberDao memberDao;
   SqlSessionFactory sqlSessionFactory;
@@ -19,13 +19,15 @@ public class MemberDeleteListener implements ActionListener {
   }
 
   @Override
-  public void service(BreadcrumbPrompt prompt) throws IOException {
+  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+
     try {
-      if (memberDao.delete(prompt.inputInt("번호? ")) == 0) {
-        prompt.println("해당 번호의 회원이 없습니다!");
+      if (memberDao.delete(out("번호? ")) == 0) {
+        out.println("해당 번호의 회원이 없습니다!");
         return;
       }
-      prompt.println("삭제했습니다!");
+      out.println("삭제했습니다!");
       sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
@@ -33,5 +35,7 @@ public class MemberDeleteListener implements ActionListener {
       throw new RuntimeException(e);
     }
   }
+
+
 
 }
