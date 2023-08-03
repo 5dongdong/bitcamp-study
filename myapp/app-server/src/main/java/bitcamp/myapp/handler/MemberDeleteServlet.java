@@ -8,26 +8,24 @@ import bitcamp.util.HttpServletResponse;
 import bitcamp.util.Servlet;
 
 @Component("/member/delete")
-public class MemberDeleteListener implements Servlet {
+public class MemberDeleteServlet implements Servlet {
 
   MemberDao memberDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public MemberDeleteListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
+  public MemberDeleteServlet(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
     this.memberDao = memberDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
     try {
-      if (memberDao.delete(out("번호? ")) == 0) {
-        out.println("해당 번호의 회원이 없습니다!");
-        return;
+      if (memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+        throw new Exception("해당 번호의 회원이 없습니다.");
+      } else {
+        response.sendRedirect("/member/list");
       }
-      out.println("삭제했습니다!");
       sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
@@ -35,7 +33,5 @@ public class MemberDeleteListener implements Servlet {
       throw new RuntimeException(e);
     }
   }
-
-
 
 }

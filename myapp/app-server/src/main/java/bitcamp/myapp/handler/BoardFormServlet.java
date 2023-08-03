@@ -9,7 +9,6 @@ import bitcamp.util.Servlet;
 @Component("/board/form")
 public class BoardFormServlet implements Servlet {
 
-
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -25,10 +24,10 @@ public class BoardFormServlet implements Servlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글</h1>");
-    out.println("<form action='/board/add'>");
+    out.println("<form action='/board/add' method='post'>");
     out.println("제목 <input type='text' name='title'><br>");
     out.println("내용 <textarea name='content'></textarea><br>");
-    out.printf("<input type='hidden' name = 'category' value = '%d>\n", category);
+    out.printf("<input type='hidden' name='category' value='%d'>\n", category);
     out.println("<button>등록</button>");
     out.println("</form>");
     out.println("</body>");
