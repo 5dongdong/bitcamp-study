@@ -8,13 +8,20 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.AbstractServlet;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends AbstractServlet {
 
+  BoardDao boardDao;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+  public BoardListServlet(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
+
 
   @Override
   public void service(ServletRequest request, ServletResponse response)
@@ -57,6 +64,7 @@ public class BoardListServlet extends AbstractServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
 
 }
 
