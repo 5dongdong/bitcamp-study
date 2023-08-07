@@ -1,29 +1,33 @@
 package bitcamp.myapp.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import bitcamp.myapp.dao.MemberDao;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
 
-@Component("/auth/login")
-public class LoginServlet implements Servlet {
+@WebServlet("/auth/login")
+public class LoginServlet extends GenericServlet {
 
-  MemberDao memberDao;
-
-  public LoginServlet(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+
+    HttpServletRequest request = (HttpServletRequest) req;
+    HttpServletResponse response = (HttpServletResponse) res;
+
     Member m = new Member();
     m.setEmail(request.getParameter("email"));
     m.setPassword(request.getParameter("password"));
 
-    Member loginUser = memberDao.findByEmailAndPassword(m);
+    Member loginUser = InitServlet.memberDao.findByEmailAndPassword(m);
     if (loginUser != null) {
       // 로그인 정보를 다른 요청에서도 사용할 있도록 세션 보관소에 담아 둔다.
       request.getSession().setAttribute("loginUser", loginUser);

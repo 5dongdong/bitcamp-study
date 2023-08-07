@@ -2,6 +2,7 @@ package bitcamp.myapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -14,11 +15,12 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MySQLBoardDao;
 import bitcamp.myapp.dao.MySQLMemberDao;
-import bitcamp.util.AbstractServlet;
 import bitcamp.util.SqlSessionFactoryProxy;
 
-@WebServlet("/init")
-public class InitServlet extends AbstractServlet {
+@WebServlet(value = "/init", loadOnStartup = 1)
+public class InitServlet extends GenericServlet {
+
+  private static final long serialVersionUID = 1L;
 
   public static SqlSessionFactory sqlSessionFactory;
   public static BoardDao boardDao;
