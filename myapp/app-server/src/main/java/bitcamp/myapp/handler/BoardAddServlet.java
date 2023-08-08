@@ -18,7 +18,7 @@ public class BoardAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
@@ -32,7 +32,7 @@ public class BoardAddServlet extends HttpServlet {
 		Board board = new Board();
 		board.setTitle(request.getParameter("title"));
 		board.setContent(request.getParameter("content"));
-		board.setWriter((Member) request.getAttribute("loginUser"));
+		board.setWriter(loginUser);
 		board.setCategory(category);
 
 		response.setContentType("text/html;charset=UTF-8");
@@ -58,5 +58,6 @@ public class BoardAddServlet extends HttpServlet {
 		}
 		out.println("</body>");
 		out.println("</html>");
+
 	}
 }
