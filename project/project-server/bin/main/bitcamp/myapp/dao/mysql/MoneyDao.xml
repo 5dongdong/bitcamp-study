@@ -10,24 +10,33 @@
     <result     column="wheres"         property="wheres"/>
     <result     column="price"         property="price"/>
     <result     column="created_date"         property="useDate"/>
+    <result     column="review"       property="review"/>
   </resultMap>
   
   
   <insert id="insert" parameterType="money">
-  insert into project_wheres(wheres,price)
-  values(#{wheres},#{price})
+  insert into project_wheres(wheres,price,review)
+  values(
+  <if test="wheres != null">
+    #{wheres},
+  </if>
+  <if test="price != null">
+  #{price},
+  </if>
+  #{review}
+  )
   </insert>
   
  <select id="findAll" parameterType="int" resultMap = "moneyMap">
   select 
-    money_no, wheres, price, created_date
+    money_no, wheres, price, review ,created_date
   from 
     project_wheres
   </select>
   
  <select id="findBy" parameterType="int" resultMap = "moneyMap">
   select
-    money_no, wheres, price, created_date
+    money_no, wheres, price, review ,created_date
   from
     project_wheres
   where
@@ -38,7 +47,8 @@
   <update id="update" parameterType="money">
   update project_wheres set
     wheres=#{wheres},
-    price=#{price}
+    price=#{price},
+    review=#{review}
   where
     money_no=#{no} 
   </update>

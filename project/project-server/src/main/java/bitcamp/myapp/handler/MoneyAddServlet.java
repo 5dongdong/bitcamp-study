@@ -19,21 +19,34 @@ public class MoneyAddServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Money m = new Money();
-		m.setwheres(req.getParameter("where"));
-		m.setPrice(Integer.parseInt(req.getParameter("price")));
-
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<meta charset='UTF-8>");
-		out.printf("<meta http-equiv='refresh content='1; url = /money/list>\n");
+		out.println("<meta charset='UTF-8'>");
+		out.printf("<meta http-equiv='refresh' content='1; url=/money/list'>\n");
 		out.println("<title>가계부</title>");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<h1>사용한 곳 등록</h1>");
+
+		String stPrice = req.getParameter("price");
+		int price = 0;
+
+		if (stPrice != null && !stPrice.isEmpty()) {
+			try {
+				price = Integer.parseInt(stPrice);
+			} catch (NumberFormatException e) {
+				price = 0;
+			}
+		}
+
+		Money m = new Money();
+		m.setwheres(req.getParameter("wheres"));
+		m.setPrice(price);
+		m.setReview(req.getParameter("review"));
+
 		try {
 			InitServlet.moneyDao.insert(m);
 			InitServlet.sqlSessionFactory.openSession(false).commit();

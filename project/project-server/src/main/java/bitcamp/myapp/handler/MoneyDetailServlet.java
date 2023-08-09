@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.myapp.vo.Money;
 
-@WebServlet()
+@WebServlet("/money/detail")
 public class MoneyDetailServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -30,27 +30,35 @@ public class MoneyDetailServlet extends HttpServlet {
 		out.println("<title>용돈</title>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<h1>용</h1>");
+		out.println("<h1>용돈</h1>");
 
 		if (money == null) {
-			out.println("<p>해당 번호의 회원이 없습니다!</p>");
+			out.println("<p>해당 번호의 내역이 없습니다!</p>");
 
 		} else {
-			out.println("<form action='/member/update' method='post'>");
+			out.println("<form action='/money/update' method='post'>");
 			out.println("<table border='1'>");
 			out.printf(
 					"<tr><th style='width:120px;'>번호</th>"
 							+ " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",
 					money.getNo());
-			out.printf("<tr><th style='width:120px;'>사용기록</th>"
-					+ " <td style='width:300px;'><input type='text' name='where' value='%d' readonly></td></tr>\n",
+			out.printf(
+					"<tr><th style='width:120px;'>사용기록</th>"
+							+ " <td style='width:300px;'><input type='text' name='wheres' value='%s'></td></tr>\n",
 					money.getwheres());
+			out.printf(
+					"<tr><th style='width:120px;'>금액</th>"
+							+ " <td style='width:300px;'><input type='text' name='price' value='%d'></td></tr>\n",
+					money.getPrice());
+			out.printf(
+					"<tr><th style='width:120px;'>review</th>"
+							+ " <td style='width:300px;'><input type='text' name='review' value='%s'></td></tr>\n",
+					money.getReview());
 			out.println("</table>");
 			out.println("<div>");
 			out.println("<button>변경</button>");
-			out.println("<button type='reset'>초기화</button>");
-			out.printf("<a href='/member/delete?no=%d'>삭제</a>\n", money.getNo());
-			out.println("<a href='/member/list'>목록</a>\n");
+			out.printf("<a href='/money/delete?no=%d'>삭제</a>\n", money.getNo());
+			out.println("<a href='/money/list'>목록</a>\n");
 			out.println("</div>");
 			out.println("</form>");
 		}

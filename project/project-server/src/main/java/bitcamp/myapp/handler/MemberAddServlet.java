@@ -17,13 +17,13 @@ public class MemberAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
 
 		Member m = new Member();
-		m.setName(req.getParameter("name"));
-		m.setEmail(req.getParameter("email"));
-		m.setPassword(req.getParameter("password"));
-		m.setGender(req.getParameter("gender").charAt(0));
+		m.setName(request.getParameter("name"));
+		m.setEmail(request.getParameter("email"));
+		m.setPassword(request.getParameter("password"));
+		m.setGender(request.getParameter("gender").charAt(0));
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();

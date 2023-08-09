@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.myapp.vo.Board;
 
-@WebServlet("/board/detial")
+@WebServlet("/board/detail")
 public class BoardDetailServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -20,9 +20,25 @@ public class MoneyUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Money money = new Money();
-		money.setNo(Integer.parseInt(req.getParameter("no")));
-		money.setwheres(req.getParameter("where"));
-		money.setPrice(Integer.parseInt(req.getParameter("price")));
+
+		String noParameter = req.getParameter("no");
+		String priceParameter = req.getParameter("price");
+
+		int no = 0;
+		int price = 0;
+
+		if (noParameter != null && !noParameter.isEmpty()) {
+			no = Integer.parseInt(noParameter);
+		}
+
+		if (priceParameter != null && !priceParameter.isEmpty()) {
+			price = Integer.parseInt(priceParameter);
+		}
+
+		money.setNo(no);
+		money.setwheres(req.getParameter("wheres"));
+		money.setPrice(price);
+		money.setReview(req.getParameter("review"));
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();

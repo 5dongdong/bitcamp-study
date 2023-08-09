@@ -26,7 +26,6 @@ public class MemberUpdateServlet extends HttpServlet {
 		member.setPassword(request.getParameter("password"));
 		member.setGender(request.getParameter("gender").charAt(0));
 
-		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");

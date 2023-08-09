@@ -32,7 +32,7 @@ public class MoneyDeleteServlet extends HttpServlet {
 			if (InitServlet.moneyDao.delete(m) == 0) {
 				System.out.println("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
 			} else {
-				resp.sendRedirect("/board/list");
+				resp.sendRedirect("/money/list");
 			}
 			InitServlet.sqlSessionFactory.openSession(false).commit();
 		} catch (Exception e) {

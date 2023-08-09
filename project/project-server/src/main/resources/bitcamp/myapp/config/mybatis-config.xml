@@ -21,6 +21,7 @@
     </environment>
   </environments>
   <mappers>
+    <mapper resource="bitcamp/myapp/dao/mysql/MemberDao.xml"/>
     <mapper resource="bitcamp/myapp/dao/mysql/MoneyDao.xml"/>
     <mapper resource="bitcamp/myapp/dao/mysql/BoardDao.xml"/>
   </mappers>

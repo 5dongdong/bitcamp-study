@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.myapp.vo.Member;
 
-@WebServlet
+@WebServlet("/member/list")
 public class MemberListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

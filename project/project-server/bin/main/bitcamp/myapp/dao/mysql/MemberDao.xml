@@ -15,7 +15,7 @@
   </resultMap>
 
   <insert id="insert" parameterType="member">
-    insert into myapp_member(name,email,password,gender)
+    insert into project_member(name,email,password,gender)
     values(#{name},#{email},sha1(#{password}),#{gender})
   </insert>
   
@@ -25,7 +25,7 @@
       name,
       email
     from
-      myapp_member 
+      project_member 
     order by
       name desc
   </select>
@@ -38,7 +38,7 @@
       gender,
       created_date
     from
-      myapp_member
+      project_member
     where
       member_no=#{no}
   </select>
@@ -51,14 +51,14 @@
       gender,
       created_date
     from
-      myapp_member
+      project_member
     where
       email=#{email}
       and password=sha1(#{password})
   </select>
   
   <update id="update" parameterType="member">
-    update myapp_member set
+    update project_member set
       name=#{name},
       email=#{email},
       password=sha1(#{password}),
@@ -68,7 +68,7 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from myapp_member
+    delete from project_member
     where 
       member_no=#{no}
   </delete>
