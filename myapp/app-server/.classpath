@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
@@ -28,7 +29,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="src" path="/myapp-common">
 		<attributes>
 			<attribute name="without_test_code" value="true"/>
@@ -36,6 +36,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.13/41f1a762d65b8a5725dcab12c2ccef8348010664/mybatis-3.5.13-sources.jar" kind="lib" path="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.13/3d0aa73551884a6de6ca187fb4d2db50da002be9/mybatis-3.5.13.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.5/cd429932104a1d4dad10c9b3b6565810d3f1410b/commons-fileupload-1.5-sources.jar" kind="lib" path="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.5/ad4ad2ab2961b4e1891472bd1a33fabefb0385f3/commons-fileupload-1.5.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -54,6 +60,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.0.33/3e86363e438eca05a3c60d26a48caa64d8ceeab/mysql-connector-j-8.0.33-sources.jar" kind="lib" path="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.0.33/9e64d997873abc4318620264703d3fdb6b02dd5a/mysql-connector-j-8.0.33.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.11.0/2ef0187124bbfc7aed3038d4ffdd2241e8992937/commons-io-2.11.0-sources.jar" kind="lib" path="C:/Users/bitcamp/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.11.0/a2503f302b11ebde7ebc3df41daebe0e4eea3689/commons-io-2.11.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
