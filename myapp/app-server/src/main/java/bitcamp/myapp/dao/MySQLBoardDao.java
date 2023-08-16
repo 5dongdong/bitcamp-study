@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 
 public class MySQLBoardDao implements BoardDao {
@@ -64,4 +65,15 @@ public class MySQLBoardDao implements BoardDao {
 		return sqlSession.insert("bitcamp.myapp.dao.BoardDao.insertFiles", board);
 	}
 
+	@Override
+	public AttachedFile findFileBy(int no) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(false);
+		return sqlSession.selectOne("bitcamp.myapp.dao.BoardDao.findFileBy", no);
+	}
+
+	@Override
+	public int deleteFile(int no) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(false);
+		return sqlSession.delete("bitcamp.myapp.dao.BoardDao.deleteFile", no);
+	}
 }

@@ -21,8 +21,10 @@ public class BoardDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Board board = InitServlet.boardDao.findBy(Integer.parseInt(request.getParameter("category")),
-				Integer.parseInt(request.getParameter("no")));
+		int category = Integer.parseInt(request.getParameter("category"));
+		int no = Integer.parseInt(request.getParameter("no"));
+
+		Board board = InitServlet.boardDao.findBy(category, no);
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -39,7 +41,7 @@ public class BoardDetailServlet extends HttpServlet {
 			out.println("<p>해당 번호의 게시글이 없습니다!</p>");
 
 		} else {
-			out.println("<form action='/board/update' method='post'>");
+			out.println("<form action='/board/update' method='post' enctype='multipart/form-data'>");
 			out.printf("<input type='hidden' name='category' value='%d'>\n", board.getCategory());
 			out.println("<table border='1'>");
 			out.printf(
@@ -57,8 +59,13 @@ public class BoardDetailServlet extends HttpServlet {
 			out.println("<tr><th>첨부파일</th><td>");
 
 			for (AttachedFile file : board.getAttachedFiles()) {
-				out.printf("<a href='/upload/board/%s'>%1$s</a><br>\n", file.getFilePath());
+				out.printf(
+						"<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-11/board/%s'>%1$s</a>"
+								+ " [<a href='/board/file/delete?category=%d&no=%d'>삭제</a>]" + "<br>\n",
+						file.getFilePath(), category, file.getNo());
 			}
+
+			out.println("파일 <input type='file' name='files' multiple><br>");
 
 			out.println("</td></tr>");
 			out.println("</table>");
