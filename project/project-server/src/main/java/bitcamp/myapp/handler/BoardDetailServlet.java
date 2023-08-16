@@ -19,8 +19,10 @@ public class BoardDetailServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Board board = InitServlet.boardDao.findBy(Integer.parseInt(req.getParameter("no")),
-				Integer.parseInt(req.getParameter("category")));
+		int category = Integer.parseInt(req.getParameter("category"));
+		int no = Integer.parseInt(req.getParameter("no"));
+
+		Board board = InitServlet.boardDao.findBy(category, no);
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();

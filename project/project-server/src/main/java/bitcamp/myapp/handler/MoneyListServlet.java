@@ -33,7 +33,19 @@ public class MoneyListServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("<h1>사용 목록</h1>");
 		out.println("<div style='margin:5px;'>");
+		out.println("<table border='1'>");
+		out.println("<thead>");
+		out.println("  <tr><th>남은 잔액</th></tr>");
+		List<Money> plist = InitServlet.moneyDao.findAll();
+		for (Money m : plist) {
+			out.printf("<tr>" + " <td>%s</td></tr>\n", m.getPrice());
+		}
+
+		out.println("</thead>");
+		out.println("</table>");
+		out.println("<div style='padding: 40px;'>");
 		out.println("<a href='/money/form.html'>추가하기</a>");
+		out.println("<div style='padding: 30px;'>");
 		out.println("</div>");
 		out.println("<table border='1'>");
 		out.println("<thead>");

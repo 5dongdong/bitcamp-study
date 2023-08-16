@@ -15,5 +15,7 @@ public interface BoardDao {
 
 	int updateCount(Board board);
 
+	int insertFiles(Board board);
+
 	List<Board> findAll(int category);
 }

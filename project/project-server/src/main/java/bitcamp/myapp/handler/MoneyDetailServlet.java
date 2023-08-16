@@ -27,7 +27,7 @@ public class MoneyDetailServlet extends HttpServlet {
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset='UTF-8'>");
-		out.println("<title>용돈</title>");
+		out.println("<title>출금내역</title>");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<h1>용돈</h1>");
