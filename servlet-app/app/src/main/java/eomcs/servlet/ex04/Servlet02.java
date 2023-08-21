@@ -3,7 +3,6 @@ package eomcs.servlet.ex04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -13,53 +12,54 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/ex04/s2")
 public class Servlet02 extends GenericServlet {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
-		// POST 요청
-		// - 웹 페이지의 폼(method='POST' 일 때)에서 전송 버튼을 클릭하면 POST 요청을 보낸다.
-		//
-		// 테스트
-		// - http://localhost:8080/web/ex04/test02.html 실행
-		//
+    // POST 요청
+    // - 웹 페이지의 폼(method='POST' 일 때)에서 전송 버튼을 클릭하면 POST 요청을 보낸다.
+    //
+    // 테스트
+    // - http://localhost:8080/web/ex04/test02.html 실행
+    //
 
-		// 웹 브라우저가 보낸 데이터 읽기
-		// => 데이터를 읽을 때는 GET 요청과 POST 요청이 같다.
-		// ServletRequest.getParameter("파라미터이름")
-		//
-		// => POST 요청으로 보낸 데이터는 서블릿 컨테이너 측에서 영어(ISO-8859-1)라고 간주한다.
-		// 그래서 한글 코드 값도 영어라고 간주하고 UCS2(UTF-16) 문자 코드로 변환하기 때문에
-		// getParameter() 가 리턴한 한글은 깨진 한글이다.
-		//
-		// 클라이언트가 보낸 한글을 읽을 때 깨지는 문제 해결?
-		// => 다음 코드의 주석을 풀고 테스트 해보라!
-		// 정상적으로 잘 출력될 것이다.
-		req.setCharacterEncoding("UTF-8");
+    // 웹 브라우저가 보낸 데이터 읽기
+    // => 데이터를 읽을 때는 GET 요청과 POST 요청이 같다.
+    //      ServletRequest.getParameter("파라미터이름")
+    //
+    // => POST 요청으로 보낸 데이터는 서블릿 컨테이너 측에서 영어(ISO-8859-1)라고 간주한다.
+    //    그래서 한글 코드 값도 영어라고 간주하고 UCS2(UTF-16) 문자 코드로 변환하기 때문에
+    //    getParameter() 가 리턴한 한글은 깨진 한글이다.
+    //
+    // 클라이언트가 보낸 한글을 읽을 때 깨지는 문제 해결?
+    // => 다음 코드의 주석을 풀고 테스트 해보라!
+    //    정상적으로 잘 출력될 것이다.
+    req.setCharacterEncoding("UTF-8");
 
-		// => 원리
-		// getParameter()를 최초로 호출하기 전에 먼저
-		// 클라이언트 보낸 데이터의 인코딩 형식이 어떤 문자표로 되어 있는지 알려줘야 한다.
-		// => 주의!
-		// 반드시 getParamter()를 최초로 호출하기 전이어야 한다.
-		// 한 번 getParameter()를 호출한 후에는 소용없다.
-		//
+    // => 원리
+    //    getParameter()를 최초로 호출하기 전에 먼저
+    //    클라이언트 보낸 데이터의 인코딩 형식이 어떤 문자표로 되어 있는지 알려줘야 한다.
+    // => 주의!
+    //    반드시 getParamter()를 최초로 호출하기 전이어야 한다.
+    //    한 번 getParameter()를 호출한 후에는 소용없다.
+    //
 
-		String age = req.getParameter("age");
-		String name = req.getParameter("name");
+    String age = req.getParameter("age");
+    String name = req.getParameter("name");
 
-		res.setContentType("text/plain;charset=UTF-8");
-		PrintWriter out = res.getWriter();
-		out.printf("이름=%s\n", name);
-		out.printf("나이=%s\n", age);
-		out.println("-------------------");
+    res.setContentType("text/plain;charset=UTF-8");
+    PrintWriter out = res.getWriter();
+    out.printf("이름=%s\n", name);
+    out.printf("나이=%s\n", age);
+    out.println("-------------------");
 
-		char[] chars = name.toCharArray();
-		for (char c : chars) {
-			out.printf("%04x\n", (int) c);
-		}
-	}
+    char[] chars = name.toCharArray();
+    for (char c : chars) {
+      out.printf("%04x\n", (int) c);
+    }
+  }
 }
 
 // HTTP 요청 형식
@@ -221,3 +221,5 @@ public class Servlet02 extends GenericServlet {
 //      이런 상황에서는 POST 방식이 적절하지 않다.
 //      오히려 GET 방식이 적합하다.
 //
+
+

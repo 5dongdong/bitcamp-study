@@ -3,7 +3,6 @@ package eomcs.servlet.ex04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -13,31 +12,32 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/ex04/s1")
 public class Servlet01 extends GenericServlet {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
-		// GET 요청
-		// - 웹 브라우저에 URL을 입력한 후 엔터를 치면 GET 요청을 보낸다.
-		// - 웹 페이지에서 링크를 클릭하면(자바스크립트 처리하지 않은 상태) GET 요청을 보낸다.
-		// - 웹 페이지의 폼(method='GET' 일 때)에서 전송 버튼을 클릭하면 GET 요청을 보낸다.
-		//
-		// 테스트
-		// - http://localhost:8080/web/ex04/test01.html 실행
-		//
+    // GET 요청
+    // - 웹 브라우저에 URL을 입력한 후 엔터를 치면 GET 요청을 보낸다.
+    // - 웹 페이지에서 링크를 클릭하면(자바스크립트 처리하지 않은 상태) GET 요청을 보낸다.
+    // - 웹 페이지의 폼(method='GET' 일 때)에서 전송 버튼을 클릭하면 GET 요청을 보낸다.
+    //
+    // 테스트
+    // - http://localhost:8080/web/ex04/test01.html 실행
+    //
 
-		// 웹 브라우저가 보낸 데이터 읽기
-		// ServletRequest.getParameter("파라미터이름")
-		//
-		String name = req.getParameter("name");
-		String age = req.getParameter("age");
+    // 웹 브라우저가 보낸 데이터 읽기
+    // ServletRequest.getParameter("파라미터이름")
+    //
+    String name = req.getParameter("name");
+    String age = req.getParameter("age");
 
-		res.setContentType("text/plain;charset=UTF-8");
-		PrintWriter out = res.getWriter();
-		out.printf("이름=%s\n", name);
-		out.printf("나이=%s\n", age);
-	}
+    res.setContentType("text/plain;charset=UTF-8");
+    PrintWriter out = res.getWriter();
+    out.printf("이름=%s\n", name);
+    out.printf("나이=%s\n", age);
+  }
 }
 
 // 웹브라우저에서 웹서버의 자원을 요청하는 방법
@@ -194,6 +194,7 @@ public class Servlet01 extends GenericServlet {
 // Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6
 // 빈 줄
 
+
 // HTTP 응답 프로토콜
 // => 형식
 // status-line(HTTP프로토콜 상태코드 간단한문구) CRLF
@@ -218,10 +219,12 @@ public class Servlet01 extends GenericServlet {
 // => 웹 자원의 위치를 가리키는 식별자
 // => 종류
 //    URL(Uniform Resource Locator)
-//      scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+//      scheme:[//[user:password@]host[:port]][/]path[?query string][#fragment]
 //      예) http://localhost:8080/ex04/s1?name=홍길동&age=20
 //
 //    URN(Uniform Resource Name)
 //      <URN> ::= "urn:" <NID> ":" <NSS>
 //      예) urn:lex:eu:council:directive:2010-03-09;2010-19-UE
 //
+
+
