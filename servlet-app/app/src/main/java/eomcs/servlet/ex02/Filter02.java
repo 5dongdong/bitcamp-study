@@ -1,7 +1,6 @@
 package eomcs.servlet.ex02;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 // 서블릿 컨테이너가 관리하는 컴포넌트

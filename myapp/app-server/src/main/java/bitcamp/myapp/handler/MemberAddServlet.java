@@ -51,15 +51,16 @@ public class MemberAddServlet extends HttpServlet {
 		try {
 			InitServlet.memberDao.insert(m);
 			InitServlet.sqlSessionFactory.openSession(false).commit();
-			out.println("<p>등록 성공입니다!</p>");
+			response.sendRedirect("list");
 
 		} catch (Exception e) {
 			InitServlet.sqlSessionFactory.openSession(false).rollback();
-			out.println("<p>등록 실패입니다!</p>");
-			e.printStackTrace();
-		}
 
-		out.println("</body>");
-		out.println("</html>");
+			request.setAttribute("error", e);
+			request.setAttribute("message", "회원 등록 오류");
+			request.setAttribute("refresh", "2;url=member/list");
+
+			request.getRequestDispatcher("/error").forward(request, response);
+		}
 	}
 }

@@ -35,7 +35,12 @@ public class BoardDetailServlet extends HttpServlet {
 		out.println("<title>게시글</title>");
 		out.println("</head>");
 		out.println("<body>");
+
+		request.getRequestDispatcher("/header").include(request, response);
+
 		out.println("<h1>게시글</h1>");
+
+
 
 		if (board == null) {
 			out.println("<p>해당 번호의 게시글이 없습니다!</p>");
@@ -84,9 +89,15 @@ public class BoardDetailServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				InitServlet.sqlSessionFactory.openSession(false).rollback();
+
+				request.setAttribute("error", e);
+				request.setAttribute("message", "게시글 변경 오류!");
+				request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
+
+				request.getRequestDispatcher("/error").forward(request, response);
 			}
 		}
-
+		request.getRequestDispatcher("/footer").include(request, response);;
 		out.println("</body>");
 		out.println("</html>");
 

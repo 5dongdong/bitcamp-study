@@ -1,13 +1,13 @@
 package eomcs.servlet.ex05;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 // MyHttpServlet 클래스를 사용하여 서블릿을 만드는 것도 편하지만,
 // 여기에다가 HTTP 요청 방식에 따라 메서드를 구분해 놓는다면

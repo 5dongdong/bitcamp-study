@@ -58,12 +58,12 @@ public class MemberUpdateServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			InitServlet.sqlSessionFactory.openSession(false).rollback();
-			out.println("<p>변경 실패입니다!</p>");
-			e.printStackTrace();
+
+			request.setAttribute("error", e);
+			request.setAttribute("message", e.getMessage());
+			request.setAttribute("refresh", "2;url=list");
+
+			request.getRequestDispatcher("/error").forward(request, response);
 		}
-
-		out.println("</body>");
-		out.println("</html>");
 	}
-
 }

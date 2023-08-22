@@ -23,26 +23,18 @@ public class HomeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE html>");
-		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset='UTF-8'>");
 		out.println("<title>비트캠프</title>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<h1>MyApp133</h1>");
-		out.println("<ul>");
-		out.println("  <li><a href='/member/list'>회원</a></li>");
-		out.println("  <li><a href='/board/list?category=1'>게시판</a></li>");
-		out.println("  <li><a href='/board/list?category=2'>독서록</a></li>");
 
-		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		if (loginUser == null) {
-			out.println("  <li><a href='/auth/form.html'>로그인</a></li>");
-		} else {
-			out.printf("  <li>%s <a href='/auth/logout'>로그아웃</a></li>", loginUser.getName());
-		}
-		out.println("</ul>");
+		request.getRequestDispatcher("/header").include(request, response);
+
+		out.println("<h1>MyApp133</h1>");
+
+		request.getRequestDispatcher("/footer").include(request, response);
 		out.println("</body>");
 		out.println("</html>");
 

@@ -74,15 +74,19 @@ public class BoardUpdateServlet extends HttpServlet {
 					int count = InitServlet.boardDao.insertFiles(board);
 					System.out.println(count);
 				}
-				out.println("<p>변경했습니다!</p>");
-				response.setHeader("refresh", "1;url=/board/list?category=" + board.getCategory());
+				InitServlet.sqlSessionFactory.openSession(false).commit();
+				response.setHeader("Refresh", "1;url=/board/list?category=" + board.getCategory());
 			}
-			InitServlet.sqlSessionFactory.openSession(false).commit();
+
 
 		} catch (Exception e) {
 			InitServlet.sqlSessionFactory.openSession(false).rollback();
-			out.println("<p>게시글 변경 실패입니다!</p>");
-			e.printStackTrace();
+
+			request.setAttribute("error", e);
+			request.setAttribute("message", e.getMessage());
+			request.setAttribute("refresh", "2;url=list?category" + request.getParameter("category"));
+
+			request.getRequestDispatcher("/error").forward(request, response);
 		}
 		out.println("</body>");
 		out.println("</html>");
