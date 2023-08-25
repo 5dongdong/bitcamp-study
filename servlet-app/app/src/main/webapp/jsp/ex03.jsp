@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+         pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <% // _jspService() 메서드에 안에 넣을 코드를 작성하라!
-int i;
+    int i;
 %>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ex03</title>
+    <meta charset="UTF-8">
+    <title>ex03</title>
 </head>
 <%
-i = 5;
+    i = 5;
 %>
 <body>
 <h1>스크립트릿(scriptlet)과 JSP 주석<%out.print(i);%></h1>
@@ -32,11 +32,11 @@ JSP 주석
   _jspService() 메서드 안에 작성한 순서 그대로 복사된다. 
 --%>
 <%
-if (i < 10) {
-  for (int x = 0; x < i; x++) {
-    out.println("<p>" + x + "</p>");
-  }
-}
+    if (i < 10) {
+        for (int x = 0; x < i; x++) {
+            out.println("<p>" + x + "</p>");
+        }
+    }
 %>
 </body>
 </html>
