@@ -3,10 +3,10 @@
         pageEncoding="UTF-8"
         contentType="text/html;charset=UTF-8"
         trimDirectiveWhitespaces="true"
-        errorPage="/error.jsp" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="bitcamp.myapp.vo.AttachedFile" %>
-<%@ page import="bitcamp.myapp.vo.Board" %>
+        errorPage="/error.jsp"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="bitcamp.myapp.vo.AttachedFile"%>
+<%@ page import="bitcamp.myapp.vo.Board"%>
 
 <jsp:useBean id="boardDao" type="bitcamp.myapp.dao.BoardDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
@@ -21,8 +21,6 @@
 
     // 오류가 발생했을 때 refresh 할 URL을 미리 지정한다.
     request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
-
-
 
     Board board = new Board();
     board.setWriter(loginUser);

@@ -9,7 +9,6 @@
 <jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="ncpObjectStorageService" type="bitcamp.util.NcpObjectStorageService" scope="application"/>
-
 <%
     request.setAttribute("refresh", "2;url=list.jsp");
 
@@ -23,7 +22,7 @@
     Part photoPart = request.getPart("photo");
     if (photoPart.getSize() > 0) {
         String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                "bitcamp-nc7-bucket-11", "member/", photoPart);
+                "bitcamp-nc7-bucket-118", "member/", photoPart);
         member.setPhoto(uploadFileUrl);
     }
 
