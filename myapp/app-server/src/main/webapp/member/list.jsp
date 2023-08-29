@@ -1,7 +1,7 @@
 <%@ page
         language="java"
         pageEncoding="UTF-8"
-        contentType="text/html;charset=UTF-8"%> <%-- directive element --%>
+        contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -22,14 +22,12 @@
     <tr><th>번호</th> <th>이름</th> <th>이메일</th></tr>
     </thead>
     <tbody>
-    <jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
-    <c:set var="list" value="${memberDao.findAll()}" scope="page"/>
     <c:forEach items="${list}" var="member">
         <tr>
             <td>${member.no}</td>
             <td>
                 <img src='http://mvsenqskbqzl19010704.cdn.ntruss.com/member/${member.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
-                <a href='/member/detail.jsp?no=${member.no}'>${member.name}</a></td>
+                <a href='/member/detail?no=${member.no}'>${member.name}</a></td>
             <td>${member.email}</td>
         </tr>
     </c:forEach>
