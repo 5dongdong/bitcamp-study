@@ -1,7 +1,6 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.Part;
 
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
+import bitcamp.myapp.service.NcpObjectStorageService;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 @WebServlet("/member/update")

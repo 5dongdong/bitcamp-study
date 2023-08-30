@@ -9,12 +9,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MySQLBoardDao implements BoardDao {
 
 	SqlSessionFactory sqlSessionFactory;
 
 	public MySQLBoardDao(SqlSessionFactory sqlSessionFactory) {
+		System.out.println("MySQLBoardDao() 호출됨!");
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 

@@ -1,7 +1,6 @@
 package bitcamp.myapp.handler;
 
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.util.NcpObjectStorageService;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.io.IOException;
