@@ -1,30 +1,23 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
+import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.service.NcpObjectStorageService;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.stereotype.Component;
+import bitcamp.myapp.vo.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@Component("/member/add")
+@Controller("/member/add")
 public class MemberAddController implements PageController {
 
-  MemberDao memberDao;
-  SqlSessionFactory sqlSessionFactory;
-  NcpObjectStorageService ncpObjectStorageService;
+  @Autowired
+  MemberService memberService;
 
-  public MemberAddController(
-          MemberDao memberDao,
-          SqlSessionFactory sqlSessionFactory,
-          NcpObjectStorageService ncpObjectStorageService) {
-    this.memberDao = memberDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-    this.ncpObjectStorageService = ncpObjectStorageService;
-  }
+  @Autowired
+  NcpObjectStorageService ncpObjectStorageService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -45,12 +38,10 @@ public class MemberAddController implements PageController {
                 "bitcamp-nc7-bucket-11", "member/", photoPart);
         m.setPhoto(uploadFileUrl);
       }
-      memberDao.insert(m);
-      sqlSessionFactory.openSession(false).commit();
+      memberService.add(m);
       return "redirect:list";
 
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
       request.setAttribute("message", "회원 등록 오류!");
       request.setAttribute("refresh", "2;url=list");
       throw e;

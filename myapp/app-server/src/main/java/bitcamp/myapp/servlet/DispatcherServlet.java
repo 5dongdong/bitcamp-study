@@ -2,8 +2,7 @@ package bitcamp.myapp.servlet;
 
 import bitcamp.myapp.config.AppConfig;
 import bitcamp.myapp.config.NcpConfig;
-import bitcamp.myapp.controller.*;
-import org.apache.ibatis.session.SqlSessionFactory;
+import bitcamp.myapp.controller.PageController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/app/*", loadOnStartup = 1)
+@WebServlet(
+        value = "/app/*",
+        loadOnStartup = 1)
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -23,11 +24,14 @@ public class DispatcherServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    System.out.println("DispatcherServlet.init() 호출됨");
+    System.out.println("DispatcherServlet.init() 호출됨!");
     iocContainer = new AnnotationConfigApplicationContext(AppConfig.class, NcpConfig.class);
 
-    SqlSessionFactory sqlSessionFactory = iocContainer.getBean(SqlSessionFactory.class);
-    this.getServletContext().setAttribute("sqlSessionFactory", sqlSessionFactory);
+    String[] names = iocContainer.getBeanDefinitionNames();
+    for (String name : names) {
+      System.out.printf("=> %s\n", iocContainer.getBean(name).getClass().getName());
+    }
+
   }
 
   @Override
