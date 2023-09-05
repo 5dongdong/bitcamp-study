@@ -28,11 +28,11 @@
           <img style='height:80px' src='/images/avatar.png'>
         </c:if>
         <c:if test="${not empty member.photo}">
-          <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-118/member/${member.photo}'>
-            <img src='http://mvsenqskbqzl19010704.cdn.ntruss.com/member/${member.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
+          <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-11/member/${member.photo}'>
+            <img src='http://mlpilwzslubk19010710.cdn.ntruss.com/member/${member.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
           </a>
         </c:if>
-          <input type='file' name='photo'></td></tr>
+          <input type='file' name='photofile'></td></tr>
   <tr>
       <th style='width:120px;'>번호</th>
       <td style='width:300px;'><input type='text' name='no' value='${member.no}' readonly></td></tr>

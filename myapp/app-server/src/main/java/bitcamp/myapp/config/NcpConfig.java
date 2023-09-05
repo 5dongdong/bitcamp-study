@@ -6,6 +6,7 @@ public class NcpConfig {
   private String accessKey = System.getProperty("accessKey");
   private String secretKey = System.getProperty("secretKey");
 
+
   public NcpConfig() {
     System.out.println("NcpConfig() 호출됨!");
   }
