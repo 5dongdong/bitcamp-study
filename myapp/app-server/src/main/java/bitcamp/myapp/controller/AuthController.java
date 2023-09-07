@@ -4,34 +4,39 @@ import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
+
+  {
+    System.out.println("AuthController 생성됨!");
+  }
 
   @Autowired
   MemberService memberService;
 
-  @RequestMapping("/auth/form")
+  @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/auth/form.jsp";
   }
 
-  @RequestMapping("/auth/login")
+  @RequestMapping("login")
   public String login(
-          @RequestParam("email") String email,
-          @RequestParam("password") String password,
-          @RequestParam("saveEmail") String saveEmail,
+          String email,
+          String password,
+          String saveEmail,
           HttpSession session,
-          Map<String, Object> model,
+          Map<String,Object> model,
           HttpServletResponse response) throws Exception {
 
-    if (saveEmail!= null) {
+    if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
       response.addCookie(cookie);
     } else {
@@ -50,7 +55,7 @@ public class AuthController {
     return "redirect:/";
   }
 
-  @RequestMapping("/auth/logout")
+  @RequestMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/";

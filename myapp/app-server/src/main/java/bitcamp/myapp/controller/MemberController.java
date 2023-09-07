@@ -5,13 +5,20 @@ import bitcamp.myapp.service.NcpObjectStorageService;
 import bitcamp.myapp.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
+
+  {
+    System.out.println("MemberController 생성됨!");
+  }
 
   @Autowired
   MemberService memberService;
@@ -19,16 +26,16 @@ public class MemberController {
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
 
-  @RequestMapping("/member/form")
+  @RequestMapping("form")
   public String add() {
     return "/WEB-INF/jsp/member/form.jsp";
   }
 
-  @RequestMapping("/member/add")
+  @GetMapping("add")
   public String add(
           Member member,
-          @RequestParam("photofile") Part photofile,
-          Map<String, Object> model) throws Exception {
+          Part photofile,
+          Map<String,Object> model) throws Exception {
 
     try {
       System.out.println(member);
@@ -47,41 +54,42 @@ public class MemberController {
     }
   }
 
-  @RequestMapping("/member/delete")
-  public String delete(@RequestParam("no") int no,
-                       Map<String, Object> model) throws Exception {
+  @GetMapping("delete")
+  public String delete(
+          int no,
+          Map<String,Object> model) throws Exception {
+
     try {
       if (memberService.delete(no) == 0) {
         throw new Exception("해당 번호의 회원이 없습니다.");
       } else {
         return "redirect:list";
       }
-
     } catch (Exception e) {
       model.put("refresh", "2;url=list");
       throw e;
     }
   }
 
-  @RequestMapping("/member/detail")
+  @GetMapping("detail")
   public String detail(
-          @RequestParam("no") int no,
-          Map<String, Object> model) throws Exception {
+          int no,
+          Map<String,Object> model) throws Exception {
     model.put("member", memberService.get(no));
     return "/WEB-INF/jsp/member/detail.jsp";
   }
 
-  @RequestMapping("/member/list")
+  @GetMapping("list")
   public String list(Map<String,Object> model) throws Exception {
     model.put("list", memberService.list());
     return "/WEB-INF/jsp/member/list.jsp";
   }
 
-  @RequestMapping("/member/update")
+  @PostMapping("update")
   public String update(
           Member member,
-          @RequestParam("photofile") Part photofile,
-          Map<String, Object> model) throws Exception {
+          Part photofile,
+          Map<String,Object> model) throws Exception {
     try {
       if (photofile.getSize() > 0) {
         String uploadFileUrl = ncpObjectStorageService.uploadFile(
