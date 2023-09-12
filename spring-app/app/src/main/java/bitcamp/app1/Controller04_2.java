@@ -33,9 +33,9 @@ public class Controller04_2 {
       ) {
 
     out.printf("name=%s\n", request.getParameter("name"));
-    out.printf("name=1%s\n", name1);
-    out.printf("name=2%s\n", name2);
-    out.printf("name=3%s\n", name3);
+    out.printf("name=%s\n", name1);
+    out.printf("name=%s\n", name2);
+    out.printf("name=%s\n", name3);
     out.printf("name=%s\n", name);
   }
 

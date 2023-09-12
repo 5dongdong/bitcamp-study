@@ -1,13 +1,12 @@
 package bitcamp;
 
+import java.io.File;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
-
-import java.io.File;
 
 public class App {
 
@@ -44,7 +43,7 @@ public class App {
     resources.addPreResources(new DirResourceSet(
         resources, // 루트 웹 애플리케이션 정보
         "/WEB-INF/classes", // 서블릿 클래스 파일의 위치 정보
-        new File("app/build/classes/java/main").getAbsolutePath(), // 서블릿 클래 스 파일이 있는 실제 경로
+        new File("app/build/classes/java/main").getAbsolutePath(), // 서블릿 클래스 파일이 있는 실제 경로
         "/" // 웹 애플리케이션 내부 경로
         ));
 
